@@ -157,3 +157,35 @@ export const CONFIG = {
 };
 
 export default CONFIG;
+
+// src/config/api.ts (or similar)
+
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000';
+const PROCTOR_API_URL = process.env.REACT_APP_PROCTOR_API_URL || 'http://localhost:8000';
+
+export const apiClient = {
+  // Call Node.js backend
+  async getUserProfile() {
+    return fetch(`${API_BASE_URL}/api/user/profile`);
+  },
+
+  async uploadDocument(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+    return fetch(`${API_BASE_URL}/api/documents/upload`, {
+      method: 'POST',
+      body: formData
+    });
+  },
+
+  // Call Python proctoring backend
+  async monitorExamFrame(studentId: string, frame: Blob) {
+    const formData = new FormData();
+    formData.append('student_id', studentId);
+    formData.append('image', frame);
+    return fetch(`${PROCTOR_API_URL}/monitor`, {
+      method: 'POST',
+      body: formData
+    });
+  }
+};
