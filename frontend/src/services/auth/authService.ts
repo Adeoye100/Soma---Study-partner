@@ -541,3 +541,11 @@ export class AuthService {
 // Create and export singleton instance
 export const authService = new AuthService();
 export default authService;
+
+const googleClientId = process.env.REACT_APP_GOOGLE_CLIENT_ID!;
+
+// Use in Google Sign-In initialization
+window.google.accounts.id.initialize({
+  client_id: googleClientId,
+  callback: handleCredentialResponse,
+});
