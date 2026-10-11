@@ -6,8 +6,8 @@ import { checkValidationResult, examValidation } from '@/middleware/requestValid
 import { examGenerationValidation, answerSubmissionValidation } from '@/middleware/requestValidation';
 import { userRequestThrottler, aiGenerationThrottler } from '@/middleware/requestThrottling';
 import { generateExam, evaluateAnswer } from '@/services/geminiService';
-import { codeBasedExamService } from '@/services/CodeBasedExamService';
-import { codeBasedEvaluationService, Question as EvaluationQuestion } from '@/services/CodeBasedEvaluationService';
+// CodeBasedExamService and CodeBasedEvaluationService deleted: fantasy logic,
+// evaluation now routes through geminiService.evaluateAnswer for all question types.
 import { ExamService, QuestionService } from '@/services/supabaseService';
 import { ExamService as NewExamService, GeneratedQuestion } from '@/services/examService';
 import { DocumentService } from '@/services/documentService';
@@ -610,14 +610,14 @@ router.post('/:id/answer',
       const question = questions.find(q => q.id === questionId);
       if (!question) { res.status(404).json({ error: 'Question not found' }); return; }
 
-      const codeQuestion: EvaluationQuestion = {
-        question: question.question || question.question_text,
+      const evalQuestion: any = {
+        question_text: question.question || question.question_text,
         options: question.options || [],
-        correctAnswer: question.correct_answer,
+        correct_answer: question.correct_answer,
         topic: question.topic ?? 'General'
       };
 
-      const evaluation = await codeBasedEvaluationService.evaluateAnswer(codeQuestion, { answer });
+      const evaluation = await evaluateAnswer(evalQuestion, { answer });
       return res.json({
         message: 'Answer evaluated successfully',
         evaluation: { score: evaluation.score, feedback: evaluation.feedback, isCorrect: evaluation.isCorrect, correctAnswer: question.correct_answer }
@@ -654,14 +654,14 @@ router.post('/:id/complete',
         const question = questions.find(q => q.id === userAnswer.questionId);
         if (!question) continue;
 
-        const codeQuestion: EvaluationQuestion = {
-          question: question.question || question.question_text,
+        const evalQuestion: any = {
+          question_text: question.question || question.question_text,
           options: question.options || [],
-          correctAnswer: question.correct_answer,
+          correct_answer: question.correct_answer,
           topic: question.topic ?? 'General'
         };
 
-        const evaluation = await codeBasedEvaluationService.evaluateAnswer(codeQuestion, { answer: userAnswer.answer });
+        const evaluation = await evaluateAnswer(evalQuestion, { answer: userAnswer.answer });
         evaluations.push({ questionId: userAnswer.questionId, ...evaluation });
         totalScore += evaluation.score;
         if (evaluation.isCorrect) correctAnswers++;
