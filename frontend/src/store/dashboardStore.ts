@@ -58,12 +58,12 @@ interface DashboardState {
 
 const loadPersistedTheme = (): Theme => {
   if (typeof window === 'undefined') return 'dark';
-  return (localStorage.getItem('soma-theme') as Theme) || 'dark';
+  return (localStorage.getItem('somma-theme') as Theme) || 'dark';
 };
 
 const loadPersistedAccent = (): AccentColor => {
   if (typeof window === 'undefined') return 'indigo';
-  return (localStorage.getItem('soma-accent') as AccentColor) || 'indigo';
+  return (localStorage.getItem('somma-accent') as AccentColor) || 'indigo';
 };
 
 export const useDashboardStore = create<DashboardState>((set) => ({
@@ -77,18 +77,18 @@ export const useDashboardStore = create<DashboardState>((set) => ({
   
   theme: loadPersistedTheme(),
   setTheme: (theme) => {
-    localStorage.setItem('soma-theme', theme);
+    localStorage.setItem('somma-theme', theme);
     set({ theme });
   },
   toggleTheme: () => set((state) => {
     const newTheme = state.theme === 'dark' ? 'light' : 'dark';
-    localStorage.setItem('soma-theme', newTheme);
+    localStorage.setItem('somma-theme', newTheme);
     return { theme: newTheme };
   }),
   
   accentColor: loadPersistedAccent(),
   setAccentColor: (color) => {
-    localStorage.setItem('soma-accent', color);
+    localStorage.setItem('somma-accent', color);
     set({ accentColor: color });
   },
   

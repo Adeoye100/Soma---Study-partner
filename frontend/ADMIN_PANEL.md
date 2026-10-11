@@ -1,8 +1,8 @@
-# Soma Admin Panel Documentation
+# Somma Admin Panel Documentation
 
 ## Overview
 
-The Soma Admin Panel is a comprehensive control center for system administrators and technical staff to monitor, manage, and control the Soma platform. Built with React and TypeScript, it provides real-time insights into system health, automation workflows, task queues, configuration management, and alerts.
+The Somma Admin Panel is a comprehensive control center for system administrators and technical staff to monitor, manage, and control the Somma platform. Built with React and TypeScript, it provides real-time insights into system health, automation workflows, task queues, configuration management, and alerts.
 
 ## Access Control
 

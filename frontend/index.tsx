@@ -11,8 +11,8 @@ displaySelfXSSWarning();
 const allowedOrigins = [
     'http://localhost:3000',      // Local dev
     'http://localhost:5173',      // Vite dev
-    'https://soma-frontend.vercel.app',      // Production frontend
-    'https://www.soma-frontend.vercel.app'   // With www
+    'https://somma-frontend.vercel.app',      // Production frontend
+    'https://www.somma-frontend.vercel.app'   // With www
 ];
 
 

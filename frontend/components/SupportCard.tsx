@@ -41,7 +41,7 @@ const SupportCard: React.FC = () => {
           <div className="card">
             <div className="shadow">
               <div className="content">
-                <p className="rev">Soma</p>
+                <p className="rev">Somma</p>
                 <p className="ultra-text">Support</p>
                 <AccountName className="account-name">{accountName}</AccountName>
                 <svg version="1.1" className="chip" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 50 50" xmlSpace="preserve">

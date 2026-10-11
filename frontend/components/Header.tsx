@@ -25,7 +25,7 @@ const Header: React.FC<HeaderProps> = ({ user, onLogout, onOpenProfileSettings }
         <div className="flex items-center gap-2 sm:gap-3 min-w-0">
           <BookOpenIcon className="h-6 w-6 sm:h-8 sm:w-8 text-primary-500 animated-book flex-shrink-0" />
           <h1 className="text-lg sm:text-xl md:text-2xl font-bold animated-gradient-text truncate">
-            Soma
+            Somma
           </h1>
         </div>
         <div className="flex items-center gap-2 sm:gap-4">

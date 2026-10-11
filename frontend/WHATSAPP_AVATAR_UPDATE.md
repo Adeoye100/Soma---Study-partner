@@ -33,7 +33,7 @@ The Header component has been updated to display a clean, WhatsApp-style user av
 ### Before
 ```
 ┌─────────────────────────────────────────────────────────┐
-│  📚 Soma                    [Avatar] John Doe 🌙 [Logout]│
+│  📚 Somma                   [Avatar] John Doe 🌙 [Logout]│
 │                            (image/initials)              │
 └─────────────────────────────────────────────────────────┘
 ```
@@ -41,7 +41,7 @@ The Header component has been updated to display a clean, WhatsApp-style user av
 ### After
 ```
 ┌─────────────────────────────────────────────────────────┐
-│  📚 Soma                    [Avatar] 🌙 [Logout]         │
+│  📚 Somma                   [Avatar] 🌙 [Logout]         │
 │                            (image/initials)              │
 └─────────────────────────────────────────────────────────┘
 ```

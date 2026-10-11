@@ -77,7 +77,7 @@ export function MobileNav() {
                     </svg>
                   </div>
                   <div>
-                    <h1 className="font-bold text-lg text-foreground">Soma</h1>
+                    <h1 className="font-bold text-lg text-foreground">Somma</h1>
                     <p className="text-[10px] text-muted-foreground">EDTECH ADMIN</p>
                   </div>
                 </div>

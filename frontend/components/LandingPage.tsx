@@ -70,7 +70,7 @@ const LandingPage: React.FC = () => {
       </ShaderGradientCanvas>
       <ContentWrapper>
         <Title>
-          Welcome to <AnimatedGradientText>Soma™</AnimatedGradientText>.
+          Welcome to <AnimatedGradientText>Somma™</AnimatedGradientText>.
         </Title>
         <Subtitle>The future of online assessments. Streamlined, secure, and intelligent.</Subtitle>
         <ButtonContainer>

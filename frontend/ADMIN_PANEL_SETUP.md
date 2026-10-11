@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Admin Panel for Soma Study Partner is a comprehensive management interface accessible only to designated administrators. It provides system monitoring, workflow management, queue operations, configuration management, and alert handling.
+The Admin Panel for Somma Study Partner is a comprehensive management interface accessible only to designated administrators. It provides system monitoring, workflow management, queue operations, configuration management, and alert handling.
 
 ## Directory Structure
 

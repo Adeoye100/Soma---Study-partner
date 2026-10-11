@@ -16,7 +16,7 @@ export const injectSelfXSSWarning = (): void => {
   );
 
   console.log(
-    '%c🛡️ Soma Study Partner will NEVER ask you to paste code here, enable any feature this way, or run any commands in your browser console. If anyone asks you to do this, they are attempting to hack your account.',
+    '%c🛡️ Somma Study Partner will NEVER ask you to paste code here, enable any feature this way, or run any commands in your browser console. If anyone asks you to do this, they are attempting to hack your account.',
     brandStyles
   );
 };

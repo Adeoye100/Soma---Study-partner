@@ -10,13 +10,13 @@ const FAQContent: React.FC = () => (
     <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100 transition-colors duration-300">Frequently Asked Questions</h3>
 
     <div>
-      <h4 className="font-semibold transition-colors duration-300">1. What is Soma – Study Partner?</h4>
-      <p className="transition-colors duration-300">Soma is an innovative study companion built to enhance learning, research, and academic productivity. It helps students organize study materials, access learning resources, and test their knowledge through interactive assessments.</p>
+      <h4 className="font-semibold transition-colors duration-300">1. What is Somma – Study Partner?</h4>
+      <p className="transition-colors duration-300">Somma is an innovative study companion built to enhance learning, research, and academic productivity. It helps students organize study materials, access learning resources, and test their knowledge through interactive assessments.</p>
     </div>
 
     <div>
-      <h4 className="font-semibold transition-colors duration-300">2. Who developed Soma?</h4>
-      <p className="transition-colors duration-300">Soma – Study Partner was created and developed by <strong className="text-[20px] font-semibold">Adeoye Opeyemi</strong>, a passionate potential software engineer dedicated to using technology to promote education and personal development.</p>
+      <h4 className="font-semibold transition-colors duration-300">2. Who developed Somma?</h4>
+      <p className="transition-colors duration-300">Somma – Study Partner was created and developed by <strong className="text-[20px] font-semibold">Adeoye Opeyemi</strong>, a passionate potential software engineer dedicated to using technology to promote education and personal development.</p>
       <div className="flex items-center gap-4 mt-2">
         <a href="mailto:adeoyeopeyemi951@gmail.com" className="flex items-center gap-2 text-sm text-primary-600 hover:underline transition-colors duration-300">
           <MailIcon className="h-4 w-4" /> adeoyeopeyemi951@gmail.com
@@ -28,24 +28,24 @@ const FAQContent: React.FC = () => (
     </div>
 
     <div>
-      <h4 className="font-semibold transition-colors duration-300">3. What is Soma used for?</h4>
-      <p className="transition-colors duration-300">Soma is strictly designed for educational and academic purposes only. It is not intended for any form of malicious or unethical activity, the spread of false information, or non-academic or harmful usage.</p>
+      <h4 className="font-semibold transition-colors duration-300">3. What is Somma used for?</h4>
+      <p className="transition-colors duration-300">Somma is strictly designed for educational and academic purposes only. It is not intended for any form of malicious or unethical activity, the spread of false information, or non-academic or harmful usage.</p>
       <p className="mt-2 italic text-slate-500 dark:text-slate-400 transition-colors duration-300">“Wisdom is the principal thing; therefore get wisdom” — Proverbs 4:7</p>
     </div>
 
     <div>
-      <h4 className="font-semibold transition-colors duration-300">4. Is my data safe on Soma?</h4>
-      <p className="transition-colors duration-300">Absolutely. Soma prioritizes your privacy and data protection. Your personal information and study data are securely encrypted. We do not sell or share your data with third parties. You remain in full control of your account and data at all times.</p>
+      <h4 className="font-semibold transition-colors duration-300">4. Is my data safe on Somma?</h4>
+      <p className="transition-colors duration-300">Absolutely. Somma prioritizes your privacy and data protection. Your personal information and study data are securely encrypted. We do not sell or share your data with third parties. You remain in full control of your account and data at all times.</p>
     </div>
 
     <div>
-      <h4 className="font-semibold transition-colors duration-300">5. How reliable is Soma?</h4>
-      <p className="transition-colors duration-300">Soma is built with reliability and performance as top priorities. It receives continuous updates, supports online use, and undergoes rigorous testing to ensure stability and accuracy.</p>
+      <h4 className="font-semibold transition-colors duration-300">5. How reliable is Somma?</h4>
+      <p className="transition-colors duration-300">Somma is built with reliability and performance as top priorities. It receives continuous updates, supports online use, and undergoes rigorous testing to ensure stability and accuracy.</p>
     </div>
 
     <div>
-      <h4 className="font-semibold transition-colors duration-300">6. Can I share Soma with others?</h4>
-      <p className="transition-colors duration-300">Yes, you are encouraged to share Soma with friends and classmates, as long as it’s used for educational growth and not for exploitative, unethical, or harmful purposes.</p>
+      <h4 className="font-semibold transition-colors duration-300">6. Can I share Somma with others?</h4>
+      <p className="transition-colors duration-300">Yes, you are encouraged to share Somma with friends and classmates, as long as it’s used for educational growth and not for exploitative, unethical, or harmful purposes.</p>
     </div>
 
     <div>
@@ -54,13 +54,13 @@ const FAQContent: React.FC = () => (
     </div>
 
     <div>
-      <h4 className="font-semibold transition-colors duration-300">8. Is Soma open-source or free to use?</h4>
-      <p className="transition-colors duration-300">Currently, Soma is free for educational use. Future versions may include premium features, also the foundational purpose will always remain education-first.</p>
+      <h4 className="font-semibold transition-colors duration-300">8. Is Somma open-source or free to use?</h4>
+      <p className="transition-colors duration-300">Currently, Somma is free for educational use. Future versions may include premium features, also the foundational purpose will always remain education-first.</p>
     </div>
 
     <div>
-      <h4 className="font-semibold transition-colors duration-300">9. What makes Soma different?</h4>
-      <p className="transition-colors duration-300">Soma is not just another study tool — it’s a personal learning partner built with empathy, discipline, and purpose. It embodies the balance between technology and moral values, promoting learning that uplifts minds without compromising integrity.</p>
+      <h4 className="font-semibold transition-colors duration-300">9. What makes Somma different?</h4>
+      <p className="transition-colors duration-300">Somma is not just another study tool — it’s a personal learning partner built with empathy, discipline, and purpose. It embodies the balance between technology and moral values, promoting learning that uplifts minds without compromising integrity.</p>
     </div>
   </div>
 );
@@ -72,13 +72,13 @@ const TermsContent: React.FC = () => (
 
     <div>
       <h4 className="font-semibold transition-colors duration-300">1. Introduction</h4>
-      <p className="transition-colors duration-300">Welcome to Soma – Study Partner (“Soma”, “we”, “our”, or “us”). By using this application, you agree to these Terms and Conditions. Soma is designed for educational purposes only.</p>
+      <p className="transition-colors duration-300">Welcome to Somma – Study Partner (“Somma”, “we”, “our”, or “us”). By using this application, you agree to these Terms and Conditions. Somma is designed for educational purposes only.</p>
       <p className="mt-2 italic text-slate-500 dark:text-slate-400 transition-colors duration-300">“Whatever you do, work at it with all your heart, as working for the Lord…” — Colossians 3:23</p>
     </div>
 
     <div>
       <h4 className="font-semibold transition-colors duration-300">2. User Responsibilities</h4>
-      <p className="transition-colors duration-300">You agree to use Soma solely for educational purposes, provide truthful information, and respect intellectual property rights. Misuse may result in suspension.</p>
+      <p className="transition-colors duration-300">You agree to use Somma solely for educational purposes, provide truthful information, and respect intellectual property rights. Misuse may result in suspension.</p>
     </div>
 
     <div>
@@ -89,17 +89,17 @@ const TermsContent: React.FC = () => (
 
     <div>
       <h4 className="font-semibold transition-colors duration-300">4. Intellectual Property Rights</h4>
-      <p className="transition-colors duration-300">All intellectual property of Soma belongs exclusively to <strong className="text-[20px] font-semibold">Adeoye Emmanuel Opeyemi</strong>. You may not reproduce, resell, or reverse-engineer any part of it without consent.</p>
+      <p className="transition-colors duration-300">All intellectual property of Somma belongs exclusively to <strong className="text-[20px] font-semibold">Adeoye Emmanuel Opeyemi</strong>. You may not reproduce, resell, or reverse-engineer any part of it without consent.</p>
     </div>
 
     <div>
       <h4 className="font-semibold transition-colors duration-300">5. Limitation of Liability</h4>
-      <p className="transition-colors duration-300">Soma and its developer are not liable for data loss, misuse of the application, or damages from third-party integrations. Use at your own discretion.</p>
+      <p className="transition-colors duration-300">Somma and its developer are not liable for data loss, misuse of the application, or damages from third-party integrations. Use at your own discretion.</p>
     </div>
 
     <div>
       <h4 className="font-semibold transition-colors duration-300">6. Acceptable Use Policy</h4>
-      <p className="transition-colors duration-300">Soma must not be used to promote violence, hate speech, spread malware, or engage in academic dishonesty. Violating accounts will be terminated.</p>
+      <p className="transition-colors duration-300">Somma must not be used to promote violence, hate speech, spread malware, or engage in academic dishonesty. Violating accounts will be terminated.</p>
     </div>
 
     <div>

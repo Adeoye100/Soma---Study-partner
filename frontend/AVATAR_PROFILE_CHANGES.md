@@ -62,7 +62,7 @@ className={cn(
 ### Header Layout - After Update
 ```
 ┌─────────────────────────────────────────────────┐
-│  📚 Soma                    [Avatar] 🌙 [Logout] │
+│  📚 Somma                   [Avatar] 🌙 [Logout] │
 │                              [JD]                │
 └─────────────────────────────────────────────────┘
 ```

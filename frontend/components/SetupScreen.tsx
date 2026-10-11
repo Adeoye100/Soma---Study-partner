@@ -420,5 +420,8 @@ const SetupScreen: React.FC<SetupScreenProps> = ({ onExamStart }) => {
   );
 };
 
+// In src/pages/Dashboard.tsx or wherever you need it
+import QuickFileUpload from '@/components/QuickFileUpload';
+
 
 export default SetupScreen;
