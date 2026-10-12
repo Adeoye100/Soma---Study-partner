@@ -46,10 +46,12 @@ export class SupabaseStoreAdapter implements SomaStore {
     return row as ExamRow;
   }
 
-  async getExam(id: string): Promise<ExamRow | null> {
-    return cacheService.cacheExamData(
-      id,
-      'details',
+  async getExam(id: string, userId?: string): Promise<ExamRow | null> {
+    // D4 fix: include userId in cache key so a cache hit cannot serve one
+    // user's exam row to a different user (cross-user data leak bypass of RLS).
+    const cacheKey = userId ? `exam:${userId}:${id}:details` : `exam:${id}:details`;
+    return cacheService.cacheResponse(
+      cacheKey,
       async () => {
         const { data, error } = await this.db
           .from('exams')
