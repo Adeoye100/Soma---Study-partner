@@ -10,14 +10,14 @@
  *
  * Factory:
  *  - createAuthService(client) — inject any SupabaseClient
- *  - authService — singleton wired from config (for production use)
+ *  - authService            — production singleton wired from config
  */
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
 import { config } from '@/config';
 import { AuthenticationError } from '@/shared/errors';
 import { logger } from '@/shared/utils/logger';
 
-// ─── Types ────────────────────────────────────────────────────────────────────
+// ── Types ──────────────────────────────────────────────────────────────────────
 
 export interface AuthCredentials {
   email: string;
@@ -43,7 +43,7 @@ export interface AuthResponse {
     refresh_token: string;
     expires_at: number;
     token_type: string;
-  };
+  } | null;
 }
 
 export interface VerifiedUser {
@@ -52,15 +52,15 @@ export interface VerifiedUser {
   username?: string;
   full_name?: string;
   gender?: string;
-  role?: string;
+  role: string;
 }
 
-// ─── AuthService ─────────────────────────────────────────────────────────────
+// ── AuthService class ──────────────────────────────────────────────────────────
 
 export class AuthService {
   constructor(private readonly supabase: SupabaseClient) {}
 
-  // ── Login ──────────────────────────────────────────────────────────────────
+  // ── Login ────────────────────────────────────────────────────────────────
 
   async login(credentials: AuthCredentials): Promise<AuthResponse> {
     logger.info(`Login attempt for email: ${credentials.email}`);
@@ -99,7 +99,7 @@ export class AuthService {
     };
   }
 
-  // ── Signup ─────────────────────────────────────────────────────────────────
+  // ── Signup ───────────────────────────────────────────────────────────────
 
   async signup(credentials: SignupCredentials): Promise<AuthResponse> {
     logger.info(`Signup attempt for email: ${credentials.email}`);
@@ -122,12 +122,9 @@ export class AuthService {
       throw this.mapAuthError(error);
     }
 
-    // Email confirmation pending — no session yet
+    // Email confirmation pending — session is null until confirmed
     if (data.user && !data.session) {
-      return {
-        user: { id: data.user.id, email: data.user.email! },
-        session: null as any,
-      };
+      return { user: { id: data.user.id, email: data.user.email! }, session: null };
     }
 
     if (!data.user || !data.session) {
@@ -154,14 +151,20 @@ export class AuthService {
     };
   }
 
-  // ── Token verification — single path ──────────────────────────────────────
+  // ── Token verification — single path ─────────────────────────────────────
 
   /**
    * Verify a Supabase access token and return the authenticated user.
-   * This is the ONLY token verification method. There is no local-JWT fork.
+   *
+   * This is the ONLY token-verification method. The local-JWT fork
+   * (verifyJWT / generateJWT) has been removed — the app uses Supabase
+   * JWTs exclusively. See auth middleware in middleware/auth.ts.
    */
   async verifyToken(token: string): Promise<VerifiedUser> {
-    const { data: { user }, error } = await this.supabase.auth.getUser(token);
+    const {
+      data: { user },
+      error,
+    } = await this.supabase.auth.getUser(token);
 
     if (error || !user) {
       throw new AuthenticationError('Invalid or expired token');
@@ -179,9 +182,11 @@ export class AuthService {
     };
   }
 
-  // ── Token refresh ──────────────────────────────────────────────────────────
+  // ── Token refresh ─────────────────────────────────────────────────────────
 
-  async refreshToken(refreshToken: string): Promise<{ access_token: string; expires_at: number }> {
+  async refreshToken(
+    refreshToken: string
+  ): Promise<{ access_token: string; expires_at: number }> {
     const { data, error } = await this.supabase.auth.refreshSession({
       refresh_token: refreshToken,
     });
@@ -196,7 +201,7 @@ export class AuthService {
     };
   }
 
-  // ── Logout ─────────────────────────────────────────────────────────────────
+  // ── Logout ────────────────────────────────────────────────────────────────
 
   async logout(): Promise<void> {
     const { error } = await this.supabase.auth.signOut();
@@ -204,11 +209,11 @@ export class AuthService {
     logger.info('User logged out successfully');
   }
 
-  // ── Password management ────────────────────────────────────────────────────
+  // ── Password management ───────────────────────────────────────────────────
 
   async resetPassword(email: string, redirectTo?: string): Promise<void> {
     const { error } = await this.supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: redirectTo || `${config.host}/reset-password`,
+      redirectTo: redirectTo ?? `${config.host}/reset-password`,
     });
     if (error) throw this.mapAuthError(error);
   }
@@ -218,7 +223,7 @@ export class AuthService {
     if (error) throw this.mapAuthError(error);
   }
 
-  // ── Private helpers ────────────────────────────────────────────────────────
+  // ── Private helpers ───────────────────────────────────────────────────────
 
   private async getUserProfile(userId: string): Promise<any> {
     try {
@@ -229,9 +234,12 @@ export class AuthService {
         .single();
 
       if (error) {
-        if (error.code === 'PGRST116') return null; // no row
+        if (error.code === 'PGRST116') return null; // no row found
         if (error.code === 'PGRST205') {
-          logger.warn(`Table 'public.users' missing. Run migration 001_create_public_users.sql`, { userId });
+          logger.warn(
+            "Table 'public.users' does not exist. Run migration 001_create_public_users.sql",
+            { userId }
+          );
           return null;
         }
         logger.error('Error fetching user profile', { userId, error: error.message });
@@ -247,7 +255,7 @@ export class AuthService {
 
   private mapAuthError(error: any): AuthenticationError {
     const msg: string = error?.message ?? String(error);
-    const map: [string, string][] = [
+    const map: Array<[string, string]> = [
       ['Invalid login credentials',   'Invalid email or password'],
       ['Email not confirmed',         'Please check your email and click the confirmation link'],
       ['User already registered',     'This email is already in use'],
@@ -255,12 +263,12 @@ export class AuthService {
       ['Invalid email',               'Please enter a valid email address'],
       ['rate limit',                  'Too many requests. Please wait a moment and try again'],
     ];
-    const matched = map.find(([pattern]) => msg.includes(pattern));
-    return new AuthenticationError(matched ? matched[1] : msg, { details: error });
+    const match = map.find(([pattern]) => msg.includes(pattern));
+    return new AuthenticationError(match ? match[1] : msg, { details: error });
   }
 }
 
-// ─── Factory + singleton ──────────────────────────────────────────────────────
+// ── Factory ───────────────────────────────────────────────────────────────────
 
 /**
  * Create an AuthService with an explicitly injected client.
@@ -270,17 +278,18 @@ export function createAuthService(client: SupabaseClient): AuthService {
   return new AuthService(client);
 }
 
+// ── Production singleton ──────────────────────────────────────────────────────
+
 /**
- * Production singleton — wired from config at startup.
- * Will throw at first use (not at import) if Supabase is misconfigured,
- * giving a clear error instead of a silent placeholder client.
+ * Builds the production Supabase client from environment config.
+ * Returns a proxy that throws clearly on first use (not at import) if
+ * the env vars are missing, instead of silently constructing a broken client.
  */
 function buildProductionClient(): SupabaseClient {
   if (!config.supabaseUrl || !config.supabaseUrl.startsWith('http')) {
-    // Return a proxy that throws on first use with a clear message
     return new Proxy({} as SupabaseClient, {
-      get: (_, prop) => {
-        if (prop === 'then') return undefined;
+      get: (_target, prop) => {
+        if (prop === 'then') return undefined; // don't break await checks
         throw new Error(
           `AuthService: Supabase is not configured. ` +
           `Set SUPABASE_URL and SUPABASE_SERVICE_KEY in your environment. ` +

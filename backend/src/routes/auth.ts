@@ -280,13 +280,13 @@ router.get('/me', asyncHandler(async (req: Request, res: Response) => {
     }
 
     const token = authHeader.slice(7); // Remove 'Bearer ' prefix
-    const { user, token: verifiedToken } = await authService.verifyToken(token);
+    const user = await authService.verifyToken(token);
 
     res.status(200).json({
       success: true,
       data: {
         user,
-        token: verifiedToken
+        token
       },
       message: 'User information retrieved successfully'
     });
@@ -321,8 +321,7 @@ router.post('/logout', asyncHandler(async (req: Request, res: Response) => {
     const authHeader = req.headers.authorization;
     
     if (authHeader && authHeader.startsWith('Bearer ')) {
-      const token = authHeader.slice(7);
-      await authService.logout(token);
+      await authService.logout();
     }
 
     res.clearCookie('refreshToken', {
