@@ -49,14 +49,31 @@ export interface Material {
   title?: string;
 }
 
+/**
+ * Canonical Question type. All question sources (AI generation, DB retrieval,
+ * evaluation) must use or map to this type. Do NOT define Question elsewhere.
+ *
+ * question_text: the primary field (used by DB and geminiService)
+ * question:      legacy alias — kept for backward compat with old routes,
+ *                normalise to question_text on the way in.
+ */
 export interface Question {
   id?: string;
-  question: string;
-  options?: string[];
-  correctAnswer: string;
+  question_text: string;
+  /** @deprecated use question_text */
+  question?: string;
+  question_type?: 'OBJECTIVE' | 'SHORT_ANSWER' | 'ESSAY' | 'TRUE_FALSE';
+  options: string[];
+  correct_answer: string;
+  /** @deprecated use correct_answer */
+  correctAnswer?: string;
+  explanation?: string;
+  difficulty?: 'easy' | 'medium' | 'hard';
   topic: string;
+  subject?: string;
+  order_index?: number;
+  points?: number;
   examId?: string;
-  order?: number;
 }
 
 export interface UserAnswer {

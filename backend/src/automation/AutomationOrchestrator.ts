@@ -6,6 +6,7 @@ import { BusinessRulesEngine } from './rules/BusinessRulesEngine';
 import { createExamBusinessRules } from './rules/ExamBusinessRules';
 import { outputGeneratorRegistry } from './output/OutputGenerator';
 import { BusinessRuleError, ValidationError } from '../shared/errors';
+import { generateExam } from '../services/geminiService';
 import winston from 'winston';
 
 /**
@@ -530,20 +531,20 @@ export class AutomationOrchestrator extends EventEmitter {
     return async (context: any) => {
       const { previousResults } = context;
 
-      // Use the existing CodeBasedExamService for question generation
-      const codeBasedExamService = require('../../services/CodeBasedExamService').codeBasedExamService;
-
+      // Route question generation through geminiService.generateExam — the
+      // canonical AI generation path. The old CodeBasedExamService (template
+      // strings, word-frequency "topics") has been deleted; it produced
+      // semantically vacuous output and masked the real generator.
       const config = previousResults['validate-configuration'].data.validationResult?.data?.processedConfig || context.input.config;
       const materials = previousResults['process-materials'].data.processedMaterials;
 
-      // Convert materials to the expected format
       const formattedMaterials = materials.map((material: any) => ({
         content: typeof material === 'string' ? material : material.content || JSON.stringify(material),
         mimeType: 'text/plain',
         title: material.title || 'Study Material'
       }));
 
-      const questions = await codeBasedExamService.generateExam(config, formattedMaterials);
+      const questions = await generateExam(config, formattedMaterials);
 
       return {
         success: true,
