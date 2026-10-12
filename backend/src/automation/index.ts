@@ -1,5 +1,22 @@
 // Automation Framework Main Exports
 // Comprehensive automation system for workflow orchestration, business rules, and intelligent processing
+//
+// ── DEAD-CODE INVENTORY (2026-10-12) ─────────────────────────────────────────
+//
+// LIVE tree (reachable from routes/automation.ts):
+//   src/automation/                ← this directory — the only live automation tree
+//
+// UNREACHABLE trees (no route or import connects to them):
+//   src/domain/automation/         ← AutomationEngine — parallel impl, not imported anywhere
+//   src/infrastructure/automation/ ← AutomationEngine — parallel impl, not imported anywhere
+//   src/application/automation/    ← 5 subdirectories, not imported anywhere
+//   src/services/workflow/         ← WorkflowEngine — separate class, different constructor, not imported
+//
+// Before extending the automation system, decide which tree is canonical and
+// delete the others. The inline require() in AutomationOrchestrator has been
+// replaced with a proper import of geminiService.generateExam (2026-10-12).
+//
+// ─────────────────────────────────────────────────────────────────────────────
 
 // Import instances for re-export
 import { automationOrchestrator } from './AutomationOrchestrator';
