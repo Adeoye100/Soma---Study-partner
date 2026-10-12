@@ -391,9 +391,10 @@ export class ExamOrchestrator {
   // ── submit (legacy answer-list path) ──────────────────────────────────────
 
   async submit(input: SubmitInput): Promise<SubmitOutput> {
-    const exam = await this.store.getExam(input.examId);
+    // C1: fetch with userId so cache key is user-scoped (D4), then assert ownership
+    const exam = await this.store.getExam(input.examId, input.userId);
     if (!exam) throw new Error('Exam not found');
-    if (exam.user_id !== input.userId) throw new Error('Unauthorized: exam does not belong to user');
+    if (exam.user_id !== input.userId) throw new Error('Unauthorized: exam does not belong to this user');
 
     const questions = await this.store.getQuestions(input.examId);
     const qMap = new Map(questions.map(q => [q.id, q]));
@@ -471,8 +472,13 @@ export class ExamOrchestrator {
 
   // ── queries ────────────────────────────────────────────────────────────────
 
-  async getExam(id: string) {
-    const exam = await this.store.getExam(id);
+  /**
+   * Fetch an exam with its questions.
+   * Pass userId when the caller is authenticated so the cache key is
+   * user-scoped and RLS-safe (D4 fix). Omit userId only for anonymous reads.
+   */
+  async getExam(id: string, userId?: string) {
+    const exam = await this.store.getExam(id, userId);
     if (!exam) return null;
     const questions = await this.store.getQuestions(id);
     return { exam, questions };
@@ -492,7 +498,14 @@ export class ExamOrchestrator {
     return this.store.getExamHistory(userId, page, limit, subject, sortBy);
   }
 
-  async deleteExam(id: string): Promise<void> {
+  /**
+   * Delete an exam. C1: asserts ownership before deletion so routes
+   * cannot accidentally delete exams belonging to other users.
+   */
+  async deleteExam(id: string, userId: string): Promise<void> {
+    const exam = await this.store.getExam(id, userId);
+    if (!exam) throw new Error('Exam not found');
+    if (exam.user_id !== userId) throw new Error('Unauthorized: exam does not belong to this user');
     return this.store.deleteExam(id);
   }
 }

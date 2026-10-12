@@ -51,7 +51,7 @@ export class InMemoryStoreAdapter implements SomaStore {
     return row;
   }
 
-  async getExam(id: string): Promise<ExamRow | null> {
+  async getExam(id: string, _userId?: string): Promise<ExamRow | null> {
     return this.exams.get(id) ?? null;
   }
 

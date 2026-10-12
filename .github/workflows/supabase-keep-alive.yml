@@ -1,0 +1,34 @@
+name: Supabase Keep-Alive Ping
+
+on:
+  schedule:
+    # Runs at 08:00 UTC every Monday and Thursday (twice a week for safety)
+    - cron: '0 8 * * 1,4'
+  workflow_dispatch: # Allows manual testing from the GitHub Actions tab
+
+jobs:
+  ping-supabase:
+    runs-only-on-active-repo: true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Supabase PostgREST keep_alive RPC
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          response=$(curl -s -w "\n%{http_code}" -X POST \
+            "${SUPABASE_URL}/rest/v1/rpc/keep_alive" \
+            -H "apikey: ${SUPABASE_ANON_KEY}" \
+            -H "Authorization: Bearer ${SUPABASE_ANON_KEY}" \
+            -H "Content-Type: application/json")
+
+          body=$(echo "$response" | head -n 1)
+          status=$(echo "$response" | tail -n 1)
+
+          echo "Response Body: $body"
+          echo "HTTP Status: $status"
+
+          if [ "$status" -ne 200 ]; then
+            echo "Error: Supabase ping failed with status $status"
+            exit 1
+          fi

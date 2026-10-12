@@ -105,7 +105,7 @@ export interface SomaStore {
 
   createExam(data: Omit<ExamRow, 'id' | 'created_at' | 'updated_at'>): Promise<ExamRow>;
 
-  getExam(id: string): Promise<ExamRow | null>;
+  getExam(id: string, userId?: string): Promise<ExamRow | null>;
 
   getUserExams(userId: string, page: number, limit: number): Promise<Page<ExamRow>>;
 
