@@ -19,9 +19,9 @@ const App: React.FC = () => {
   const [loadingSession, setLoadingSession] = useState(true);
   const [isPasswordRecovery, setIsPasswordRecovery] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
 
   useSessionHeartbeat();
+
 
   // Initialize session with error handling
   const initializeSession = useCallback(async () => {
@@ -50,11 +50,6 @@ const App: React.FC = () => {
     }
   }, []);
 
-  useEffect(() => {
-    document.documentElement.classList.add('dark');
-    document.body.classList.add('dark');
-    localStorage.setItem('theme', 'dark');
-  }, []);
 
   useEffect(() => {
     // Initialize session
@@ -92,20 +87,16 @@ const App: React.FC = () => {
     setUser(prevUser => (prevUser ? { ...prevUser, user_metadata: { ...prevUser.user_metadata, avatar_url: newAvatarUrl } } : prevUser));
   }, []);
 
-  const toggleTheme = useCallback(() => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light');
-  }, []);
-
   if (loadingSession) {
     return (
-      <div className="flex items-center justify-center h-screen bg-slate-900">
+      <div className="flex items-center justify-center h-screen bg-background">
         <Loader text="Loading session..." />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen font-sans bg-slate-900 text-slate-50">
+    <div className="min-h-screen font-sans bg-background text-foreground">
       <AuthProvider>
         <BrowserRouter>
           <FeedbackForm />
@@ -134,8 +125,6 @@ const App: React.FC = () => {
                   <MainApp
                     user={user!}
                     onLogout={handleLogout}
-                    theme={theme}
-                    toggleTheme={toggleTheme}
                     onAvatarUpdate={handleAvatarUpdate}
                   />
                 }
