@@ -36,6 +36,13 @@
     --sidebar-accent-foreground: 0 0% 98%;
     --sidebar-border: 220 14% 15%;
     --sidebar-ring: 245 100% 68%;
+
+    /* Motion tokens */
+    --duration-150: 150ms;
+    --duration-200: 200ms;
+    --duration-300: 300ms;
+    --ease-ui: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-ui-inout: cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .light {
@@ -92,12 +99,7 @@
   }
   
   .card-surface {
-    @apply bg-card border rounded-2xl backdrop-blur-sm;
-    border-color: hsl(var(--border));
-  }
-  
-  .dark .card-surface {
-    border-color: rgba(255, 255, 255, 0.07);
+    @apply bg-card border border-border rounded-2xl backdrop-blur-sm;
   }
   
   .glow-primary {
@@ -160,13 +162,24 @@
 
 .recharts-default-tooltip {
   background: hsl(var(--card)) !important;
-  border: 1px solid rgba(255, 255, 255, 0.07) !important;
+  border: 1px solid hsl(var(--border)) !important;
   border-radius: 12px !important;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+  box-shadow: 0 10px 40px hsl(var(--background) / 0.5) !important;
 }
 
 /* Globe canvas styles */
 .globe-canvas {
   width: 100% !important;
   height: 100% !important;
+}
+
+/* Prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animated-gradient-text,
+  .animated-book,
+  [class*="animate-ping"],
+  [class*="animate-pulse"],
+  [class*="animate-bounce"] {
+    animation: none !important;
+  }
 }
