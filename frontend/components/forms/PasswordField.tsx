@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
 
 interface PasswordFieldProps {
   id?: string;
@@ -33,14 +34,14 @@ const PasswordField: React.FC<PasswordFieldProps> = ({
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
-  const baseClasses = "mt-1 block h-9 sm:h-10 w-full rounded-md border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 py-2 px-3 text-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300";
-  const errorClasses = error ? "border-red-300 dark:border-red-600 focus:border-red-500 focus:ring-red-500" : "";
+  const baseClasses = "mt-1 block h-9 sm:h-10 w-full rounded-md border border-input bg-card text-foreground py-2 px-3 text-sm placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200";
+  const errorClasses = error ? "border-destructive focus:border-destructive focus:ring-destructive" : "";
 
   return (
     <div>
-      <label htmlFor={id} className="block text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400 transition-colors duration-300">
+      <label htmlFor={id} className="block text-xs sm:text-sm font-medium text-muted-foreground transition-colors duration-200">
         Password
-        {required && <span className="text-red-500 ml-1">*</span>}
+        {required && <span className="text-destructive ml-1" aria-hidden="true">*</span>}
       </label>
       <div className="relative">
         <input
@@ -57,30 +58,27 @@ const PasswordField: React.FC<PasswordFieldProps> = ({
           placeholder={placeholder}
           minLength={minLength}
           className={`${baseClasses} ${errorClasses} pr-10`}
+          aria-invalid={error ? 'true' : undefined}
+          aria-describedby={error ? `${id}-error` : undefined}
         />
         {showToggle && (
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors duration-300"
-            tabIndex={-1}
+            className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded-sm text-muted-foreground hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary transition-colors duration-200"
+            aria-label={showPassword ? "Hide password" : "Show password"}
             disabled={disabled}
           >
             {showPassword ? (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
-              </svg>
+              <EyeOff className="size-4" aria-hidden="true" />
             ) : (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-              </svg>
+              <Eye className="size-4" aria-hidden="true" />
             )}
           </button>
         )}
       </div>
       {error && (
-        <p className="mt-1 text-xs text-red-600 dark:text-red-400 transition-colors duration-300">
+        <p id={`${id}-error`} className="mt-1 text-xs text-destructive transition-colors duration-200">
           {error}
         </p>
       )}

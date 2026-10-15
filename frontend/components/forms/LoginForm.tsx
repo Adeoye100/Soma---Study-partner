@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 import { authService, signInWithGoogle } from '../../services/authService';
 import EmailField from './EmailField';
 import PasswordField from './PasswordField';
 import { validateEmail, validatePassword, formatAuthError, validateRedirect } from '../../utils/authValidation';
 import { SparklesIcon, GoogleIcon } from '../icons';
-import { useSearchParams } from 'react-router-dom';
 
 interface LoginFormProps {
   onToggleForm: () => void;
@@ -26,7 +26,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ onToggleForm, onForgotPassword })
 
   const handleInputChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData(prev => ({ ...prev, [field]: e.target.value }));
-    // Clear field-specific error when user starts typing
     if (errors[field as keyof typeof errors]) {
       setErrors(prev => ({ ...prev, [field]: undefined }));
     }
@@ -115,16 +114,19 @@ const LoginForm: React.FC<LoginFormProps> = ({ onToggleForm, onForgotPassword })
   return (
     <div>
       <div className="text-center mb-6">
-        <h2 className="text-xl sm:text-2xl font-bold text-slate-100 mb-2">
+        <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
           Welcome Back!
         </h2>
-        <p className="text-sm sm:text-base text-slate-400">
+        <p className="text-sm sm:text-base text-muted-foreground">
           Log in to continue your learning journey.
         </p>
       </div>
 
       {errors.general && (
-        <div className="bg-red-900/30 text-red-300 px-4 py-2 rounded-lg text-sm text-center mb-4" role="alert">
+        <div
+          className="bg-destructive/15 text-destructive border border-destructive/20 px-4 py-2 rounded-lg text-sm text-center mb-4 transition-colors duration-200"
+          role="alert"
+        >
           {errors.general}
         </div>
       )}
@@ -161,61 +163,59 @@ const LoginForm: React.FC<LoginFormProps> = ({ onToggleForm, onForgotPassword })
               checked={formData.rememberMe}
               onChange={(e) => setFormData(prev => ({ ...prev, rememberMe: e.target.checked }))}
               disabled={loading}
-              className="h-4 w-4 rounded border-slate-600 bg-slate-700 text-primary-600 focus:ring-primary-500 focus:ring-offset-slate-800 disabled:opacity-50"
+              className="h-4 w-4 rounded border-input bg-card text-primary focus:ring-ring disabled:opacity-50"
             />
-            <label htmlFor="remember-me" className="ml-2 block text-xs sm:text-sm text-slate-300">
+            <label htmlFor="remember-me" className="ml-2 block text-xs sm:text-sm text-muted-foreground">
               Remember me! 👋
             </label>
           </div>
           <button 
             type="button" 
             onClick={onForgotPassword}
-            className="text-xs sm:text-sm font-semibold text-primary-500 hover:text-primary-400 disabled:opacity-50 transition-colors"
+            className="text-xs sm:text-sm font-semibold text-primary hover:text-primary/90 disabled:opacity-50 transition-colors duration-200"
             disabled={loading}
           >
             Forgot password?
           </button>
         </div>
 
-        <button 
-          type="submit" 
+        <Button
+          type="submit"
           disabled={!isButtonActive}
-          className="w-full flex items-center justify-center gap-2 h-10 rounded-md bg-primary-600 px-4 text-sm font-semibold text-white shadow-lg hover:bg-primary-500 hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 disabled:bg-slate-600 disabled:cursor-not-allowed disabled:hover:scale-100 transition-all"
+          loading={loading}
+          className="w-full h-10 font-semibold"
         >
-          {loading ? (
-            'Processing...'
-          ) : (
-            <>
-              <SparklesIcon className="h-5 w-5" />
-              <span>Log In</span>
-            </>
-          )}
-        </button>
+          <SparklesIcon className="size-4" aria-hidden="true" />
+          <span>Log in</span>
+        </Button>
       </form>
 
       <div className="relative my-6">
         <div className="absolute inset-0 flex items-center" aria-hidden="true">
-          <div className="w-full border-t border-slate-600" />
+          <div className="w-full border-t border-border" />
         </div>
         <div className="relative flex justify-center text-sm">
-          <span className="bg-slate-800 px-2 text-slate-400">Or continue with</span>
+          <span className="bg-card px-2 text-muted-foreground">Or continue with</span>
         </div>
       </div>
 
-      <button 
+      <Button
+        type="button"
+        variant="outline"
         onClick={handleGoogleSignIn}
         disabled={loading}
-        className="w-full inline-flex justify-center items-center gap-3 h-10 px-4 border border-slate-600 rounded-md shadow-sm bg-slate-700 text-sm font-medium text-slate-200 hover:bg-slate-600 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 focus:ring-offset-slate-800 disabled:opacity-50 transition-all"
+        className="w-full h-10 font-medium"
       >
-        <GoogleIcon className="h-5 w-5" />
+        <GoogleIcon className="size-4 mr-2" />
         <span>Sign in with Google</span>
-      </button>
+      </Button>
 
-      <p className="mt-6 text-center text-sm text-slate-400">
+      <p className="mt-6 text-center text-sm text-muted-foreground">
         Don't have an account?{' '}
         <button 
+          type="button"
           onClick={onToggleForm}
-          className="font-semibold text-primary-500 hover:text-primary-400 disabled:opacity-50 transition-colors"
+          className="font-semibold text-primary hover:text-primary/90 disabled:opacity-50 transition-colors duration-200"
           disabled={loading}
         >
           Sign up
