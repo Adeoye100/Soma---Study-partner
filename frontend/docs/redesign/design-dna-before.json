@@ -1,0 +1,81 @@
+{
+  "version": "1.0.0",
+  "name": "Soma Baseline (Before)",
+  "overview": {
+    "product_type": "EdTech / AI Study Partner",
+    "theme_mode": "dark-forced",
+    "effect_intensity": 6,
+    "performance_tier": "medium"
+  },
+  "design_system": {
+    "color": {
+      "primary": "hsl(245, 100%, 68%)",
+      "background_dark": "hsl(220, 20%, 4%)",
+      "card_dark": "hsl(220, 14%, 8%)",
+      "foreground_dark": "hsl(0, 0%, 98%)",
+      "secondary_dark": "hsl(220, 14%, 12%)",
+      "border_dark": "hsl(220, 14%, 15%)",
+      "legacy_slate_dominance": [
+        "bg-slate-900",
+        "bg-slate-800",
+        "bg-slate-700",
+        "text-slate-50",
+        "text-slate-400",
+        "border-slate-700"
+      ],
+      "legacy_broken_classes": [
+        "bg-primary-600",
+        "text-primary-500",
+        "ring-primary-500",
+        "border-primary-500"
+      ],
+      "legacy_peach_gradient": "#fdba74 / to-orange-*"
+    },
+    "typography": {
+      "font_family_primary": "Inter, sans-serif",
+      "scale": {
+        "xs": "0.75rem",
+        "sm": "0.875rem",
+        "base": "1rem",
+        "lg": "1.125rem",
+        "xl": "1.25rem",
+        "2xl": "1.5rem"
+      }
+    },
+    "spacing": {
+      "base_unit": "4px / 0.25rem",
+      "container_padding": "1rem to 2rem",
+      "card_padding": "1.5rem"
+    },
+    "shape": {
+      "border_radius": "0.75rem (rounded-xl / rounded-lg / rounded-md mix)"
+    },
+    "elevation": {
+      "card_shadow": "shadow-sm to shadow-lg on dark backgrounds"
+    },
+    "motion": {
+      "dominant_duration": "300ms",
+      "reduced_motion_handling": "none"
+    }
+  },
+  "design_style": {
+    "aesthetic": "Deep navy dark mode with violet glow and high-tech academic vibe",
+    "composition": "Centered card auth containers; operational dashboard shells",
+    "voice": "Direct, supportive study companion"
+  },
+  "visual_effects": {
+    "shader_mesh": {
+      "enabled": true,
+      "tool": "shadergradient / Three.js",
+      "surface": "Landing page hero background"
+    },
+    "animated_book_icon": {
+      "enabled": true,
+      "type": "CSS bounce / pulse animation"
+    },
+    "gradient_text": {
+      "enabled": true,
+      "type": "animated-gradient-text"
+    }
+  }
+}
