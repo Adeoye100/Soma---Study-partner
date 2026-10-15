@@ -2,13 +2,12 @@ name: Supabase Keep-Alive Ping
 
 on:
   schedule:
-    # Runs at 08:00 UTC every Monday and Thursday (twice a week for safety)
+    # Runs at 08:00 UTC every Monday and Thursday
     - cron: '0 8 * * 1,4'
-  workflow_dispatch: # Allows manual testing from the GitHub Actions tab
+  workflow_dispatch:
 
 jobs:
   ping-supabase:
-    runs-only-on-active-repo: true
     runs-on: ubuntu-latest
     steps:
       - name: Call Supabase PostgREST keep_alive RPC
@@ -16,13 +15,22 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_ANON_KEY" ]; then
+            echo "Error: SUPABASE_URL or SUPABASE_ANON_KEY secret is missing in GitHub Settings -> Secrets and variables -> Actions."
+            exit 1
+          fi
+
+          # Strip any accidental trailing slash from SUPABASE_URL
+          CLEAN_URL="${SUPABASE_URL%/}"
+
           response=$(curl -s -w "\n%{http_code}" -X POST \
-            "${SUPABASE_URL}/rest/v1/rpc/keep_alive" \
+            "${CLEAN_URL}/rest/v1/rpc/keep_alive" \
             -H "apikey: ${SUPABASE_ANON_KEY}" \
             -H "Authorization: Bearer ${SUPABASE_ANON_KEY}" \
-            -H "Content-Type: application/json")
+            -H "Content-Type: application/json" \
+            -d '{}')
 
-          body=$(echo "$response" | head -n 1)
+          body=$(echo "$response" | sed '$d')
           status=$(echo "$response" | tail -n 1)
 
           echo "Response Body: $body"

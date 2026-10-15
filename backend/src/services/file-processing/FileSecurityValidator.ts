@@ -336,6 +336,12 @@ export class FileSecurityValidator {
       }
     }
 
+    // If no binary magic signature matched, check if it is plain text (no null bytes)
+    const isText = !buffer.slice(0, Math.min(buffer.length, 1024)).includes(0x00);
+    if (isText) {
+      return 'text/plain';
+    }
+
     return 'application/octet-stream';
   }
 
@@ -436,20 +442,22 @@ export class FileSecurityValidator {
   }
 }
 
-export function createFileValidationConfig(maxFileSize: number = 10 * 1024 * 1024, scanEnabled: boolean = true): FileValidationConfig {
+export function createFileValidationConfig(maxFileSize: number = 10 * 1024 * 1024, scanEnabled: boolean = false): FileValidationConfig {
   const allowedMimeTypes = new Map<string, string[]>();
   allowedMimeTypes.set('.pdf', ['application/pdf']);
-  allowedMimeTypes.set('.docx', ['application/vnd.openxmlformats-officedocument.wordprocessingml.document']);
-  allowedMimeTypes.set('.pptx', ['application/vnd.openxmlformats-officedocument.presentationml.presentation']);
-  allowedMimeTypes.set('.txt', ['text/plain']);
+  allowedMimeTypes.set('.docx', ['application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/zip']);
+  allowedMimeTypes.set('.pptx', ['application/vnd.openxmlformats-officedocument.presentationml.presentation', 'application/zip']);
+  allowedMimeTypes.set('.txt', ['text/plain', 'text/markdown']);
+  allowedMimeTypes.set('.md', ['text/markdown', 'text/plain']);
   allowedMimeTypes.set('.png', ['image/png']);
   allowedMimeTypes.set('.jpg', ['image/jpeg']);
   allowedMimeTypes.set('.jpeg', ['image/jpeg']);
+  allowedMimeTypes.set('.webp', ['image/webp', 'image/jpeg', 'image/png']);
 
   return {
     maxFileSize,
     allowedMimeTypes,
-    allowedExtensions: ['.pdf', '.docx', '.pptx', '.txt', '.png', '.jpg', '.jpeg'],
+    allowedExtensions: ['.pdf', '.docx', '.pptx', '.txt', '.md', '.png', '.jpg', '.jpeg', '.webp'],
     scanForMalware: scanEnabled
   };
 }

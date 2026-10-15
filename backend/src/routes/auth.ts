@@ -53,9 +53,13 @@ router.post('/login', asyncHandler(async (req: Request, res: Response) => {
       path: '/'
     };
 
-    res.cookie('refreshToken', authResponse.session.refresh_token, cookieOptions);
+    if (authResponse.session) {
+      res.cookie('refreshToken', authResponse.session.refresh_token, cookieOptions);
+    }
 
-    const { refresh_token, ...sessionWithoutRefresh } = authResponse.session;
+    const sessionWithoutRefresh = authResponse.session
+      ? (({ refresh_token, ...sessionRest }) => sessionRest)(authResponse.session)
+      : null;
 
     res.status(200).json({
       success: true,

@@ -226,7 +226,7 @@ export class ExamOrchestrator {
       question_type: (q.question_type ?? input.type) as QuestionRow['question_type'],
       options: q.options ?? [],
       correct_answer: q.correct_answer,
-      explanation: q.explanation ?? null,
+      explanation: q.explanation ?? undefined,
       difficulty: (q.difficulty ?? input.difficulty) as QuestionRow['difficulty'],
       order_index: typeof q.order_index === 'number' ? Math.max(0, q.order_index) : index,
       points: q.points ?? 10,

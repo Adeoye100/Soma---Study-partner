@@ -256,10 +256,11 @@ export class Exam {
   private evaluateAnswer(question: Question, userAnswer: UserAnswer): EvaluationResult {
     // For objective questions, simple comparison
     if (question.options) {
-      const isCorrect = userAnswer.answer.trim().toLowerCase() === question.correctAnswer.trim().toLowerCase();
+      const correctAnswer = question.correctAnswer || '';
+      const isCorrect = userAnswer.answer.trim().toLowerCase() === correctAnswer.trim().toLowerCase();
       return {
         score: isCorrect ? 10 : 0,
-        feedback: isCorrect ? 'Correct!' : `The correct answer is: ${question.correctAnswer}`,
+        feedback: isCorrect ? 'Correct!' : `The correct answer is: ${correctAnswer}`,
         isCorrect,
         topic: question.topic
       };
