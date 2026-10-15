@@ -84,7 +84,7 @@ export default {
         'glow-danger': "0 0 20px rgba(239, 68, 68, 0.3)",
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['Inter Variable', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
       },
       keyframes: {
         "accordion-down": {

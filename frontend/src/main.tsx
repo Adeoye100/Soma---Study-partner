@@ -1,3 +1,4 @@
+import '@fontsource-variable/inter';
 import { injectSelfXSSWarning } from './security/consoleWarning';
 injectSelfXSSWarning();
 
