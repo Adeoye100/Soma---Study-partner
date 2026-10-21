@@ -1,3 +1,7 @@
+allowBuilds:
+  esbuild: false
+  protobufjs: false
+  tesseract.js: false
 overrides:
   brace-expansion@>=2.0.0 <2.0.3: '>=2.0.3'
   d3-color@<3.1.0: '>=3.1.0'

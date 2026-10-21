@@ -116,6 +116,7 @@ try {
   }
 
   const routes = [
+    { path: '/', name: 'landing' },
     { path: '/login', name: 'login' },
     { path: '/signup', name: 'signup' },
     { path: '/reset-password', name: 'reset-password' }
