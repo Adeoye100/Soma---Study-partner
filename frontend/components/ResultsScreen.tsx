@@ -1,7 +1,7 @@
 import React, { useMemo, useRef } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { ExamResult } from '../types';
-import { CheckCircleIcon, XCircleIcon, DownloadIcon, RefreshIcon } from './icons';
+import { CheckCircle2, XCircle, Download, RotateCw } from 'lucide-react';
 import ShaderBackground from './ShaderBackground';
 
 // Fix: Declare jspdf and html2canvas on the window object to fix TypeScript errors.
@@ -107,7 +107,7 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ result, onRestart }) => {
                             {questions.map((q, i) => (
                                 <div key={i} className="p-3 sm:p-4 border border-slate-200 dark:border-slate-700 rounded-lg transition-colors duration-300">
                                     <div className="flex items-start gap-3">
-                                        {evaluations[i].isCorrect ? <CheckCircleIcon className="h-5 w-5 sm:h-6 sm:w-6 text-green-500 flex-shrink-0 mt-1"/> : <XCircleIcon className="h-5 w-5 sm:h-6 sm:w-6 text-red-500 flex-shrink-0 mt-1"/>}
+                                        {evaluations[i].isCorrect ? <CheckCircle2 className="h-5 w-5 sm:h-6 sm:w-6 text-green-500 flex-shrink-0 mt-1"/> : <XCircle className="h-5 w-5 sm:h-6 sm:w-6 text-red-500 flex-shrink-0 mt-1"/>}
                                         <div className="min-w-0">
                                             <p className="font-semibold text-sm sm:text-base text-slate-800 dark:text-slate-100 break-words transition-colors duration-300">{i+1}. {q.question}</p>
                                             <p className="text-xs sm:text-sm mt-2"><span className="font-semibold">Answer:</span> <span className="text-slate-600 dark:text-slate-300 transition-colors duration-300">{result.userAnswers[i] || "No answer"}</span></p>
@@ -127,11 +127,11 @@ const ResultsScreen: React.FC<ResultsScreenProps> = ({ result, onRestart }) => {
             {/* Action Buttons */}
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center sm:gap-4">
                 <button onClick={handleRestart} className="flex items-center justify-center gap-2 rounded-md bg-white dark:bg-slate-700 px-4 sm:px-6 py-3 text-sm sm:text-base font-semibold text-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors duration-300">
-                    <RefreshIcon className="h-5 w-5" />
+                    <RotateCw className="h-5 w-5" />
                     <span>Take Another</span>
                 </button>
                 <button onClick={handleDownloadPdf} className="flex items-center justify-center gap-2 rounded-md bg-primary-600 px-4 sm:px-6 py-3 text-sm sm:text-base font-semibold text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 transition-colors duration-300">
-                    <DownloadIcon className="h-5 w-5" />
+                    <Download className="h-5 w-5" />
                     <span>Download</span>
                 </button>
             </div>

@@ -5,7 +5,7 @@ import {
   PieChart, Pie, Cell, Area, AreaChart
 } from 'recharts';
 import { ExamResult, WeeklyPerformance, PerformanceInsight } from '../types';
-import { TrendingUpIcon, ClockIcon, TargetIcon, BookOpenIcon } from './icons';
+import { TrendingUp, Clock, Target, BookOpen } from 'lucide-react';
 
 interface WeeklyPerformanceAnalysisProps {
   examHistory: ExamResult[];
@@ -171,11 +171,11 @@ const WeeklyPerformanceAnalysis: React.FC<WeeklyPerformanceAnalysisProps> = ({
 
   const getInsightIcon = (type: PerformanceInsight['type']) => {
     switch (type) {
-      case 'improvement': return <TrendingUpIcon className="h-5 w-5 text-green-500" />;
-      case 'strength': return <TargetIcon className="h-5 w-5 text-blue-500" />;
-      case 'weakness': return <BookOpenIcon className="h-5 w-5 text-red-500" />;
-      case 'recommendation': return <ClockIcon className="h-5 w-5 text-yellow-500" />;
-      default: return <TargetIcon className="h-5 w-5" />;
+      case 'improvement': return <TrendingUp className="h-5 w-5 text-success" />;
+      case 'strength': return <Target className="h-5 w-5 text-primary" />;
+      case 'weakness': return <BookOpen className="h-5 w-5 text-destructive" />;
+      case 'recommendation': return <Clock className="h-5 w-5 text-warning" />;
+      default: return <Target className="h-5 w-5" />;
     }
   };
 

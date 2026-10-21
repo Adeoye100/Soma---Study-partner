@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { MailIcon, WhatsAppIcon, XCircleIcon } from './icons';
+import { Mail, XCircle } from 'lucide-react';
+import { WhatsAppIcon } from '@/components/brand-icons';
 
 interface InfoModalProps {
   onClose: () => void;
@@ -18,10 +19,10 @@ const FAQContent: React.FC = () => (
       <h4 className="font-semibold transition-colors duration-300">2. Who developed Somma?</h4>
       <p className="transition-colors duration-300">Somma – Study Partner was created and developed by <strong className="text-[20px] font-semibold">Adeoye Opeyemi</strong>, a passionate potential software engineer dedicated to using technology to promote education and personal development.</p>
       <div className="flex items-center gap-4 mt-2">
-        <a href="mailto:adeoyeopeyemi951@gmail.com" className="flex items-center gap-2 text-sm text-primary-600 hover:underline transition-colors duration-300">
-          <MailIcon className="h-4 w-4" /> adeoyeopeyemi951@gmail.com
+        <a href="mailto:adeoyeopeyemi951@gmail.com" className="flex items-center gap-2 text-sm text-primary hover:underline transition-colors duration-200">
+          <Mail className="h-4 w-4" /> adeoyeopeyemi951@gmail.com
         </a>
-        <a href="https://wa.me/2348124068599" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-primary-600 hover:underline transition-colors duration-300">
+        <a href="https://wa.me/2348124068599" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-primary hover:underline transition-colors duration-200">
           <WhatsAppIcon className="h-4 w-4" /> +234 812 406 8599
         </a>
       </div>
@@ -127,13 +128,13 @@ const InfoModal: React.FC<InfoModalProps> = ({ onClose }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-center p-4 border-b border-slate-200 dark:border-slate-700 sticky top-0 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm transition-colors duration-300">
-          <div className="flex border border-slate-200 dark:border-slate-600 rounded-lg p-1 transition-colors duration-300">
+          <div className="flex border border-border rounded-lg p-1 transition-colors duration-200">
             <button
               onClick={() => setActiveTab('faq')}
               className={`px-4 py-1 text-sm font-semibold rounded-md transition-colors ${
                 activeTab === 'faq'
-                  ? 'bg-primary-600 text-white shadow'
-                  : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
+                  ? 'bg-primary text-primary-foreground shadow-xs'
+                  : 'text-muted-foreground hover:bg-muted'
               }`}
             >
               FAQ
@@ -142,15 +143,15 @@ const InfoModal: React.FC<InfoModalProps> = ({ onClose }) => {
               onClick={() => setActiveTab('terms')}
               className={`px-4 py-1 text-sm font-semibold rounded-md transition-colors ${
                 activeTab === 'terms'
-                  ? 'bg-primary-600 text-white shadow'
-                  : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
+                  ? 'bg-primary text-primary-foreground shadow-xs'
+                  : 'text-muted-foreground hover:bg-muted'
               }`}
             >
               Terms & Conditions
             </button>
           </div>
-          <button onClick={onClose} className="p-2 rounded-full text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors duration-300">
-            <XCircleIcon className="h-6 w-6" />
+          <button onClick={onClose} aria-label="Close dialog" className="p-2 rounded-full text-muted-foreground hover:bg-muted transition-colors duration-200">
+            <XCircle className="h-6 w-6" />
           </button>
         </div>
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { User } from '@supabase/supabase-js';
 import { supabase } from '../services/supabase';
-import { UploadIcon } from './icons';
+import { Upload } from 'lucide-react';
 import Spinner from './Spinner';
 
 interface AvatarUploadProps {
@@ -82,7 +82,7 @@ const AvatarUpload: React.FC<AvatarUploadProps> = ({ user, onAvatarUpdate, onClo
             <Spinner size="lg" />
           ) : (
             <>
-              <UploadIcon className="h-12 w-12" />
+              <Upload className="h-12 w-12" />
               <span className="mt-2 text-sm text-center transition-colors duration-300">Click to upload</span>
               <span className="text-xs text-center transition-colors duration-300">(Max 5MB, JPG/PNG)</span>
             </>

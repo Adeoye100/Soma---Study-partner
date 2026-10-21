@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { ExamConfig, ExamType, Difficulty, TimeIntensity, Material, Question } from '../types';
 import { generateExam } from '../services/geminiService';
 import { documentProcessor } from '../services/documentProcessor';
-import { UploadIcon, DocumentTextIcon, XCircleIcon, CheckCircleIcon, AlertCircleIcon } from './icons';
+import { Upload, FileText, XCircle, CheckCircle2, AlertCircle } from 'lucide-react';
 import Loader from './Loader';
 import InspirationCard from './InspirationCard';
 import ProfileCard from './ProfileCard';
@@ -228,9 +228,9 @@ const EnhancedSetupScreen: React.FC<EnhancedSetupScreenProps> = ({ onExamStart }
       case 'processing':
         return <div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />;
       case 'completed':
-        return <CheckCircleIcon className="h-4 w-4 text-green-500" />;
+        return <CheckCircle2 className="h-4 w-4 text-green-500" />;
       case 'error':
-        return <AlertCircleIcon className="h-4 w-4 text-red-500" />;
+        return <AlertCircle className="h-4 w-4 text-red-500" />;
       default:
         return null;
     }
@@ -323,7 +323,7 @@ const EnhancedSetupScreen: React.FC<EnhancedSetupScreenProps> = ({ onExamStart }
                   </label>
                   <div className="mt-2 flex justify-center rounded-lg border-2 border-dashed border-slate-300 dark:border-slate-600 px-4 sm:px-6 py-6 sm:py-8 transition-colors duration-300">
                     <div className="text-center">
-                      <UploadIcon className="mx-auto h-10 w-10 sm:h-12 sm:w-12 text-slate-400 dark:text-slate-500 transition-colors duration-300" />
+                      <Upload className="mx-auto h-10 w-10 sm:h-12 sm:w-12 text-slate-400 dark:text-slate-500 transition-colors duration-300" />
                       <div className="mt-4 flex flex-col sm:flex-row text-xs sm:text-sm leading-6 text-slate-600 dark:text-slate-400 gap-1 transition-colors duration-300">
                         <label htmlFor="file-upload" className="relative cursor-pointer rounded-md bg-white dark:bg-slate-800 font-semibold text-primary-600 dark:text-primary-400 focus-within:outline-none focus-within:ring-2 focus-within:ring-primary-600 focus-within:ring-offset-2 dark:focus-within:ring-offset-slate-800 hover:text-primary-500 transition-colors duration-300">
                           <span>Upload files</span>
@@ -353,7 +353,7 @@ const EnhancedSetupScreen: React.FC<EnhancedSetupScreenProps> = ({ onExamStart }
                         {processingFiles.map((fileStatus, index) => (
                           <div key={index} className="flex items-center justify-between bg-slate-100 dark:bg-slate-700 p-3 rounded-md text-xs sm:text-sm transition-colors duration-300">
                             <div className="flex items-center gap-2 min-w-0 flex-1">
-                              <DocumentTextIcon className="h-4 w-4 sm:h-5 sm:w-5 text-slate-500 flex-shrink-0" />
+                              <FileText className="h-4 w-4 sm:h-5 sm:w-5 text-slate-500 flex-shrink-0" />
                               <span className="font-medium truncate">{fileStatus.file.name}</span>
                             </div>
                             <div className="flex items-center gap-2 flex-shrink-0 ml-2">
@@ -366,7 +366,7 @@ const EnhancedSetupScreen: React.FC<EnhancedSetupScreenProps> = ({ onExamStart }
                                 onClick={() => handleRemoveMaterial(index)} 
                                 className="text-slate-400 hover:text-red-500 flex-shrink-0 ml-1 transition-colors duration-300"
                               >
-                                <XCircleIcon className="h-4 w-4" />
+                                <XCircle className="h-4 w-4" />
                               </button>
                             </div>
                           </div>

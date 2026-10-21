@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { authService, LoginCredentials, SignupCredentials } from '../services/authService';
-import { BookOpenIcon, SparklesIcon, GoogleIcon } from './icons';
+import { BookOpen, Sparkles } from 'lucide-react';
+import { GoogleIcon } from '@/components/brand-icons';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import InspirationCard from './InspirationCard';
 import SupportCard from './SupportCard';
@@ -186,7 +187,7 @@ const LoginScreen: React.FC = () => {
       <div className="max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-center">
         <div className="hidden md:flex flex-col p-6 md:p-8">
           <div className="flex items-center gap-3 mb-4">
-            <BookOpenIcon className="h-8 sm:h-10 w-8 sm:w-10 text-primary-500 animated-book" />
+            <BookOpen className="h-8 sm:h-10 w-8 sm:w-10 text-primary animated-book" />
             <h1 className="text-3xl sm:text-4xl font-bold animated-gradient-text">
                 Somma
               </h1>
@@ -320,9 +321,9 @@ const LoginScreen: React.FC = () => {
 
 
                     <div>
-                      <button type="submit" disabled={loading} className="w-full flex items-center justify-center gap-2 h-9 sm:h-10 rounded-md bg-primary-600 px-4 text-sm sm:text-base font-semibold text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 disabled:bg-slate-400 disabled:cursor-not-allowed dark:disabled:bg-slate-600 transition-colors duration-300">
+                      <button type="submit" disabled={loading} className="w-full flex items-center justify-center gap-2 h-9 sm:h-10 rounded-md bg-primary px-4 text-sm sm:text-base font-semibold text-primary-foreground shadow-xs hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200">
                         {loading ? 'Processing...' : (
-                          <><SparklesIcon className="h-4 w-4 sm:h-5 sm:w-5" />
+                          <><Sparkles className="h-4 w-4 sm:h-5 sm:w-5" />
                           <span>{isLogin ? 'Log In' : 'Sign Up'}</span></>
                         )}
                       </button>
@@ -331,15 +332,15 @@ const LoginScreen: React.FC = () => {
 
                 <div className="relative my-6">
                   <div className="absolute inset-0 flex items-center" aria-hidden="true">
-                    <div className="w-full border-t border-slate-300 dark:border-slate-600 transition-colors duration-300" />
+                    <div className="w-full border-t border-border transition-colors duration-200" />
                   </div>
                   <div className="relative flex justify-center text-xs sm:text-sm">
-                    <span className="bg-white dark:bg-slate-800 px-2 text-slate-500 dark:text-slate-400 transition-colors duration-300">Or continue with</span>
+                    <span className="bg-card px-2 text-muted-foreground transition-colors duration-200">Or continue with</span>
                   </div>
                 </div>
 
                 <div>
-                  <button onClick={handleGoogleSignIn} disabled={loading} className="w-full inline-flex justify-center items-center gap-2 sm:gap-3 h-9 sm:h-10 px-4 border border-slate-300 dark:border-slate-600 rounded-md shadow-sm bg-white dark:bg-slate-700 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 dark:focus:ring-offset-slate-800 disabled:opacity-50 transition-colors duration-300">
+                  <button onClick={handleGoogleSignIn} disabled={loading} className="w-full inline-flex justify-center items-center gap-2 sm:gap-3 h-9 sm:h-10 px-4 border border-input rounded-md shadow-xs bg-background text-xs sm:text-sm font-medium text-foreground hover:bg-muted focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ring disabled:opacity-50 transition-colors duration-200">
                     <GoogleIcon className="h-4 w-4 sm:h-5 sm:w-5" />
                     <span>Sign in with Google</span>
                   </button>

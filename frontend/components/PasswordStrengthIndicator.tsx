@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircleIcon, XCircleIcon } from './icons';
+import { CheckCircle2, XCircle } from 'lucide-react';
 
 export interface PasswordValidationState {
   length: boolean;
@@ -36,9 +36,9 @@ const PasswordStrengthIndicator: React.FC<PasswordStrengthIndicatorProps> = ({ v
             }`}
           >
             {criterion.met ? (
-              <CheckCircleIcon className="h-4 w-4 mr-2 flex-shrink-0" />
+              <CheckCircle2 className="h-4 w-4 mr-2 flex-shrink-0" />
             ) : (
-              <XCircleIcon className="h-4 w-4 mr-2 flex-shrink-0" />
+              <XCircle className="h-4 w-4 mr-2 flex-shrink-0" />
             )}
             <span>{criterion.text}</span>
           </li>

@@ -5,7 +5,8 @@ import { authService, signInWithGoogle } from '../../services/authService';
 import EmailField from './EmailField';
 import PasswordField from './PasswordField';
 import { validateEmail, validatePassword, formatAuthError, validateRedirect } from '../../utils/authValidation';
-import { SparklesIcon, GoogleIcon } from '../icons';
+import { Sparkles } from 'lucide-react';
+import { GoogleIcon } from '@/components/brand-icons';
 
 interface LoginFormProps {
   onToggleForm: () => void;
@@ -185,7 +186,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onToggleForm, onForgotPassword })
           loading={loading}
           className="w-full h-10 font-semibold"
         >
-          <SparklesIcon className="size-4" aria-hidden="true" />
+          <Sparkles className="size-4" aria-hidden="true" />
           <span>Log in</span>
         </Button>
       </form>

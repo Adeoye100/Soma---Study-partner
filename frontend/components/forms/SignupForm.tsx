@@ -7,7 +7,7 @@ import PasswordField from './PasswordField';
 import { Avatar, AvatarImage, AvatarFallback } from '../Avatar';
 import PasswordStrengthIndicator, { PasswordValidationState } from '../PasswordStrengthIndicator';
 import { validateEmail, validatePassword, validateUsername, validateGender, calculatePasswordStrength, formatAuthError, validateRedirect } from '../../utils/authValidation';
-import { SparklesIcon } from '../icons';
+import { Sparkles } from 'lucide-react';
 
 interface SignupFormProps {
   onToggleForm: () => void;
@@ -313,7 +313,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onToggleForm }) => {
           loading={loading}
           className="w-full h-10 font-semibold"
         >
-          <SparklesIcon className="size-4" aria-hidden="true" />
+          <Sparkles className="size-4" aria-hidden="true" />
           <span>Sign up</span>
         </Button>
       </form>

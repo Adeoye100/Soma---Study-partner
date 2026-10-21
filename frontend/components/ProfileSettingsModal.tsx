@@ -1,6 +1,6 @@
 import React from 'react';
 import { User } from '@supabase/supabase-js';
-import { XCircleIcon } from './icons';
+import { XCircle } from 'lucide-react';
 import AvatarUpload from './AvatarUpload';
 
 interface ProfileSettingsModalProps {
@@ -21,8 +21,8 @@ const ProfileSettingsModal: React.FC<ProfileSettingsModalProps> = ({ user, onClo
       >
         <div className="flex justify-between items-center p-4 border-b border-slate-200 dark:border-slate-700 sticky top-0 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm transition-colors duration-300">
           <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 transition-colors duration-300">Profile Settings</h2>
-          <button onClick={onClose} className="p-2 rounded-full text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors duration-300">
-            <XCircleIcon className="h-6 w-6" />
+          <button onClick={onClose} aria-label="Close dialog" className="p-2 rounded-full text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors duration-300">
+            <XCircle className="h-6 w-6" />
           </button>
         </div>
 
