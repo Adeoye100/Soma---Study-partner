@@ -24,6 +24,8 @@
     "lint:fix": "eslint src/**/*.ts --fix",
     "docker:build": "docker build -t smart-exam-backend .",
     "docker:run": "docker run -p 3000:3000 smart-exam-backend",
+    "typecheck": "tsc --noEmit",
+    "secret-scan": "grep -rn --include='*.ts' --include='*.js' --include='*.json' -E '(sk-or-v1-|supabase.*eyJ|password\\s*=\\s*\"|SUPABASE_URL.*http|GEMINI_API_KEY.*AI)' src/ || echo 'No secrets found.'",
     "precommit": "pnpm lint && pnpm test"
   },
   "engines": {

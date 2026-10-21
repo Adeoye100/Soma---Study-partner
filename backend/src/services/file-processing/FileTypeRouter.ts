@@ -5,6 +5,7 @@ import { promises as fs } from 'fs'
 import * as path from 'path'
 import { PdfParser, ParsedContent as PdfParsedContent } from './parsers/PdfParser'
 import { TextSanitizer, SanitizedResult } from './TextSanitizer'
+import { freeOcrService } from './FreeOcrService'
 
 /**
  * Configuration for FileTypeRouter
@@ -53,14 +54,13 @@ export class FileTypeRouter {
   private sanitizer: TextSanitizer
   private supportedExtensions: Map<string, string> = new Map([
     ['.pdf', 'application/pdf'],
-    ['.doc', 'application/msword'],
     ['.docx', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+    ['.pptx', 'application/vnd.openxmlformats-officedocument.presentationml.presentation'],
     ['.txt', 'text/plain'],
     ['.md', 'text/markdown'],
     ['.jpg', 'image/jpeg'],
     ['.jpeg', 'image/jpeg'],
     ['.png', 'image/png'],
-    ['.gif', 'image/gif'],
     ['.webp', 'image/webp']
   ])
 
@@ -104,6 +104,8 @@ export class FileTypeRouter {
 
       let parsedResult: { text: string; metadata: Record<string, any> }
 
+      const mimeType = this.supportedExtensions.get(extension) || 'application/octet-stream'
+
       if (extension === '.pdf') {
         parsedResult = await Promise.race([
           this.parsePdf(fileBuffer),
@@ -114,6 +116,20 @@ export class FileTypeRouter {
           this.parseText(fileBuffer),
           timeoutPromise as Promise<any>
         ])
+      } else if (['.docx', '.pptx', '.jpg', '.jpeg', '.png', '.webp'].includes(extension)) {
+        const extraction = await Promise.race([
+          freeOcrService.extractText(fileBuffer, originalName, mimeType),
+          timeoutPromise as Promise<any>
+        ])
+        parsedResult = {
+          text: extraction.text,
+          metadata: {
+            pages: extraction.pages,
+            confidence: extraction.confidence,
+            extractionMethod: extraction.method,
+            warnings: extraction.warnings
+          }
+        }
       } else {
         throw new ParserError('UNSUPPORTED_FILE_TYPE', { extension })
       }

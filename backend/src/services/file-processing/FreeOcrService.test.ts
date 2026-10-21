@@ -1,5 +1,6 @@
 import { freeOcrService } from './FreeOcrService';
 import { FileSecurityValidator, createFileValidationConfig } from './FileSecurityValidator';
+import { FileTypeRouter } from './FileTypeRouter';
 import JSZip from 'jszip';
 
 describe('Document Upload & Extraction Pipeline', () => {
@@ -68,6 +69,44 @@ describe('Document Upload & Extraction Pipeline', () => {
       expect(result.text).toContain('Introduction to Organic Chemistry');
       expect(result.text).toContain('Carbon forms four covalent bonds.');
       expect(result.method).toBe('pptx-zip-xml');
+    });
+  });
+
+  describe('FileTypeRouter Integration', () => {
+    const router = new FileTypeRouter();
+
+    it('routes and parses text buffers correctly', async () => {
+      const buffer = Buffer.from('Cellular respiration produces ATP through glycolysis and the citric acid cycle.');
+      const parsed = await router.parseBuffer(buffer, 'biology.txt');
+      expect(parsed.text).toContain('Cellular respiration');
+      expect(parsed.metadata.fileType).toBe('.txt');
+    });
+
+    it('routes and parses PPTX buffers via freeOcrService', async () => {
+      const zip = new JSZip();
+      const slideXml = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <p:sld xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+          <p:cSld>
+            <p:spTree>
+              <p:sp>
+                <p:txBody>
+                  <a:p><a:r><a:t>Newtonian Mechanics Overview</a:t></a:r></a:p>
+                </p:txBody>
+              </p:sp>
+            </p:spTree>
+          </p:cSld>
+        </p:sld>`;
+      zip.file('ppt/slides/slide1.xml', slideXml);
+      const pptxBuffer = await zip.generateAsync({ type: 'nodebuffer' });
+
+      const parsed = await router.parseBuffer(pptxBuffer, 'physics_lecture.pptx');
+      expect(parsed.text).toContain('Newtonian Mechanics Overview');
+      expect(parsed.metadata.fileType).toBe('.pptx');
+    });
+
+    it('rejects unsupported file types with UNSUPPORTED_FILE_TYPE error code', async () => {
+      const buffer = Buffer.from('binary data');
+      await expect(router.parseBuffer(buffer, 'malware.exe')).rejects.toThrow();
     });
   });
 });

@@ -9,6 +9,7 @@ import { promisify } from 'util';
 import { v4 as uuidv4 } from 'uuid';
 import { logger } from '@/shared/utils/logger';
 import { TextSanitizer } from './TextSanitizer';
+import { ImageParser } from './parsers/ImageParser';
 
 const execAsync = promisify(exec);
 const pdfParse = require('pdf-parse');
@@ -24,6 +25,7 @@ export interface ExtractionResult {
 
 export class FreeOcrService {
   private sanitizer: TextSanitizer;
+  private imageParser: ImageParser;
   private tesseractWorker: Worker | null = null;
   private workerInitPromise: Promise<Worker> | null = null;
   private activeOcrJobs = 0;
@@ -32,6 +34,7 @@ export class FreeOcrService {
 
   constructor() {
     this.sanitizer = new TextSanitizer();
+    this.imageParser = new ImageParser();
   }
 
   /**
@@ -281,12 +284,40 @@ export class FreeOcrService {
   }
 
   /**
-   * Step 2.2: Image OCR
+   * Step 2.2: Image OCR — prefers multimodal vision (OpenRouter/Gemini Flash),
+   * falls back to Tesseract if the vision endpoint is unavailable or fails.
    */
-  async extractTextFromImage(buffer: Buffer): Promise<ExtractionResult> {
+  async extractTextFromImage(buffer: Buffer, originalName?: string): Promise<ExtractionResult> {
     const startTime = Date.now();
-    await this.acquireOcrSlot();
+    const fileName = originalName || `image_${uuidv4()}.png`;
 
+    // Primary: multimodal vision via OpenRouter (zero-cost, high-accuracy)
+    try {
+      logger.info('[FreeOcrService] Attempting multimodal vision OCR', { fileName });
+      const parsed = await this.imageParser.parseBuffer(buffer, fileName);
+      const text = parsed.text || '';
+
+      if (text.replace(/\s+/g, '').length >= 10) {
+        return {
+          text,
+          confidence: 0.95,
+          pages: 1,
+          method: 'multimodal-vision',
+          processingTimeMs: Date.now() - startTime,
+          warnings: parsed.sanitized.warnings
+        };
+      }
+
+      logger.info('[FreeOcrService] Vision OCR returned insufficient text, falling back to Tesseract', { fileName, textLength: text.length });
+    } catch (visionError: any) {
+      logger.warn('[FreeOcrService] Multimodal vision OCR failed, falling back to Tesseract', {
+        fileName,
+        error: visionError.message
+      });
+    }
+
+    // Fallback: Tesseract OCR
+    await this.acquireOcrSlot();
     try {
       const rawText = await this.performImageOcr(buffer);
       const sanitized = this.sanitizer.sanitize(rawText);
@@ -295,7 +326,7 @@ export class FreeOcrService {
         text: sanitized.text,
         confidence: 0.88,
         pages: 1,
-        method: 'tesseract-ocr',
+        method: 'tesseract-ocr-fallback',
         processingTimeMs: Date.now() - startTime,
         warnings: sanitized.warnings
       };
@@ -353,7 +384,7 @@ export class FreeOcrService {
 
     // 5. Images (png, jpg, jpeg, webp)
     if (['png', 'jpg', 'jpeg', 'webp'].includes(ext) || mimeType.startsWith('image/')) {
-      return this.extractTextFromImage(buffer);
+      return this.extractTextFromImage(buffer, originalName);
     }
 
     throw new Error(`Unsupported file type: .${ext}. Allowed types: pdf, docx, pptx, txt, md, png, jpg, webp.`);
