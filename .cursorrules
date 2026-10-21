@@ -1,0 +1,26 @@
+# Soma Project — AI Agent Rules
+
+## Rule 1: Task Tracking
+Always check and update `/home/ad/Documents/Obsidian Vault/Soma rebuild plan.md` for task tracking before starting work, during development, and upon completion. This file is the single source of truth for all tasks.
+
+## Rule 2: Incremental Changes
+Execute incremental changes one at a time. No massive PRs or single-shot rewrites. Follow a strict "Plan → Implement → Test → Commit → Update Tracker" loop for every single task.
+
+## Rule 3: No Subagents
+Do not spawn, delegate to, or invoke any subagents. All work must be performed directly in the current session.
+
+## Rule 4: Definition of Done (Quality Gates)
+No task is complete until ALL of the following are verified:
+1. **Tests:** Dedicated test files (characterization or unit tests) are written/updated and pass (`pnpm test`).
+2. **Typechecking:** `pnpm run typecheck` (i.e., `tsc --noEmit`) passes without errors.
+3. **Build:** `pnpm run build` succeeds without errors.
+4. **Secret Scan:** No hardcoded secrets (API keys, DB URIs, Supabase keys, tokens) exist in the diff or source files. Secrets must live exclusively in `.env` files which are gitignored.
+
+## Rule 5: No Hardcoded Secrets
+Never commit hardcoded secrets. All sensitive values (API keys, database URIs, tokens, passwords) must be read from environment variables via `process.env`. The `.env` file is gitignored and must never be committed.
+
+## Project Structure
+- **Backend:** `/home/ad/Documents/Soma---Study-partner-main/backend/` (Express + TypeScript)
+- **Frontend:** `/home/ad/Documents/Soma---Study-partner-main/frontend/` (Vite + React + TypeScript)
+- **Backend scripts:** `build`, `test`, `typecheck`, `dev`, `lint`
+- **Tracker:** `/home/ad/Documents/Obsidian Vault/Soma rebuild plan.md`
