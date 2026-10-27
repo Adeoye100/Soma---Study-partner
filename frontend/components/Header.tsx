@@ -22,7 +22,7 @@ const Header: React.FC<HeaderProps> = ({ user, onLogout, onOpenProfileSettings }
       <div className="container mx-auto px-3 sm:px-4 md:px-8 py-3 sm:py-4 flex justify-between items-center">
         <div className="flex items-center gap-2 sm:gap-3 min-w-0">
           <BookOpen className="h-6 w-6 sm:h-8 sm:w-8 text-primary animated-book flex-shrink-0" />
-          <h1 className="text-lg sm:text-xl md:text-2xl font-bold animated-gradient-text truncate">
+          <h1 className="font-brand text-lg sm:text-xl md:text-2xl font-bold animated-gradient-text truncate">
             Somma
           </h1>
         </div>

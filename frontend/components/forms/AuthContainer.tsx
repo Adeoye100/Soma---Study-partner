@@ -62,7 +62,7 @@ const AuthContainer: React.FC = () => {
         <div className="hidden md:flex flex-col p-6 md:p-8">
           <div className="flex items-center gap-3 mb-4">
             <BookOpen className="h-8 sm:h-10 w-8 sm:w-10 text-primary animated-book" />
-            <h1 className="text-3xl sm:text-4xl font-bold animated-gradient-text">
+            <h1 className="font-brand text-3xl sm:text-4xl font-bold animated-gradient-text">
               Somma
             </h1>
           </div>

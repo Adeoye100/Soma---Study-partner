@@ -84,8 +84,12 @@ export default {
         'glow-danger': "0 0 20px rgba(239, 68, 68, 0.3)",
       },
       fontFamily: {
-        sans: ['Geist', 'system-ui', '-apple-system', 'sans-serif'],
-        mono: ['"Geist Mono"', 'monospace'],
+        sans: ['Poppins', 'system-ui', '-apple-system', 'sans-serif'],
+        heading: ['"ITC Garamond Std"', 'ITCGaramond', 'Georgia', 'serif'],
+        serif: ['"ITC Garamond Std"', 'ITCGaramond', 'Georgia', 'serif'],
+        brand: ['Sora', 'sans-serif'],
+        logo: ['Sora', 'sans-serif'],
+        mono: ['"Geist Mono Variable"', '"Geist Mono"', 'monospace'],
       },
       transitionDuration: {
         '150': '150ms',
