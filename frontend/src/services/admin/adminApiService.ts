@@ -133,12 +133,15 @@ export async function submitFeedback(data: {
   page_url?: string;
 }) {
   const { data: { session } } = await supabase.auth.getSession();
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json'
+  };
+  if (session?.access_token) {
+    headers['Authorization'] = `Bearer ${session.access_token}`;
+  }
   const res = await fetch(`${AdminApiService['baseUrl']}/api/feedback`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${session?.access_token}`
-    },
+    headers,
     body: JSON.stringify(data)
   });
   if (!res.ok) throw new Error('Submission failed');

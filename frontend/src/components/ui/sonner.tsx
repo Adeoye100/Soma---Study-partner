@@ -6,10 +6,17 @@ import {
   TriangleAlertIcon,
 } from "lucide-react"
 import { Toaster as Sonner, type ToasterProps } from "sonner"
+import { useTheme } from "../ThemeProvider"
 
 const Toaster = ({ ...props }: ToasterProps) => {
-  const isDark = document.documentElement.classList.contains("dark")
-  const theme = isDark ? "dark" : "light"
+  let theme: "dark" | "light" = "dark"
+  try {
+    const { resolved } = useTheme()
+    theme = resolved
+  } catch {
+    const isDark = typeof document !== "undefined" && document.documentElement.classList.contains("dark")
+    theme = isDark ? "dark" : "light"
+  }
 
   return (
     <Sonner

@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyledWrapper } from './ProfileCard.styles';
-import { GithubIcon, LinkedinIcon, MailIcon } from './icons';
+import { Mail } from 'lucide-react';
+import { GithubIcon, LinkedinIcon } from '@/components/brand-icons';
 import GlassCard from './GlassCard';
 
 const ProfileCard = () => {
@@ -36,7 +37,7 @@ const ProfileCard = () => {
             <span />
             <span />
             <a href="mailto:adeoyeopeyemi951@gmail.com">
-              <MailIcon className="svg" />
+              <Mail className="svg" />
             </a>
             <div className="text">Email</div>
           </li>

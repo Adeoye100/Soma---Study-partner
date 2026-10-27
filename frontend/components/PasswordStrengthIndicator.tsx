@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckCircleIcon, XCircleIcon } from './icons';
+import { CheckCircle2, XCircle } from 'lucide-react';
 
 export interface PasswordValidationState {
   length: boolean;
@@ -24,19 +24,21 @@ const PasswordStrengthIndicator: React.FC<PasswordStrengthIndicatorProps> = ({ v
 
   return (
     <div className="mt-4 space-y-1 animate-fade-in">
-      <p className="text-sm font-medium text-slate-600 dark:text-slate-400 transition-colors duration-300">Password requirements:</p>
+      <p className="text-sm font-medium text-muted-foreground transition-colors duration-200">
+        Password requirements:
+      </p>
       <ul className="space-y-1 text-sm">
         {criteria.map((criterion, index) => (
           <li
             key={index}
-            className={`flex items-center transition-colors duration-300 ${
-              criterion.met ? 'text-green-600 dark:text-green-400' : 'text-slate-500 dark:text-slate-400'
+            className={`flex items-center transition-colors duration-200 ${
+              criterion.met ? 'text-success' : 'text-muted-foreground'
             }`}
           >
             {criterion.met ? (
-              <CheckCircleIcon className="h-4 w-4 mr-2 flex-shrink-0" />
+              <CheckCircle2 className="h-4 w-4 mr-2 flex-shrink-0" />
             ) : (
-              <XCircleIcon className="h-4 w-4 mr-2 flex-shrink-0" />
+              <XCircle className="h-4 w-4 mr-2 flex-shrink-0" />
             )}
             <span>{criterion.text}</span>
           </li>

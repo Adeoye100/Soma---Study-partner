@@ -84,7 +84,16 @@ export default {
         'glow-danger': "0 0 20px rgba(239, 68, 68, 0.3)",
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['Inter Variable', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
+      },
+      transitionDuration: {
+        '150': '150ms',
+        '200': '200ms',
+        '300': '300ms',
+      },
+      transitionTimingFunction: {
+        'ui': 'cubic-bezier(0.23, 1, 0.32, 1)',
+        'ui-inout': 'cubic-bezier(0.4, 0, 0.2, 1)',
       },
       keyframes: {
         "accordion-down": {

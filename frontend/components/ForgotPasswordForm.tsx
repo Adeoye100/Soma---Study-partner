@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Button } from '@/components/ui/button';
 import { authService } from '../services/authService';
 
 interface ForgotPasswordFormProps {
@@ -12,7 +13,7 @@ const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({ onBackToLogin }
   const [isError, setIsError] = useState<boolean>(false);
 
   const handlePasswordReset = async (e: React.FormEvent) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setMessage('Please enter a valid email address.');
@@ -21,7 +22,7 @@ const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({ onBackToLogin }
     }
 
     setLoading(true);
-    setMessage(''); // Clear previous messages
+    setMessage('');
     setIsError(false);
 
     try {
@@ -47,20 +48,31 @@ const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({ onBackToLogin }
 
   return (
     <div className="animate-fade-in">
-      <h2 className="text-2xl font-bold text-center text-slate-800 dark:text-slate-100 mb-2 transition-colors duration-300">Forgot Password?</h2>
-      <p className="text-center text-slate-500 dark:text-slate-400 mb-6 transition-colors duration-300">
+      <h2 className="text-2xl font-bold text-center text-foreground mb-2 transition-colors duration-200">
+        Forgot Password?
+      </h2>
+      <p className="text-center text-muted-foreground mb-6 transition-colors duration-200 text-sm">
         Enter your email to receive a reset link.
       </p>
 
       {message && (
-        <div className={`px-4 py-2 rounded-lg text-sm text-center mb-4 transition-colors duration-300 ${isError ? 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300' : 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300'}`} role="alert">
+        <div
+          className={`px-4 py-2 rounded-lg text-sm text-center mb-4 transition-colors duration-200 ${
+            isError
+              ? 'bg-destructive/15 text-destructive border border-destructive/20'
+              : 'bg-success/15 text-success border border-success/20'
+          }`}
+          role="alert"
+        >
           {message}
         </div>
       )}
 
       <form onSubmit={handlePasswordReset} className="space-y-6">
         <div>
-          <label htmlFor="reset-email" className="block text-sm font-medium text-slate-600 dark:text-slate-400 transition-colors duration-300">Email address</label>
+          <label htmlFor="reset-email" className="block text-sm font-medium text-muted-foreground transition-colors duration-200">
+            Email address
+          </label>
           <input
             id="reset-email"
             type="email"
@@ -68,20 +80,31 @@ const ForgotPasswordForm: React.FC<ForgotPasswordFormProps> = ({ onBackToLogin }
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             disabled={loading}
-            className="mt-1 block h-10 w-full rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 py-2 px-3 text-base focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm transition-colors duration-300"
+            className="mt-1 block h-10 w-full rounded-md border border-input bg-card text-foreground py-2 px-3 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary disabled:opacity-50 transition-colors duration-200"
+            placeholder="Enter your email"
           />
         </div>
         <div>
-          <button type="submit" disabled={loading} className="w-full flex justify-center items-center h-10 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:bg-slate-400 dark:disabled:bg-slate-600 transition-colors duration-300">
-            {loading ? 'Sending...' : 'Send Reset Link'}
-          </button>
+          <Button
+            type="submit"
+            disabled={loading}
+            loading={loading}
+            className="w-full"
+          >
+            Send reset link
+          </Button>
         </div>
       </form>
 
       <div className="mt-6 text-center">
-        <button onClick={onBackToLogin} className="font-semibold text-sm text-primary-600 hover:text-primary-500 transition-colors duration-300">
-          &larr; Back to Login
-        </button>
+        <Button
+          variant="link"
+          onClick={onBackToLogin}
+          className="font-semibold text-sm"
+          type="button"
+        >
+          &larr; Back to login
+        </Button>
       </div>
     </div>
   );

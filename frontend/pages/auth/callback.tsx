@@ -77,19 +77,10 @@ const AuthCallback = (): JSX.Element => {
   }, [navigate]);
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor: '#0f172a', color: '#f8fafc' }}>
-      <div role="status" aria-live="polite" style={{ textAlign: 'center' }}>
-        <div style={{ 
-          width: '40px', 
-          height: '40px', 
-          border: '3px solid #3b82f6', 
-          borderTopColor: 'transparent', 
-          borderRadius: '50%', 
-          animation: 'spin 1s linear infinite',
-          margin: '0 auto 16px'
-        }} />
-        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
-        <p>Authenticating, please wait...</p>
+    <div className="flex justify-center items-center h-screen bg-background text-foreground">
+      <div role="status" aria-live="polite" className="text-center">
+        <div className="w-10 h-10 border-[3px] border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+        <p className="text-muted-foreground text-sm">Authenticating, please wait...</p>
       </div>
     </div>
   );

@@ -1,5 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Eye, EyeOff } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { resetPassword } from '../services/supabase';
 import PasswordStrengthIndicator, { PasswordValidationState } from './PasswordStrengthIndicator';
 
@@ -44,7 +46,6 @@ const ResetPasswordForm: React.FC = () => {
     setMessage('');
     setIsError(false);
 
-    // Validate password
     const validation = validatePassword(newPassword);
     if (!validation.isValid) {
       setMessage(validation.error || 'Invalid password');
@@ -52,7 +53,6 @@ const ResetPasswordForm: React.FC = () => {
       return;
     }
 
-    // Check if passwords match
     if (newPassword !== confirmPassword) {
       setMessage('Passwords do not match');
       setIsError(true);
@@ -70,7 +70,6 @@ const ResetPasswordForm: React.FC = () => {
         setNewPassword('');
         setConfirmPassword('');
 
-        // Redirect to app after 2 seconds
         setTimeout(() => {
           navigate('/app');
         }, 2000);
@@ -87,24 +86,26 @@ const ResetPasswordForm: React.FC = () => {
     }
   };
 
+  const inputBaseClasses = "block w-full h-11 rounded-lg border border-input bg-card text-foreground px-4 py-2 placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200";
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 via-slate-50 to-primary-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 px-4 py-12 transition-colors duration-300">
-      <div className="max-w-md w-full bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 animate-fade-in transition-colors duration-300">
+    <div className="min-h-screen flex items-center justify-center bg-background px-4 py-12 transition-colors duration-200">
+      <div className="max-w-md w-full bg-card border border-border rounded-2xl shadow-xl p-8 animate-fade-in transition-colors duration-200">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-100 mb-2 transition-colors duration-300">
+          <h2 className="text-3xl font-bold text-foreground mb-2 transition-colors duration-200">
             Reset Your Password
           </h2>
-          <p className="text-slate-500 dark:text-slate-400 transition-colors duration-300">
+          <p className="text-muted-foreground transition-colors duration-200 text-sm">
             Enter your new password below
           </p>
         </div>
 
         {message && (
           <div
-            className={`px-4 py-3 rounded-lg text-sm text-center mb-6 transition-colors duration-300 ${
+            className={`px-4 py-3 rounded-lg text-sm text-center mb-6 transition-colors duration-200 ${
               isError
-                ? 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800'
-                : 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-800'
+                ? 'bg-destructive/15 text-destructive border border-destructive/20'
+                : 'bg-success/15 text-success border border-success/20'
             }`}
             role="alert"
           >
@@ -116,7 +117,7 @@ const ResetPasswordForm: React.FC = () => {
           <div>
             <label
               htmlFor="new-password"
-              className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2 transition-colors duration-300"
+              className="block text-sm font-medium text-muted-foreground mb-2 transition-colors duration-200"
             >
               New Password
             </label>
@@ -128,24 +129,20 @@ const ResetPasswordForm: React.FC = () => {
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 disabled={loading}
-                className="block w-full h-11 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 px-4 py-2 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300"
+                className={`${inputBaseClasses} pr-10`}
                 placeholder="Enter new password"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors duration-300"
-                tabIndex={-1}
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary rounded-sm transition-colors duration-200"
+                aria-label={showPassword ? "Hide password" : "Show password"}
+                disabled={loading}
               >
                 {showPassword ? (
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
-                  </svg>
+                  <EyeOff className="size-5" aria-hidden="true" />
                 ) : (
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                  </svg>
+                  <Eye className="size-5" aria-hidden="true" />
                 )}
               </button>
             </div>
@@ -155,7 +152,7 @@ const ResetPasswordForm: React.FC = () => {
           <div>
             <label
               htmlFor="confirm-password"
-              className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2 transition-colors duration-300"
+              className="block text-sm font-medium text-muted-foreground mb-2 transition-colors duration-200"
             >
               Confirm New Password
             </label>
@@ -167,60 +164,49 @@ const ResetPasswordForm: React.FC = () => {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 disabled={loading}
-                className="block w-full h-11 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 px-4 py-2 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300"
+                className={`${inputBaseClasses} pr-10`}
                 placeholder="Confirm new password"
               />
               <button
                 type="button"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors duration-300"
-                tabIndex={-1}
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary rounded-sm transition-colors duration-200"
+                aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+                disabled={loading}
               >
                 {showConfirmPassword ? (
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
-                  </svg>
+                  <EyeOff className="size-5" aria-hidden="true" />
                 ) : (
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                  </svg>
+                  <Eye className="size-5" aria-hidden="true" />
                 )}
               </button>
             </div>
             {confirmPassword && newPassword !== confirmPassword && (
-              <p className="mt-2 text-sm text-red-600 dark:text-red-400 transition-colors duration-300">
+              <p className="mt-2 text-sm text-destructive transition-colors duration-200">
                 Passwords do not match
               </p>
             )}
           </div>
 
-          <button
+          <Button
             type="submit"
             disabled={loading || !newPassword || !confirmPassword || newPassword !== confirmPassword}
-            className="w-full h-11 px-4 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-lg shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-primary-600 transition-all duration-200"
+            loading={loading}
+            className="w-full h-11 text-base font-semibold"
           >
-            {loading ? (
-              <span className="flex items-center justify-center">
-                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Resetting Password...
-              </span>
-            ) : (
-              'Reset Password'
-            )}
-          </button>
+            Reset password
+          </Button>
         </form>
 
         <div className="mt-6 text-center">
-          <button
+          <Button
+            variant="link"
             onClick={() => navigate('/login')}
-            className="text-sm font-medium text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 transition-colors duration-300"
+            className="text-sm font-medium"
+            type="button"
           >
-            &larr; Back to Login
-          </button>
+            &larr; Back to login
+          </Button>
         </div>
       </div>
     </div>

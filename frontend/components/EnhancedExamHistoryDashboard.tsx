@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { ExamResult } from '../types';
 import {
-  BookOpenIcon,
-  ChartBarIcon,
-  CogIcon,
-  XCircleIcon,
-  CalendarIcon,
-  TrophyIcon,
-  ClockIcon,
-  FireIcon,
-  TrendingUpIcon,
-  TargetIcon
-} from './icons';
+  BookOpen,
+  BarChart2,
+  Settings,
+  XCircle,
+  Calendar,
+  Trophy,
+  Clock,
+  Flame,
+  TrendingUp,
+  Target
+} from 'lucide-react';
 import GearAnimation from './GearAnimation';
 import TypewriterLoader from './TypewriterLoader';
 import WeeklyPerformanceAnalysis from './WeeklyPerformanceAnalysis';
@@ -154,20 +154,20 @@ const EnhancedExamHistoryDashboard: React.FC<EnhancedExamHistoryDashboardProps> 
         </div>
         <button
           onClick={onStartNewExam}
-          className="bg-primary-600 hover:bg-primary-500 text-white font-semibold px-6 py-3 rounded-lg transition-colors flex items-center gap-2"
+          className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-6 py-3 rounded-lg transition-colors flex items-center gap-2"
         >
-          <BookOpenIcon className="h-5 w-5" />
+          <BookOpen className="h-5 w-5" />
           Start New Exam
         </button>
       </div>
 
       {/* Tab Navigation */}
-      <div className="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-1 transition-colors duration-300">
+      <div className="bg-card rounded-lg shadow-lg p-1 transition-colors duration-200">
         <div className="flex flex-wrap">
           {[
-            { id: 'overview', label: 'Overview', icon: TrophyIcon },
-            { id: 'analytics', label: 'Analytics', icon: ChartBarIcon },
-            { id: 'history', label: 'History', icon: CalendarIcon }
+            { id: 'overview', label: 'Overview', icon: Trophy },
+            { id: 'analytics', label: 'Analytics', icon: BarChart2 },
+            { id: 'history', label: 'History', icon: Calendar }
           ].map(tab => {
             const Icon = tab.icon;
             return (
@@ -176,8 +176,8 @@ const EnhancedExamHistoryDashboard: React.FC<EnhancedExamHistoryDashboardProps> 
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`flex items-center gap-2 px-4 py-3 rounded-md font-medium transition-all ${
                   activeTab === tab.id
-                    ? 'bg-primary-600 text-white shadow-md'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700'
+                    ? 'bg-primary text-primary-foreground shadow-md'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'
                 }`}
               >
                 <Icon className="h-5 w-5" />
@@ -194,42 +194,42 @@ const EnhancedExamHistoryDashboard: React.FC<EnhancedExamHistoryDashboardProps> 
           {/* Statistics Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <StatCard
-              icon={<TrophyIcon className="h-6 w-6" />}
+              icon={<Trophy className="h-6 w-6" />}
               title="Total Exams"
               value={statistics.totalExams}
               subtitle="Completed"
               color="blue"
             />
             <StatCard
-              icon={<ChartBarIcon className="h-6 w-6" />}
+              icon={<BarChart2 className="h-6 w-6" />}
               title="Average Score"
               value={`${statistics.averageScore}%`}
               subtitle={statistics.averageScore >= 80 ? "Excellent!" : statistics.averageScore >= 70 ? "Good" : "Keep trying"}
               color={statistics.averageScore >= 80 ? "green" : statistics.averageScore >= 70 ? "yellow" : "red"}
             />
             <StatCard
-              icon={<ClockIcon className="h-6 w-6" />}
+              icon={<Clock className="h-6 w-6" />}
               title="Time Spent"
               value={`${statistics.totalTimeSpent}m`}
               subtitle="Total minutes"
               color="purple"
             />
             <StatCard
-              icon={<FireIcon className="h-6 w-6" />}
+              icon={<Flame className="h-6 w-6" />}
               title="Best Score"
               value={`${statistics.bestScore}%`}
               subtitle="Personal record"
               color="orange"
             />
             <StatCard
-              icon={<CalendarIcon className="h-6 w-6" />}
+              icon={<Calendar className="h-6 w-6" />}
               title="Current Streak"
               value={statistics.currentStreak}
               subtitle={statistics.currentStreak === 1 ? "day" : "days"}
               color="red"
             />
             <StatCard
-              icon={<CogIcon className="h-6 w-6" />}
+              icon={<Settings className="h-6 w-6" />}
               title="Improvement"
               value={`${statistics.improvementRate > 0 ? '+' : ''}${statistics.improvementRate}%`}
               subtitle={statistics.improvementRate > 0 ? "Getting better!" : "Keep practicing"}
@@ -246,31 +246,31 @@ const EnhancedExamHistoryDashboard: React.FC<EnhancedExamHistoryDashboardProps> 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <button
                 onClick={() => setActiveTab('analytics')}
-                className="flex flex-col items-center gap-3 p-4 rounded-lg border-2 border-dashed border-slate-300 dark:border-slate-600 hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all"
+                className="flex flex-col items-center gap-3 p-4 rounded-lg border-2 border-dashed border-border hover:border-primary hover:bg-primary/10 transition-all"
               >
-                <ChartBarIcon className="h-8 w-8 text-primary-600" />
-                <span className="text-sm font-medium text-slate-700 dark:text-slate-300 transition-colors duration-300">View Analytics</span>
+                <BarChart2 className="h-8 w-8 text-primary" />
+                <span className="text-sm font-medium text-foreground transition-colors duration-200">View Analytics</span>
               </button>
               <button
                 onClick={() => setActiveTab('history')}
-                className="flex flex-col items-center gap-3 p-4 rounded-lg border-2 border-dashed border-slate-300 dark:border-slate-600 hover:border-green-500 hover:bg-green-50 dark:hover:bg-green-900/20 transition-all"
+                className="flex flex-col items-center gap-3 p-4 rounded-lg border-2 border-dashed border-border hover:border-success hover:bg-success/10 transition-all"
               >
-                <BookOpenIcon className="h-8 w-8 text-green-600" />
-                <span className="text-sm font-medium text-slate-700 dark:text-slate-300 transition-colors duration-300">Exam History</span>
+                <BookOpen className="h-8 w-8 text-success" />
+                <span className="text-sm font-medium text-foreground transition-colors duration-200">Exam History</span>
               </button>
               <button
                 onClick={onStartNewExam}
-                className="flex flex-col items-center gap-3 p-4 rounded-lg border-2 border-dashed border-slate-300 dark:border-slate-600 hover:border-orange-500 hover:bg-orange-50 dark:hover:bg-orange-900/20 transition-all"
+                className="flex flex-col items-center gap-3 p-4 rounded-lg border-2 border-dashed border-border hover:border-warning hover:bg-warning/10 transition-all"
               >
-                <BookOpenIcon className="h-8 w-8 text-orange-600" />
-                <span className="text-sm font-medium text-slate-700 dark:text-slate-300 transition-colors duration-300">New Exam</span>
+                <BookOpen className="h-8 w-8 text-warning" />
+                <span className="text-sm font-medium text-foreground transition-colors duration-200">New Exam</span>
               </button>
               <button
                 onClick={onClearHistory}
-                className="flex flex-col items-center gap-3 p-4 rounded-lg border-2 border-dashed border-slate-300 dark:border-slate-600 hover:border-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all"
+                className="flex flex-col items-center gap-3 p-4 rounded-lg border-2 border-dashed border-border hover:border-destructive hover:bg-destructive/10 transition-all"
               >
-                <XCircleIcon className="h-8 w-8 text-red-600" />
-                <span className="text-sm font-medium text-slate-700 dark:text-slate-300 transition-colors duration-300">Clear Data</span>
+                <XCircle className="h-8 w-8 text-destructive" />
+                <span className="text-sm font-medium text-foreground transition-colors duration-200">Clear Data</span>
               </button>
             </div>
           </div>
@@ -280,16 +280,16 @@ const EnhancedExamHistoryDashboard: React.FC<EnhancedExamHistoryDashboardProps> 
       {activeTab === 'analytics' && (
         <div className="space-y-6">
           {/* Animated Analysis Header */}
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-lg transition-colors duration-300">
+          <div className="bg-card p-6 rounded-lg shadow-lg transition-colors duration-200">
             <div className="flex items-center gap-4 mb-4">
               <div className="w-16 h-16 flex items-center justify-center">
                 <TypewriterLoader />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-slate-700 dark:text-slate-300 transition-colors duration-300">
+                <h3 className="text-xl font-bold text-foreground transition-colors duration-200">
                   Performance Analysis
                 </h3>
-                <p className="text-slate-600 dark:text-slate-400 transition-colors duration-300">
+                <p className="text-muted-foreground transition-colors duration-200">
                   Advanced insights into your learning progress
                 </p>
               </div>
@@ -306,15 +306,15 @@ const EnhancedExamHistoryDashboard: React.FC<EnhancedExamHistoryDashboardProps> 
       {activeTab === 'history' && (
         <div className="space-y-6">
           <div className="flex justify-center items-center mb-4">
-            <h3 className="text-xl font-bold text-slate-700 dark:text-slate-300 mr-auto transition-colors duration-300">
+            <h3 className="text-xl font-bold text-foreground mr-auto transition-colors duration-200">
               Detailed Exam History
             </h3>
             <button
               onClick={onClearHistory}
-              className="flex items-center gap-1 text-sm font-medium text-red-600 hover:text-red-500 dark:text-red-500 dark:hover:text-red-400 transition-colors"
+              className="flex items-center gap-1 text-sm font-medium text-destructive hover:opacity-90 transition-opacity"
               title="Clear all history"
             >
-              <XCircleIcon className="h-4 w-4" />
+              <XCircle className="h-4 w-4" />
               <span>Clear History</span>
             </button>
           </div>

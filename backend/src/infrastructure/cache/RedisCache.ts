@@ -1,6 +1,6 @@
 import Redis from 'ioredis';
 import { config } from '@/config';
-import winston from 'winston';
+import { logger } from '@/shared/utils/logger';
 
 export interface CacheOptions {
   ttl?: number; // Time to live in seconds
@@ -16,7 +16,7 @@ export class RedisCache {
 
   constructor() {
     if (!config.redisEnabled) {
-      winston.info('Redis disabled via REDIS_ENABLED=false, cache using memory store');
+      logger.info('Redis disabled via REDIS_ENABLED=false, cache using memory store');
       // Create a dummy client that will never connect
       this.client = new Redis({ lazyConnect: true, host: '127.0.0.1', port: 1, maxRetriesPerRequest: 0 });
       setInterval(() => this.cleanupMemoryFallback(), 60000);
@@ -45,20 +45,20 @@ export class RedisCache {
 
     this.client.on('connect', () => {
       this.isConnected = true;
-      winston.info('Redis cache connected');
+      logger.info('Redis cache connected');
     });
 
     this.client.on('error', (err) => {
       this.isConnected = false;
       if (!this.redisErrorLogged) {
         this.redisErrorLogged = true;
-        winston.warn('Redis cache unavailable, using memory fallback');
+        logger.warn('Redis cache unavailable, using memory fallback');
       }
     });
 
     this.client.on('ready', () => {
       this.isConnected = true;
-      winston.info('Redis cache ready');
+      logger.info('Redis cache ready');
     });
 
     this.client.on('close', () => {
@@ -95,7 +95,7 @@ export class RedisCache {
       }
       return null;
     } catch (error) {
-      if (this.isConnected) winston.error('Cache get error:', error);
+      if (this.isConnected) logger.error('Cache get error:', error);
       return null;
     }
   }
@@ -117,7 +117,7 @@ export class RedisCache {
         });
       }
     } catch (error) {
-      if (this.isConnected) winston.error('Cache set error:', error);
+      if (this.isConnected) logger.error('Cache set error:', error);
     }
   }
 
@@ -132,7 +132,7 @@ export class RedisCache {
         this.memoryFallback.delete(key);
       }
     } catch (error) {
-      if (this.isConnected) winston.error('Cache delete error:', error);
+      if (this.isConnected) logger.error('Cache delete error:', error);
     }
   }
 
@@ -148,7 +148,7 @@ export class RedisCache {
       const record = this.memoryFallback.get(key);
       return !!(record && record.expiry > Date.now());
     } catch (error) {
-      if (this.isConnected) winston.error('Cache exists error:', error);
+      if (this.isConnected) logger.error('Cache exists error:', error);
       return false;
     }
   }
@@ -167,7 +167,7 @@ export class RedisCache {
         return (record && record.expiry > Date.now()) ? JSON.parse(record.value) : null;
       });
     } catch (error) {
-      if (this.isConnected) winston.error('Cache mget error:', error);
+      if (this.isConnected) logger.error('Cache mget error:', error);
       return keys.map(() => null);
     }
   }
@@ -196,7 +196,7 @@ export class RedisCache {
         });
       }
     } catch (error) {
-      if (this.isConnected) winston.error('Cache mset error:', error);
+      if (this.isConnected) logger.error('Cache mset error:', error);
     }
   }
 
@@ -210,7 +210,7 @@ export class RedisCache {
       }
       this.memoryFallback.clear();
     } catch (error) {
-      if (this.isConnected) winston.error('Cache clear error:', error);
+      if (this.isConnected) logger.error('Cache clear error:', error);
     }
   }
 
@@ -230,7 +230,7 @@ export class RedisCache {
         return record && record.expiry > now && regex.test(key);
       });
     } catch (error) {
-      if (this.isConnected) winston.error('Cache keys error:', error);
+      if (this.isConnected) logger.error('Cache keys error:', error);
       return [];
     }
   }
@@ -252,7 +252,7 @@ export class RedisCache {
       });
       return newVal;
     } catch (error) {
-      if (this.isConnected) winston.error('Cache increment error:', error);
+      if (this.isConnected) logger.error('Cache increment error:', error);
       return 0;
     }
   }
@@ -271,7 +271,7 @@ export class RedisCache {
         }
       }
     } catch (error) {
-      if (this.isConnected) winston.error('Cache expire error:', error);
+      if (this.isConnected) logger.error('Cache expire error:', error);
     }
   }
 
@@ -289,7 +289,7 @@ export class RedisCache {
       }
       return -1;
     } catch (error) {
-      if (this.isConnected) winston.error('Cache ttl error:', error);
+      if (this.isConnected) logger.error('Cache ttl error:', error);
       return -1;
     }
   }
@@ -301,9 +301,9 @@ export class RedisCache {
     try {
       this.isConnected = false;
       await this.client.quit();
-      winston.info('Redis cache connection closed');
+      logger.info('Redis cache connection closed');
     } catch (error) {
-      winston.error('Error closing Redis connection:', error);
+      logger.error('Error closing Redis connection:', error);
     }
   }
 

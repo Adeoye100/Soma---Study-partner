@@ -25,14 +25,14 @@ const EmailField: React.FC<EmailFieldProps> = ({
   error,
   autoComplete = "email"
 }) => {
-  const baseClasses = "mt-1 block h-9 sm:h-10 w-full rounded-md border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 py-2 px-3 text-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300";
-  const errorClasses = error ? "border-red-300 dark:border-red-600 focus:border-red-500 focus:ring-red-500" : "";
+  const baseClasses = "mt-1 block h-9 sm:h-10 w-full rounded-md border border-input bg-card text-foreground py-2 px-3 text-sm placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200";
+  const errorClasses = error ? "border-destructive focus:border-destructive focus:ring-destructive" : "";
 
   return (
     <div>
-      <label htmlFor={id} className="block text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400 transition-colors duration-300">
+      <label htmlFor={id} className="block text-xs sm:text-sm font-medium text-muted-foreground transition-colors duration-200">
         Email address
-        {required && <span className="text-red-500 ml-1">*</span>}
+        {required && <span className="text-destructive ml-1" aria-hidden="true">*</span>}
       </label>
       <input
         id={id}
@@ -46,9 +46,11 @@ const EmailField: React.FC<EmailFieldProps> = ({
         disabled={disabled}
         placeholder={placeholder}
         className={`${baseClasses} ${errorClasses}`}
+        aria-invalid={error ? 'true' : undefined}
+        aria-describedby={error ? `${id}-error` : undefined}
       />
       {error && (
-        <p className="mt-1 text-xs text-red-600 dark:text-red-400 transition-colors duration-300">
+        <p id={`${id}-error`} className="mt-1 text-xs text-destructive transition-colors duration-200">
           {error}
         </p>
       )}

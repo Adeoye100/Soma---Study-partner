@@ -31,10 +31,6 @@ export const authMiddleware = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    // DEBUG: Remove after confirming fix
-    console.log('[Auth] headers received:', Object.keys(req.headers));
-    console.log('[Auth] authorization:', req.headers.authorization ? 'present' : 'MISSING');
-
     // Get token from header
     const authHeader = req.headers.authorization;
     
@@ -60,13 +56,13 @@ export const authMiddleware = async (
     }
 
     // Verify token using Supabase service
-    const { user } = await authService.verifyToken(token);
+    const user = await authService.verifyToken(token);
 
     // Attach user information to request
     req.user = {
       id: user.id,
       email: user.email,
-      role: user.role || 'student'
+      role: user.role ?? 'student',
     };
 
     // Add request ID for tracking
@@ -115,12 +111,12 @@ export const optionalAuthMiddleware = async (
       return next();
     }
 
-    const { user } = await authService.verifyToken(token);
+    const user = await authService.verifyToken(token);
 
     req.user = {
       id: user.id,
       email: user.email,
-      role: user.role || 'student'
+      role: user.role ?? 'student',
     };
 
     req.headers['x-user-id'] = user.id;

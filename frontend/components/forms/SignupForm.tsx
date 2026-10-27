@@ -1,14 +1,13 @@
 import React, { useState, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { supabase } from '../../services/supabase';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 import { authService } from '../../services/authService';
 import EmailField from './EmailField';
 import PasswordField from './PasswordField';
 import { Avatar, AvatarImage, AvatarFallback } from '../Avatar';
 import PasswordStrengthIndicator, { PasswordValidationState } from '../PasswordStrengthIndicator';
 import { validateEmail, validatePassword, validateUsername, validateGender, calculatePasswordStrength, formatAuthError, validateRedirect } from '../../utils/authValidation';
-import { SparklesIcon } from '../icons';
-import { useSearchParams } from 'react-router-dom';
+import { Sparkles } from 'lucide-react';
 
 interface SignupFormProps {
   onToggleForm: () => void;
@@ -45,7 +44,6 @@ const SignupForm: React.FC<SignupFormProps> = ({ onToggleForm }) => {
 
   const handleInputChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData(prev => ({ ...prev, [field]: e.target.value }));
-    // Clear field-specific error when user starts typing
     if (errors[field as keyof typeof errors]) {
       setErrors(prev => ({ ...prev, [field]: undefined }));
     }
@@ -159,14 +157,16 @@ const SignupForm: React.FC<SignupFormProps> = ({ onToggleForm }) => {
 
   const avatarUrl = `https://api.dicebear.com/8.x/${formData.gender === 'other' ? 'micah' : (formData.gender === 'male' ? 'pixel-art' : 'avataaars')}/svg?seed=${formData.username || 'default'}`;
 
+  const inputBaseClasses = "mt-1 block h-9 sm:h-10 w-full rounded-md border border-input bg-card text-foreground py-2 px-3 text-sm placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200";
+
   if (signupSuccess) {
     return (
       <div className="text-center">
-        <h2 className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-100 mb-2 transition-colors duration-300">
+        <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2 transition-colors duration-200">
           Check your inbox!
         </h2>
-        <p className="text-slate-500 dark:text-slate-400 transition-colors duration-300">
-          We've sent a confirmation link to <strong>{formData.email}</strong>. Please click the link to complete your registration.
+        <p className="text-muted-foreground transition-colors duration-200 text-sm">
+          We've sent a confirmation link to <strong className="text-foreground">{formData.email}</strong>. Please click the link to complete your registration.
         </p>
       </div>
     );
@@ -175,10 +175,10 @@ const SignupForm: React.FC<SignupFormProps> = ({ onToggleForm }) => {
   return (
     <div>
       <div className="text-center mb-6">
-        <h2 className="text-xl sm:text-2xl font-bold text-slate-800 dark:text-slate-100 mb-2 transition-colors duration-300">
+        <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2 transition-colors duration-200">
           Create Your Account
         </h2>
-        <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 transition-colors duration-300">
+        <p className="text-sm sm:text-base text-muted-foreground transition-colors duration-200">
           Sign up to get started.
         </p>
       </div>
@@ -191,15 +191,18 @@ const SignupForm: React.FC<SignupFormProps> = ({ onToggleForm }) => {
       </div>
 
       {errors.general && (
-        <div className="bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 px-4 py-2 rounded-lg text-sm text-center mb-4 transition-colors duration-300" role="alert">
+        <div
+          className="bg-destructive/15 text-destructive border border-destructive/20 px-4 py-2 rounded-lg text-sm text-center mb-4 transition-colors duration-200"
+          role="alert"
+        >
           {errors.general}
         </div>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
         <div>
-          <label htmlFor="username" className="block text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400 transition-colors duration-300">
-            Username <span className="text-red-500">*</span>
+          <label htmlFor="username" className="block text-xs sm:text-sm font-medium text-muted-foreground transition-colors duration-200">
+            Username <span className="text-destructive">*</span>
           </label>
           <input
             id="username"
@@ -211,21 +214,21 @@ const SignupForm: React.FC<SignupFormProps> = ({ onToggleForm }) => {
             onChange={handleInputChange('username')}
             onBlur={handleInputBlur('username')}
             disabled={loading}
-            className={`mt-1 block h-9 sm:h-10 w-full rounded-md border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 py-2 px-3 text-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300 ${
-              errors.username ? 'border-red-300 dark:border-red-600 focus:border-red-500 focus:ring-red-500' : ''
+            className={`${inputBaseClasses} ${
+              errors.username ? 'border-destructive focus:border-destructive focus:ring-destructive' : ''
             }`}
             placeholder="Enter your username"
           />
           {errors.username && (
-            <p className="mt-1 text-xs text-red-600 dark:text-red-400 transition-colors duration-300">
+            <p className="mt-1 text-xs text-destructive transition-colors duration-200">
               {errors.username}
             </p>
           )}
         </div>
 
         <div>
-          <label htmlFor="gender" className="block text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400 transition-colors duration-300">
-            Gender <span className="text-red-500">*</span>
+          <label htmlFor="gender" className="block text-xs sm:text-sm font-medium text-muted-foreground transition-colors duration-200">
+            Gender <span className="text-destructive">*</span>
           </label>
           <select
             id="gender"
@@ -235,8 +238,8 @@ const SignupForm: React.FC<SignupFormProps> = ({ onToggleForm }) => {
             onChange={handleInputChange('gender')}
             onBlur={handleInputBlur('gender')}
             disabled={loading}
-            className={`mt-1 block h-9 sm:h-10 w-full rounded-md border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 py-2 px-3 text-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300 ${
-              errors.gender ? 'border-red-300 dark:border-red-600 focus:border-red-500 focus:ring-red-500' : ''
+            className={`${inputBaseClasses} ${
+              errors.gender ? 'border-destructive focus:border-destructive focus:ring-destructive' : ''
             }`}
           >
             <option value="male">Male</option>
@@ -244,7 +247,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onToggleForm }) => {
             <option value="other">Other</option>
           </select>
           {errors.gender && (
-            <p className="mt-1 text-xs text-red-600 dark:text-red-400 transition-colors duration-300">
+            <p className="mt-1 text-xs text-destructive transition-colors duration-200">
               {errors.gender}
             </p>
           )}
@@ -279,8 +282,8 @@ const SignupForm: React.FC<SignupFormProps> = ({ onToggleForm }) => {
         )}
 
         <div>
-          <label htmlFor="confirm-password" className="block text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400 transition-colors duration-300">
-            Confirm Password <span className="text-red-500">*</span>
+          <label htmlFor="confirm-password" className="block text-xs sm:text-sm font-medium text-muted-foreground transition-colors duration-200">
+            Confirm Password <span className="text-destructive">*</span>
           </label>
           <input
             id="confirm-password"
@@ -292,48 +295,44 @@ const SignupForm: React.FC<SignupFormProps> = ({ onToggleForm }) => {
             onChange={handleInputChange('confirmPassword')}
             onBlur={handleInputBlur('confirmPassword')}
             disabled={loading}
-            className={`mt-1 block h-9 sm:h-10 w-full rounded-md border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 py-2 px-3 text-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-300 ${
-              errors.confirmPassword ? 'border-red-300 dark:border-red-600 focus:border-red-500 focus:ring-red-500' : ''
+            className={`${inputBaseClasses} ${
+              errors.confirmPassword ? 'border-destructive focus:border-destructive focus:ring-destructive' : ''
             }`}
             placeholder="Confirm your password"
           />
           {errors.confirmPassword && (
-            <p className="mt-1 text-xs text-red-600 dark:text-red-400 transition-colors duration-300">
+            <p className="mt-1 text-xs text-destructive transition-colors duration-200">
               {errors.confirmPassword}
             </p>
           )}
         </div>
 
-        <button 
-          type="submit" 
+        <Button
+          type="submit"
           disabled={!isButtonActive}
-          className="w-full flex items-center justify-center gap-2 h-9 sm:h-10 rounded-md bg-primary-600 px-4 text-sm sm:text-base font-semibold text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 disabled:bg-slate-400 disabled:cursor-not-allowed dark:disabled:bg-slate-600 transition-colors duration-300"
+          loading={loading}
+          className="w-full h-10 font-semibold"
         >
-          {loading ? (
-            'Processing...'
-          ) : (
-            <>
-              <SparklesIcon className="h-4 w-4 sm:h-5 sm:w-5" />
-              <span>Sign Up</span>
-            </>
-          )}
-        </button>
+          <Sparkles className="size-4" aria-hidden="true" />
+          <span>Sign up</span>
+        </Button>
       </form>
 
-      <p className="mt-6 text-center text-xs sm:text-sm text-slate-500 dark:text-slate-400 transition-colors duration-300">
+      <p className="mt-6 text-center text-xs sm:text-sm text-muted-foreground transition-colors duration-200">
         Already have an account?{' '}
         <button 
+          type="button"
           onClick={onToggleForm}
-          className="font-semibold text-primary-600 hover:text-primary-500 disabled:opacity-50 transition-colors duration-300"
+          className="font-semibold text-primary hover:text-primary/90 disabled:opacity-50 transition-colors duration-200"
           disabled={loading}
         >
           Log in
         </button>
       </p>
 
-      <div className="mt-4 text-center text-xs text-slate-500 dark:text-slate-400 transition-colors duration-300">
+      <div className="mt-4 text-center text-xs text-muted-foreground transition-colors duration-200">
         By signing up, you agree to our{' '}
-        <button className="font-semibold text-primary-600 hover:text-primary-500 transition-colors duration-300">
+        <button type="button" className="font-semibold text-primary hover:text-primary/90 transition-colors duration-200">
           Terms & Support
         </button>
       </div>

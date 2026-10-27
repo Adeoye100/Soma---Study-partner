@@ -153,7 +153,7 @@ export const config: Config = {
   
   supabaseUrl: getOptionalEnvVar('SUPABASE_URL', ''),
   supabaseAnonKey: getOptionalEnvVar('SUPABASE_ANON_KEY', ''),
-  supabaseServiceKey: getOptionalEnvVar('SUPABASE_SERVICE_KEY', getOptionalEnvVar('SUPABASE_ANON_KEY', '')),
+  supabaseServiceKey: getOptionalEnvVar('SUPABASE_SERVICE_KEY', ''),
 
   mockExternalApis: getOptionalEnvVarAsBoolean('MOCK_EXTERNAL_APIS', false),
 

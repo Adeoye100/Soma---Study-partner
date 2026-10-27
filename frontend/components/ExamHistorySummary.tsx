@@ -1,6 +1,6 @@
 import React from 'react';
 import { ExamResult } from '../types';
-import { BookOpenIcon, XCircleIcon } from './icons';
+import { BookOpen, XCircle } from 'lucide-react';
 
 interface ExamHistorySummaryProps {
   history: ExamResult[];
@@ -19,10 +19,10 @@ const ExamHistorySummary: React.FC<ExamHistorySummaryProps> = ({ history, onView
         <h3 className="text-lg font-semibold text-center text-slate-700 dark:text-slate-300 transition-colors duration-300">Recent Exam History</h3>
         <button
           onClick={onClearHistory}
-          className="absolute right-0 flex items-center gap-1 text-sm font-medium text-red-600 hover:text-red-500 dark:text-red-500 dark:hover:text-red-400 transition-colors"
+          className="absolute right-0 flex items-center gap-1 text-sm font-medium text-destructive hover:opacity-90 transition-opacity"
           title="Clear all history"
         >
-          <XCircleIcon className="h-4 w-4" />
+          <XCircle className="h-4 w-4" />
           <span>Clear</span>
         </button>
       </div>
@@ -31,11 +31,11 @@ const ExamHistorySummary: React.FC<ExamHistorySummaryProps> = ({ history, onView
           <button
             key={index}
             onClick={() => onViewResult(result)}
-            className="w-full text-left p-4 rounded-lg bg-white dark:bg-slate-800 shadow-md hover:shadow-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500"
+            className="w-full text-left p-4 rounded-lg bg-card text-card-foreground shadow-xs hover:shadow-md hover:bg-accent/50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-ring"
           >
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-3">
-                <BookOpenIcon className="h-6 w-6 text-primary-500" />
+                <BookOpen className="h-6 w-6 text-primary" />
                 <div>
                   <p className="font-bold text-slate-800 dark:text-slate-100 transition-colors duration-300">
                     Exam taken on {new Date(result.date).toLocaleDateString()}

@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => {
           "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://accounts.google.com https://oauth2.googleapis.com https://www.googleapis.com",
           "frame-src 'self' https://accounts.google.com https://oauth2.googleapis.com",
           "img-src 'self' data: blob: https://*.supabase.co https://lh3.googleusercontent.com https://api.dicebear.com",
-          "font-src 'self' https://fonts.gstatic.com",
+          "font-src 'self'",
           "object-src 'none'",
           "frame-ancestors 'none'",
           "upgrade-insecure-requests"
@@ -26,7 +26,7 @@ export default defineConfig(({ mode }) => {
           "connect-src 'self' ws://localhost:* http://localhost:* https://*.supabase.co wss://*.supabase.co https://accounts.google.com https://oauth2.googleapis.com https://www.googleapis.com",
           "frame-src 'self' https://accounts.google.com https://oauth2.googleapis.com",
           "img-src 'self' data: blob: https://*.supabase.co https://lh3.googleusercontent.com https://api.dicebear.com",
-          "font-src 'self' https://fonts.gstatic.com",
+          "font-src 'self'",
           "object-src 'none'",
           "frame-ancestors 'none'"
         ].join('; ');
