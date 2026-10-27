@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { BookOpen, ArrowRight, X } from 'lucide-react';
+import { BookOpen, ArrowRight, X, Sparkles, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ThemeToggle from '../ThemeToggle';
 
@@ -32,68 +32,200 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onScrollToSection 
 
   return (
     <>
-      <section className="py-20 sm:py-28 border-t border-border bg-muted/20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
-          <div className="rounded-2xl border border-border bg-card p-8 sm:p-14">
-            <div className="space-y-6 max-w-[680px] mx-auto">
-              <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-foreground [text-wrap:balance]">
+      {/* MongoDB START TODAY Mega CTA Banner */}
+      <section className="py-24 border-t border-border bg-background relative overflow-hidden">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.3]"
+          aria-hidden="true"
+          style={{
+            backgroundImage:
+              'radial-gradient(circle at 1px 1px, hsl(var(--foreground) / 0.08) 1px, transparent 0)',
+            backgroundSize: '28px 28px',
+          }}
+        />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="rounded-3xl border border-border/80 bg-card p-8 sm:p-14 lg:p-16 shadow-xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="max-w-3xl mx-auto text-center space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-primary/10 text-primary border border-primary/20">
+                <Sparkles className="size-3.5" />
+                <span>START TODAY • ZERO FRICTION</span>
+              </div>
+
+              <h2 className="text-3xl sm:text-5xl font-heading font-bold tracking-tight text-foreground [text-wrap:balance]">
                 Ready for your next exam? Generate your first practice test now.
               </h2>
-              <p className="text-base sm:text-lg text-muted-foreground [text-wrap:pretty]">
+
+              <p className="text-base sm:text-xl text-muted-foreground leading-relaxed [text-wrap:pretty]">
                 Turn tonight's lecture deck into a timed drill before the coffee cools.
               </p>
-              <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+
+              <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3.5">
                 <Button
                   size="lg"
                   onClick={handleSignUp}
-                  className="w-full sm:w-auto px-3 py-2 h-auto min-h-10 text-base font-semibold gap-2"
+                  className="w-full sm:w-auto px-8 py-3.5 h-auto text-base font-semibold gap-2 rounded-xl shadow-md shadow-primary/15"
                 >
                   <span>Start practicing free</span>
                   <ArrowRight className="size-4" aria-hidden="true" />
                 </Button>
+
+                <Button
+                  variant="outline"
+                  size="lg"
+                  onClick={handleLogin}
+                  className="w-full sm:w-auto px-6 py-3.5 h-auto text-base font-semibold rounded-xl"
+                >
+                  Sign In
+                </Button>
               </div>
-              <p className="text-sm text-muted-foreground">
-                No credit card required. Works on desktop, tablet, and phone.
-              </p>
+
+              <div className="pt-2 flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-muted-foreground font-medium">
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle2 className="size-3.5 text-emerald-500" />
+                  No credit card required
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle2 className="size-3.5 text-emerald-500" />
+                  Instant document ingestion
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <CheckCircle2 className="size-3.5 text-emerald-500" />
+                  Works on desktop, tablet, and phone
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <footer className="border-t border-border py-12 px-4 sm:px-6 bg-card text-muted-foreground text-sm">
-        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-2.5">
-            <div className="flex items-center justify-center size-7 rounded-lg bg-primary/10 text-primary">
-              <BookOpen className="size-3.5" aria-hidden="true" />
+      {/* MongoDB Multi-Column Footer */}
+      <footer className="border-t border-border pt-16 pb-12 bg-card text-muted-foreground text-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12 pb-12 border-b border-border">
+            {/* Brand Column */}
+            <div className="col-span-2 space-y-4">
+              <div className="flex items-center gap-2.5">
+                <div className="flex items-center justify-center size-8 rounded-lg bg-primary/10 text-primary">
+                  <BookOpen className="size-4" aria-hidden="true" />
+                </div>
+                <span className="font-brand font-bold text-xl text-foreground">Somma</span>
+              </div>
+              <p className="text-xs text-muted-foreground leading-relaxed max-w-sm">
+                The intelligent study and exam preparation platform built for hard courses. Transforming passive reading into verified active retrieval.
+              </p>
+              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-xs font-mono">
+                <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span>All systems operational</span>
+              </div>
             </div>
-            <span className="font-brand font-semibold text-foreground">Somma</span>
-            <span className="text-xs">© 2026 Somma. Built for hard courses.</span>
+
+            {/* Column 1: Platform */}
+            <div className="space-y-3">
+              <p className="font-heading font-semibold text-foreground text-xs uppercase tracking-wider font-mono">
+                Platform
+              </p>
+              <ul className="space-y-2 text-xs">
+                <li>
+                  <button type="button" onClick={() => onScrollToSection('platform-workloads')} className="hover:text-foreground transition-colors">
+                    Vector Knowledge RAG
+                  </button>
+                </li>
+                <li>
+                  <button type="button" onClick={() => onScrollToSection('platform-workloads')} className="hover:text-foreground transition-colors">
+                    Focus Guard Telemetry
+                  </button>
+                </li>
+                <li>
+                  <button type="button" onClick={() => onScrollToSection('features')} className="hover:text-foreground transition-colors">
+                    Distractor Intelligence
+                  </button>
+                </li>
+                <li>
+                  <button type="button" onClick={() => onScrollToSection('features')} className="hover:text-foreground transition-colors">
+                    Multi-Format Ingestion
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            {/* Column 2: Resources */}
+            <div className="space-y-3">
+              <p className="font-heading font-semibold text-foreground text-xs uppercase tracking-wider font-mono">
+                Resources
+              </p>
+              <ul className="space-y-2 text-xs">
+                <li>
+                  <button type="button" onClick={() => onScrollToSection('how-it-works')} className="hover:text-foreground transition-colors">
+                    How It Works
+                  </button>
+                </li>
+                <li>
+                  <button type="button" onClick={() => onScrollToSection('demo-preview')} className="hover:text-foreground transition-colors">
+                    Interactive Exam Demo
+                  </button>
+                </li>
+                <li>
+                  <button type="button" onClick={() => onScrollToSection('integrations')} className="hover:text-foreground transition-colors">
+                    Integrations
+                  </button>
+                </li>
+                <li>
+                  <button type="button" onClick={() => onScrollToSection('faq')} className="hover:text-foreground transition-colors">
+                    FAQ
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            {/* Column 3: Legal & Account */}
+            <div className="space-y-3">
+              <p className="font-heading font-semibold text-foreground text-xs uppercase tracking-wider font-mono">
+                Account & Legal
+              </p>
+              <ul className="space-y-2 text-xs">
+                <li>
+                  <button type="button" onClick={handleLogin} className="hover:text-foreground transition-colors">
+                    Sign In
+                  </button>
+                </li>
+                <li>
+                  <button type="button" onClick={handleSignUp} className="hover:text-foreground transition-colors">
+                    Start Free
+                  </button>
+                </li>
+                <li>
+                  <button type="button" onClick={() => setLegalModal('privacy')} className="hover:text-foreground transition-colors">
+                    Privacy Policy
+                  </button>
+                </li>
+                <li>
+                  <button type="button" onClick={() => setLegalModal('terms')} className="hover:text-foreground transition-colors">
+                    Terms of Service
+                  </button>
+                </li>
+              </ul>
+            </div>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-5 text-sm">
-            <button type="button" onClick={handleLogin} className="hover:text-foreground transition-colors duration-200 ease-fluid focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary rounded">
-              Log in
-            </button>
-            <button type="button" onClick={handleSignUp} className="hover:text-foreground transition-colors duration-200 ease-fluid focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary rounded">
-              Sign up
-            </button>
-            <button type="button" onClick={() => onScrollToSection('features')} className="hover:text-foreground transition-colors duration-200 ease-fluid focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary rounded">
-              Features
-            </button>
-            <button type="button" onClick={() => onScrollToSection('faq')} className="hover:text-foreground transition-colors duration-200 ease-fluid focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary rounded">
-              FAQ
-            </button>
-            <button type="button" onClick={() => setLegalModal('privacy')} className="hover:text-foreground transition-colors duration-200 ease-fluid focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary rounded">
-              Privacy
-            </button>
-            <button type="button" onClick={() => setLegalModal('terms')} className="hover:text-foreground transition-colors duration-200 ease-fluid focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary rounded">
-              Terms
-            </button>
-            <ThemeToggle />
+          {/* Bottom Bar */}
+          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+            <p>© 2026 Somma Technologies, Inc. All rights reserved. Built for hard courses.</p>
+            <div className="flex items-center gap-4">
+              <button type="button" onClick={() => setLegalModal('privacy')} className="hover:text-foreground transition-colors">
+                Privacy
+              </button>
+              <button type="button" onClick={() => setLegalModal('terms')} className="hover:text-foreground transition-colors">
+                Terms
+              </button>
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </footer>
 
+      {/* Legal Modal */}
       <AnimatePresence>
         {legalModal && (
           <div
@@ -108,11 +240,11 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onScrollToSection 
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.96 }}
               transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="t-modal w-full max-w-lg rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-2xl space-y-4 max-h-[85vh] overflow-y-auto"
+              className="w-full max-w-lg rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-2xl space-y-4 max-h-[85vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between gap-3">
-                <h3 id="footer-legal-title" className="text-lg font-semibold text-foreground">
+                <h3 id="footer-legal-title" className="text-lg font-heading font-semibold text-foreground">
                   {legalModal === 'privacy' ? 'Privacy notice' : 'Terms of service'}
                 </h3>
                 <button
@@ -154,7 +286,7 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onScrollToSection 
               </div>
 
               <div className="pt-2 flex justify-end">
-                <Button size="sm" onClick={() => setLegalModal(null)} className="text-sm font-semibold px-3">
+                <Button size="sm" onClick={() => setLegalModal(null)} className="text-sm font-semibold px-4 rounded-lg">
                   Close
                 </Button>
               </div>

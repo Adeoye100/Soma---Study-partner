@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, HelpCircle } from 'lucide-react';
 
 interface FaqItem {
   question: string;
@@ -44,53 +44,62 @@ export const FaqSection: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="py-20 sm:py-28 max-w-3xl mx-auto px-4 sm:px-6">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-foreground [text-wrap:balance]">
-          Questions before you start
-        </h2>
-        <p className="mt-4 text-base text-muted-foreground [text-wrap:pretty]">
-          Accuracy, formats, privacy, and free access.
-        </p>
-      </div>
+    <section id="faq" className="py-24 border-t border-border bg-muted/10">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <p className="text-xs font-mono font-semibold uppercase tracking-wider text-primary mb-2 flex items-center justify-center gap-1.5">
+            <HelpCircle className="size-3.5" />
+            <span>COMMON QUESTIONS</span>
+          </p>
+          <h2 className="text-3xl sm:text-5xl font-heading font-bold tracking-tight text-foreground [text-wrap:balance]">
+            Questions before you start
+          </h2>
+          <p className="mt-4 text-base sm:text-lg text-muted-foreground [text-wrap:pretty]">
+            Accuracy, formats, privacy, and free access.
+          </p>
+        </div>
 
-      <div className="space-y-3">
-        {FAQS.map((faq, idx) => {
-          const isOpen = openIndex === idx;
-          return (
-            <div key={faq.question} className="rounded-2xl border border-border bg-card overflow-hidden">
-              <button
-                type="button"
-                onClick={() => setOpenIndex((prev) => (prev === idx ? null : idx))}
-                className="w-full px-5 py-4 sm:px-6 sm:py-5 text-left flex items-center justify-between gap-4 font-semibold text-sm sm:text-base text-foreground hover:bg-muted/20 transition-colors duration-200 ease-fluid focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                aria-expanded={isOpen}
+        <div className="space-y-4">
+          {FAQS.map((faq, idx) => {
+            const isOpen = openIndex === idx;
+            return (
+              <div
+                key={faq.question}
+                className="rounded-2xl border border-border bg-card overflow-hidden shadow-xs hover:border-primary/40 transition-colors"
               >
-                <span className="[text-wrap:balance]">{faq.question}</span>
-                <ChevronDown
-                  className={`size-4 shrink-0 text-muted-foreground transition-transform duration-300 ease-fluid ${
-                    isOpen ? 'rotate-180 text-foreground' : ''
-                  }`}
-                  aria-hidden="true"
-                />
-              </button>
+                <button
+                  type="button"
+                  onClick={() => setOpenIndex((prev) => (prev === idx ? null : idx))}
+                  className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-heading font-semibold text-base sm:text-lg text-foreground hover:bg-muted/20 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                  aria-expanded={isOpen}
+                >
+                  <span className="[text-wrap:balance]">{faq.question}</span>
+                  <ChevronDown
+                    className={`size-4 shrink-0 text-muted-foreground transition-transform duration-300 ${
+                      isOpen ? 'rotate-180 text-primary' : ''
+                    }`}
+                    aria-hidden="true"
+                  />
+                </button>
 
-              <AnimatePresence initial={false}>
-                {isOpen && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
-                  >
-                    <div className="px-5 pb-5 sm:px-6 sm:pb-6 text-sm text-muted-foreground leading-relaxed border-t border-border pt-3 [text-wrap:pretty]">
-                      {faq.answer}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          );
-        })}
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
+                    >
+                      <div className="px-6 pb-6 text-sm sm:text-base text-muted-foreground leading-relaxed border-t border-border pt-4 [text-wrap:pretty]">
+                        {faq.answer}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

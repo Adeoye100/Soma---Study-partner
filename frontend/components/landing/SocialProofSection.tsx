@@ -1,5 +1,5 @@
 import React from 'react';
-import { GraduationCap } from 'lucide-react';
+import { GraduationCap, Sparkles } from 'lucide-react';
 
 interface Testimonial {
   name: string;
@@ -51,74 +51,84 @@ const COURSE_PILLS = [
 
 export const SocialProofSection: React.FC = () => {
   return (
-    <section className="py-20 sm:py-28 max-w-5xl mx-auto px-4 sm:px-6">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-16">
-        {[
-          { value: '14,280+', label: 'Questions generated' },
-          { value: '89.4%', label: 'Avg retention after drills' },
-          { value: '340+', label: 'Courses practiced' },
-          { value: '0', label: 'Credit card required' },
-        ].map((stat) => (
-          <div key={stat.label} className="p-5 sm:p-6 rounded-2xl border border-border bg-card text-center">
-            <div className="text-2xl sm:text-3xl font-semibold tracking-tight text-foreground font-mono">
-              {stat.value}
+    <section className="py-24 border-t border-border bg-background">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Metric Impact Cards in MongoDB Grid Layout */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-20">
+          {[
+            { value: '14,280+', label: 'Questions generated' },
+            { value: '89.4%', label: 'Avg retention after drills' },
+            { value: '340+', label: 'Courses practiced' },
+            { value: '0', label: 'Credit card required' },
+          ].map((stat) => (
+            <div key={stat.label} className="p-6 sm:p-8 rounded-3xl border border-border bg-card text-center hover:border-primary/40 hover:shadow-sm transition-all duration-200">
+              <div className="text-3xl sm:text-4xl font-heading font-bold tracking-tight text-foreground font-mono">
+                {stat.value}
+              </div>
+              <div className="mt-2 text-xs sm:text-sm text-muted-foreground font-medium [text-wrap:pretty]">
+                {stat.label}
+              </div>
             </div>
-            <div className="mt-1 text-xs sm:text-sm text-muted-foreground font-medium [text-wrap:pretty]">
-              {stat.label}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <div className="mb-16 text-center">
-        <p className="text-sm text-muted-foreground font-medium mb-4">
-          Students practice with materials from courses like
-        </p>
-        <div className="flex flex-wrap items-center justify-center gap-2.5">
-          {COURSE_PILLS.map((pill) => (
-            <span
-              key={pill}
-              className="px-3.5 py-1.5 rounded-full border border-border bg-card text-xs font-semibold text-foreground/90 hover:border-primary/40 transition-colors duration-200 ease-fluid"
-            >
-              {pill}
-            </span>
           ))}
         </div>
-      </div>
 
-      <div className="max-w-[680px] mx-auto text-center mb-12">
-        <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-foreground [text-wrap:balance]">
-          Results where the grade is on the line
-        </h2>
-        <p className="mt-4 text-base text-muted-foreground [text-wrap:pretty]">
-          Specific outcomes from students who replaced rereading with timed retrieval.
-        </p>
-      </div>
+        {/* MongoDB Style Course / Ecosystem Badge Bar */}
+        <div className="mb-20 text-center max-w-4xl mx-auto">
+          <p className="text-xs font-mono font-semibold uppercase tracking-wider text-muted-foreground mb-5 flex items-center justify-center gap-2">
+            <Sparkles className="size-3.5 text-primary" />
+            <span>Students practice with materials from courses like</span>
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-2.5">
+            {COURSE_PILLS.map((pill) => (
+              <span
+                key={pill}
+                className="px-4 py-2 rounded-xl border border-border bg-card text-xs font-semibold text-foreground/90 hover:border-primary/40 hover:text-primary transition-all duration-200 cursor-default"
+              >
+                {pill}
+              </span>
+            ))}
+          </div>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {TESTIMONIALS.map((t) => (
-          <figure
-            key={t.name}
-            className="rounded-2xl border border-border bg-card p-6 sm:p-8 flex flex-col justify-between gap-6 hover:border-primary/30 transition-colors duration-300 ease-fluid"
-          >
-            <div className="space-y-4">
-              <p className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
-                {t.metric}
-              </p>
-              <blockquote className="text-sm text-foreground/90 leading-relaxed [text-wrap:pretty]">
-                “{t.quote}”
-              </blockquote>
-            </div>
-            <figcaption className="pt-4 border-t border-border">
-              <p className="font-semibold text-sm text-foreground">{t.name}</p>
-              <p className="text-xs text-muted-foreground">{t.major}</p>
-              <p className="text-xs font-medium text-primary mt-1 flex items-center gap-1">
-                <GraduationCap className="size-3.5" aria-hidden="true" />
-                {t.school}
-              </p>
-            </figcaption>
-          </figure>
-        ))}
+        {/* Testimonials Header */}
+        <div className="max-w-3xl mx-auto text-center mb-14">
+          <p className="text-xs font-mono font-semibold uppercase tracking-wider text-primary mb-2">
+            PROVEN STUDENT OUTCOMES
+          </p>
+          <h2 className="text-3xl sm:text-5xl font-heading font-bold tracking-tight text-foreground [text-wrap:balance]">
+            Results where the grade is on the line
+          </h2>
+          <p className="mt-4 text-base sm:text-lg text-muted-foreground [text-wrap:pretty] leading-relaxed">
+            Specific outcomes from students who replaced rereading with timed retrieval.
+          </p>
+        </div>
+
+        {/* Testimonial Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {TESTIMONIALS.map((t) => (
+            <figure
+              key={t.name}
+              className="rounded-3xl border border-border bg-card p-6 sm:p-8 flex flex-col justify-between gap-6 hover:border-primary/40 hover:shadow-md transition-all duration-300"
+            >
+              <div className="space-y-4">
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold font-mono bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
+                  {t.metric}
+                </span>
+                <blockquote className="text-sm text-foreground/90 leading-relaxed [text-wrap:pretty]">
+                  “{t.quote}”
+                </blockquote>
+              </div>
+              <figcaption className="pt-5 border-t border-border">
+                <p className="font-heading font-semibold text-base text-foreground">{t.name}</p>
+                <p className="text-xs text-muted-foreground mt-0.5">{t.major}</p>
+                <p className="text-xs font-medium text-primary mt-1.5 flex items-center gap-1.5">
+                  <GraduationCap className="size-3.5" aria-hidden="true" />
+                  <span>{t.school}</span>
+                </p>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
       </div>
     </section>
   );
