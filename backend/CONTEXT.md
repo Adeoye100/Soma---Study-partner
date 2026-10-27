@@ -48,6 +48,7 @@ A detected proctoring event: `NO_FACE` or `MULTIPLE_FACES`. The frontend also PO
 
 | Seam | Interface file | Adapters | Status |
 |---|---|---|---|
+| AuthAdapter | `src/services/authService.ts` | SupabaseAuthAdapter (prod) · DevInMemoryAuthAdapter (dev/test) | **Active & Wired** (2 adapters) |
 | SomaStore | `src/seams/soma-store.ts` | SupabaseStoreAdapter · InMemoryStoreAdapter | Created, not wired |
 | AI Inference | (to be formalised) | geminiService (prod) · fake (needed) | Hypothetical seam (1 adapter) |
 
