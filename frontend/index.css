@@ -37,12 +37,13 @@
     --sidebar-border: 220 14% 15%;
     --sidebar-ring: 245 100% 68%;
 
-    /* Motion tokens */
+    /* Motion tokens per landing page fluid dynamics */
     --duration-150: 150ms;
     --duration-200: 200ms;
     --duration-300: 300ms;
     --ease-ui: cubic-bezier(0.23, 1, 0.32, 1);
     --ease-ui-inout: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-fluid: cubic-bezier(0.32, 0.72, 0, 1);
   }
 
   .light {
@@ -89,7 +90,7 @@
   }
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Inter Variable', 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Geist', system-ui, -apple-system, sans-serif;
   }
 }
 

@@ -84,7 +84,8 @@ export default {
         'glow-danger': "0 0 20px rgba(239, 68, 68, 0.3)",
       },
       fontFamily: {
-        sans: ['Inter Variable', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['Geist', 'system-ui', '-apple-system', 'sans-serif'],
+        mono: ['"Geist Mono"', 'monospace'],
       },
       transitionDuration: {
         '150': '150ms',
@@ -94,6 +95,7 @@ export default {
       transitionTimingFunction: {
         'ui': 'cubic-bezier(0.23, 1, 0.32, 1)',
         'ui-inout': 'cubic-bezier(0.4, 0, 0.2, 1)',
+        'fluid': 'cubic-bezier(0.32, 0.72, 0, 1)',
       },
       keyframes: {
         "accordion-down": {
