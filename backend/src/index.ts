@@ -47,10 +47,10 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         defaultSrc:  ["'self'"],
-        styleSrc:    ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
-        fontSrc:     ["'self'", 'https://fonts.gstatic.com'],
+        styleSrc:    ["'self'", "'unsafe-inline'"],
+        fontSrc:     ["'self'"],
         scriptSrc:   ["'self'"],
-        imgSrc:      ["'self'", 'data:', 'blob:', 'https://*.supabase.co'],
+        imgSrc:      ["'self'", 'data:', 'blob:', 'https://*.supabase.co', 'https://api.dicebear.com'],
         connectSrc:  ["'self'", 'https://*.supabase.co'],
       },
     },

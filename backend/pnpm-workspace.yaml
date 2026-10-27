@@ -22,9 +22,7 @@ minimumReleaseAgeExclude:
   - handlebars@4.7.10
   - follow-redirects@1.16.1
 overrides:
-  brace-expansion@<1.1.13: '>=1.1.13'
-  brace-expansion@>=2.0.0 <2.0.3: '>=2.0.3'
-  brace-expansion@>=4.0.0 <5.0.5: '>=5.0.5'
+  brace-expansion: ^5.0.12
   flatted@<=3.4.1: '>=3.4.2'
   handlebars@>=4.0.0 <4.7.9: '>=4.7.9'
   handlebars@>=4.0.0 <=4.7.8: '>=4.7.9'
@@ -43,7 +41,7 @@ overrides:
   follow-redirects: '>=1.16.0'
   form-data: '>=4.0.6'
   adm-zip: '>=0.6.0'
-  body-parser: '>=1.20.6'
+  body-parser: '>=2.4.0'
   nodemailer@<7.0.7: '>=7.0.7'
   nodemailer@<=7.0.10: '>=7.0.11'
   nodemailer@<8.0.4: '>=8.0.4'
