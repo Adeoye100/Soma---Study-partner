@@ -62,4 +62,20 @@ export const createServiceLogger = (serviceName: string): winston.Logger => {
 /** Root logger — use this in routes, middleware, and services. */
 export const logger = createServiceLogger('soma-backend');
 
+// Guard: Attach console transport to root winston container so any direct
+// winston.log / winston.info calls never trigger "Attempt to write logs with no transports"
+try {
+  winston.add(
+    new winston.transports.Console({
+      format: winston.format.combine(
+        winston.format.colorize(),
+        winston.format.simple()
+      ),
+      level: process.env.LOG_LEVEL || 'info',
+    })
+  );
+} catch {
+  // Ignore if already initialized
+}
+
 export default logger;

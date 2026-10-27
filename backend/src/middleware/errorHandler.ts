@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import winston from 'winston';
+import { logger } from '@/shared/utils/logger';
 
 interface ApiError extends Error {
   statusCode?: number;
@@ -54,7 +54,7 @@ export const errorHandler = (
   // Log error details
   if (statusCode >= 500) {
     // Server errors - log full stack trace
-    winston.error('Server Error:', {
+    logger.error('Server Error:', {
       error: error,
       request: {
         method: req.method,
@@ -70,7 +70,7 @@ export const errorHandler = (
     });
   } else if (statusCode >= 400) {
     // Client errors - log basic info
-    winston.warn('Client Error:', {
+    logger.warn('Client Error:', {
       error: {
         name: error.name,
         message: error.message,
@@ -266,7 +266,7 @@ const getErrorName = (statusCode: number): string => {
  */
 export const handleUnhandledRejection = (): void => {
   process.on('unhandledRejection', (reason: any, promise: Promise<any>) => {
-    winston.error('Unhandled Rejection:', {
+    logger.error('Unhandled Rejection:', {
       reason: reason?.message || reason,
       stack: reason?.stack,
       promise
@@ -282,7 +282,7 @@ export const handleUnhandledRejection = (): void => {
  */
 export const handleUncaughtException = (): void => {
   process.on('uncaughtException', (error: Error) => {
-    winston.error('Uncaught Exception:', {
+    logger.error('Uncaught Exception:', {
       error: error.message,
       stack: error.stack
     });

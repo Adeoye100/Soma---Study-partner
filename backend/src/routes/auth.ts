@@ -1,8 +1,8 @@
 import { Router, Request, Response } from 'express';
 import { asyncHandler } from '@/middleware/errorHandler';
 import { authService, AuthCredentials, SignupCredentials } from '@/services/authService';
-import { AuthenticationError } from '@/shared/errors';
-import winston from 'winston';
+import { AuthenticationError, ExternalServiceError } from '@/shared/errors';
+import { logger } from '@/shared/utils/logger';
 
 const router = Router();
 
@@ -71,7 +71,16 @@ router.post('/login', asyncHandler(async (req: Request, res: Response) => {
     });
 
   } catch (error) {
-    winston.error('Login route error:', error);
+    logger.error('Login route error:', error);
+
+    if (error instanceof ExternalServiceError) {
+      res.status(503).json({
+        error: 'Service Unavailable',
+        message: 'Authentication service is temporarily unavailable. Downstream identity provider is unreachable.',
+        code: 'AUTH_SERVICE_UNAVAILABLE'
+      });
+      return;
+    }
 
     if (error instanceof AuthenticationError) {
       const status = error.message.includes('Invalid email') || error.details?.code === 'INVALID_EMAIL' ? 400 :
@@ -192,7 +201,16 @@ router.post('/signup', asyncHandler(async (req: Request, res: Response) => {
     });
 
   } catch (error) {
-    winston.error('Signup route error:', error);
+    logger.error('Signup route error:', error);
+
+    if (error instanceof ExternalServiceError) {
+      res.status(503).json({
+        error: 'Service Unavailable',
+        message: 'Registration service is temporarily unavailable. Downstream identity provider is unreachable.',
+        code: 'AUTH_SERVICE_UNAVAILABLE'
+      });
+      return;
+    }
 
     if (error instanceof AuthenticationError) {
       const status = error.message.includes('already in use') ? 409 :
@@ -246,7 +264,16 @@ router.post('/refresh', asyncHandler(async (req: Request, res: Response) => {
     });
 
   } catch (error) {
-    winston.error('Token refresh route error:', error);
+    logger.error('Token refresh route error:', error);
+
+    if (error instanceof ExternalServiceError) {
+      res.status(503).json({
+        error: 'Service Unavailable',
+        message: 'Token refresh service is temporarily unavailable.',
+        code: 'AUTH_SERVICE_UNAVAILABLE'
+      });
+      return;
+    }
 
     if (error instanceof AuthenticationError) {
       res.status(401).json({
@@ -296,7 +323,16 @@ router.get('/me', asyncHandler(async (req: Request, res: Response) => {
     });
 
   } catch (error) {
-    winston.error('Get user route error:', error);
+    logger.error('Get user route error:', error);
+
+    if (error instanceof ExternalServiceError) {
+      res.status(503).json({
+        error: 'Service Unavailable',
+        message: 'User authentication service is temporarily unavailable.',
+        code: 'AUTH_SERVICE_UNAVAILABLE'
+      });
+      return;
+    }
 
     if (error instanceof AuthenticationError) {
       res.status(401).json({
@@ -341,7 +377,7 @@ router.post('/logout', asyncHandler(async (req: Request, res: Response) => {
     });
 
   } catch (error) {
-    winston.error('Logout route error:', error);
+    logger.error('Logout route error:', error);
 
     // Even if logout fails, we should still return success
     // to prevent users from being locked out
@@ -378,7 +414,7 @@ router.post('/forgot-password', asyncHandler(async (req: Request, res: Response)
     });
 
   } catch (error) {
-    winston.error('Forgot password route error:', error);
+    logger.error('Forgot password route error:', error);
 
     // If it's an AuthError from Supabase, still return 200 to prevent email enumeration
     // but log it for debugging
@@ -427,7 +463,7 @@ router.post('/reset-password', asyncHandler(async (req: Request, res: Response) 
     });
 
   } catch (error) {
-    winston.error('Reset password route error:', error);
+    logger.error('Reset password route error:', error);
 
     if (error instanceof AuthenticationError) {
       res.status(401).json({
