@@ -66,8 +66,8 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onScrollToSection 
             <div className="flex items-center justify-center size-7 rounded-lg bg-primary/10 text-primary">
               <BookOpen className="size-3.5" aria-hidden="true" />
             </div>
-            <span className="font-brand font-semibold text-foreground">Soma</span>
-            <span className="text-xs">© 2026 Soma. Built for hard courses.</span>
+            <span className="font-brand font-semibold text-foreground">Somma</span>
+            <span className="text-xs">© 2026 Somma. Built for hard courses.</span>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-5 text-sm">
@@ -141,10 +141,10 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onScrollToSection 
                 ) : (
                   <>
                     <p>
-                      By using Soma you agree to use the platform for personal study and educational practice.
+                      By using Somma you agree to use the platform for personal study and educational practice.
                     </p>
                     <p>
-                      You confirm you have the right to study the documents you upload. Soma supports retention through retrieval practice.
+                      You confirm you have the right to study the documents you upload. Somma supports retention through retrieval practice.
                     </p>
                     <p>
                       Attempts to disrupt service, scrape content, or automate unauthorized requests are not allowed.

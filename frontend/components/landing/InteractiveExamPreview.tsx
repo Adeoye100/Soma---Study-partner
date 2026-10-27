@@ -85,7 +85,7 @@ export const InteractiveExamPreview: React.FC = () => {
 
   useEffect(() => {
     const next = selectedOptionId
-      ? 'Tap another choice to see how Soma explains the trap.'
+      ? 'Tap another choice to see how Somma explains the trap.'
       : 'Pick an answer to see instant rationale grounded in the lecture.';
     if (prevHelper.current && prevHelper.current !== next) {
       swapText(helperRef.current, next);

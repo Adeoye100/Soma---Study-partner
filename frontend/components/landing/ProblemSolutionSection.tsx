@@ -43,7 +43,7 @@ export const ProblemSolutionSection: React.FC = () => {
           <div className="rounded-2xl border border-primary/40 bg-card p-6 sm:p-8 space-y-4">
             <div className="flex items-center gap-2 text-sm font-semibold text-primary">
               <CheckCircle2 className="size-4" aria-hidden="true" />
-              <span>What Soma does instead</span>
+              <span>What Somma does instead</span>
             </div>
             <h3 className="text-xl font-semibold text-foreground [text-wrap:balance]">
               Timed drills built from your notes

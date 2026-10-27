@@ -31,7 +31,7 @@ describe('LandingPage', () => {
       </MemoryRouter>
     );
 
-    expect(screen.getAllByText('Soma').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Somma').length).toBeGreaterThan(0);
     expect(screen.getByText(/Turn 80 slide lecture decks/i)).toBeInTheDocument();
     expect(screen.getByText(/into realistic mock exams in 30 seconds/i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Create your first exam free/i })).toBeInTheDocument();

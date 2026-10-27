@@ -37,7 +37,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToDemo }) => {
           transition={{ duration: 0.6, ease }}
           className="font-brand text-5xl sm:text-6xl lg:text-7xl font-semibold tracking-tight text-foreground [text-wrap:balance]"
         >
-          Soma
+          Somma
         </motion.p>
 
         <motion.h1
@@ -57,7 +57,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToDemo }) => {
           transition={{ duration: 0.7, delay: 0.16, ease }}
           className="mt-6 text-base sm:text-lg text-muted-foreground max-w-[680px] mx-auto leading-relaxed [text-wrap:pretty]"
         >
-          Upload your syllabus, lecture notes, or textbook chapters. Soma extracts core concepts,
+          Upload your syllabus, lecture notes, or textbook chapters. Somma extracts core concepts,
           drafts timed practice drills, and explains exactly why distractor choices fail.
         </motion.p>
 

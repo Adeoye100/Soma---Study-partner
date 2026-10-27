@@ -16,7 +16,7 @@ const TESTIMONIALS: Testimonial[] = [
     school: 'University of Washington',
     metric: '94% on midterm',
     quote:
-      'I stopped spending three hours handwriting flashcards. Soma turned my professor 48 slide deck into a 20 question timed drill in thirty seconds. I scored a 94.',
+      'I stopped spending three hours handwriting flashcards. Somma turned my professor 48 slide deck into a 20 question timed drill in thirty seconds. I scored a 94.',
   },
   {
     name: 'Marcus Vance',

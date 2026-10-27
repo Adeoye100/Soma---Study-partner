@@ -315,9 +315,11 @@
     @apply bg-background text-foreground font-sans antialiased;
     font-family: 'Poppins', system-ui, -apple-system, sans-serif;
   }
-  h1, h2, h3, h4, h5, h6 {
+  h1, h2, h3, h4, h5, h6,
+  .font-heading,
+  [data-heading] {
     font-family: 'ITC Garamond Std', 'ITCGaramond', Georgia, serif;
-    @apply font-heading tracking-tight;
+    letter-spacing: -0.02em;
   }
 }
 

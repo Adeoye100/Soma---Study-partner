@@ -9,14 +9,14 @@ interface FaqItem {
 
 const FAQS: FaqItem[] = [
   {
-    question: 'How does Soma prevent hallucinated or irrelevant questions?',
+    question: 'How does Somma prevent hallucinated or irrelevant questions?',
     answer:
-      'Soma grounds every item in your uploaded documents. It parses definitions, formulas, and mechanisms in your lecture slides. If a concept is not in your coursework, it will not appear as an answer key.',
+      'Somma grounds every item in your uploaded documents. It parses definitions, formulas, and mechanisms in your lecture slides. If a concept is not in your coursework, it will not appear as an answer key.',
   },
   {
     question: 'What document formats are supported?',
     answer:
-      'PDF lecture decks, PowerPoint PPTX files, DOCX notes, plain text, and scanned handwritten pages. Soma uses both text extraction and structure from slide hierarchy.',
+      'PDF lecture decks, PowerPoint PPTX files, DOCX notes, plain text, and scanned handwritten pages. Somma uses both text extraction and structure from slide hierarchy.',
   },
   {
     question: 'Is my uploaded coursework private?',
@@ -29,7 +29,7 @@ const FAQS: FaqItem[] = [
       'You can register and generate practice tests on the free tier with no credit card. Core timers, diagnostics, and rationales are available without payment friction.',
   },
   {
-    question: 'How fast does Soma generate a practice exam?',
+    question: 'How fast does Somma generate a practice exam?',
     answer:
       'A 30 to 60 slide lecture deck typically becomes a formatted 15 to 25 question mock exam with explanations in under thirty seconds.',
   },

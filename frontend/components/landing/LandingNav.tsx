@@ -51,7 +51,7 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onScrollToSection }) => 
               <BookOpen className="size-4" aria-hidden="true" />
             </div>
             <span className="font-brand font-semibold text-base sm:text-lg tracking-tight text-foreground">
-              Soma
+              Somma
             </span>
           </div>
 
