@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { ExamConfig, ExamType, Difficulty, TimeIntensity, Material, Question } from '../types';
 import { generateExam } from '../services/geminiService';
 import { Upload, FileText, XCircle } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import Loader from './Loader';
 import InspirationCard from './InspirationCard';
 import ShaderBackground from './ShaderBackground';
@@ -352,26 +353,26 @@ const SetupScreen: React.FC<SetupScreenProps> = ({ onExamStart }) => {
 
               {/* Exam Configuration Section */}
               <div>
-                <label className="text-base sm:text-lg font-semibold text-slate-700 dark:text-slate-300 mb-4 block transition-colors duration-300">4. Configure Settings</label>
+                <label className="text-base sm:text-lg font-semibold text-foreground mb-4 block transition-colors duration-200">4. Configure Settings</label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                     {/* Exam Type */}
                     <div>
-                        <label htmlFor="type" className="block text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400 transition-colors duration-300">Type</label>
-                        <select id="type" name="type" value={config.type} onChange={handleConfigChange} className="mt-1 block w-full rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 py-2 px-2 sm:px-3 text-xs sm:text-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 transition-colors duration-300">
+                        <label htmlFor="type" className="block text-xs sm:text-sm font-medium text-muted-foreground transition-colors duration-200">Type</label>
+                        <select id="type" name="type" value={config.type} onChange={handleConfigChange} className="mt-1 block w-full rounded-md border border-input bg-background text-foreground py-2 px-2 sm:px-3 text-xs sm:text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-ring transition-colors duration-200">
                             {Object.values(ExamType).map(type => <option key={type}>{type}</option>)}
                         </select>
                     </div>
                     {/* Difficulty */}
                     <div>
-                        <label htmlFor="difficulty" className="block text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400 transition-colors duration-300">Difficulty</label>
-                        <select id="difficulty" name="difficulty" value={config.difficulty} onChange={handleConfigChange} className="mt-1 block w-full rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 py-2 px-2 sm:px-3 text-xs sm:text-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 transition-colors duration-300">
+                        <label htmlFor="difficulty" className="block text-xs sm:text-sm font-medium text-muted-foreground transition-colors duration-200">Difficulty</label>
+                        <select id="difficulty" name="difficulty" value={config.difficulty} onChange={handleConfigChange} className="mt-1 block w-full rounded-md border border-input bg-background text-foreground py-2 px-2 sm:px-3 text-xs sm:text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-ring transition-colors duration-200">
                             {Object.values(Difficulty).map(d => <option key={d}>{d}</option>)}
                         </select>
                     </div>
                     {/* Time Intensity */}
                     <div>
-                        <label htmlFor="intensity" className="block text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400 transition-colors duration-300">Speed</label>
-                        <select id="intensity" name="intensity" value={config.intensity} onChange={handleConfigChange} className="mt-1 block w-full rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 py-2 px-2 sm:px-3 text-xs sm:text-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 transition-colors duration-300">
+                        <label htmlFor="intensity" className="block text-xs sm:text-sm font-medium text-muted-foreground transition-colors duration-200">Speed</label>
+                        <select id="intensity" name="intensity" value={config.intensity} onChange={handleConfigChange} className="mt-1 block w-full rounded-md border border-input bg-background text-foreground py-2 px-2 sm:px-3 text-xs sm:text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-ring transition-colors duration-200">
                             {Object.values(TimeIntensity).map(i => (
                                 <option key={i} value={i}>
                                     {i} ({formatTime(TIME_PER_INTENSITY[i])}/question)
@@ -381,19 +382,19 @@ const SetupScreen: React.FC<SetupScreenProps> = ({ onExamStart }) => {
                     </div>
                      {/* Number of Questions */}
                      <div>
-                        <label htmlFor="numQuestions" className="block text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400 transition-colors duration-300">Questions</label>
-                        <input type="number" id="numQuestions" name="numQuestions" min="1" max="50" value={config.numQuestions} onChange={handleConfigChange} className="mt-1 block w-full rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 py-2 px-2 sm:px-3 text-xs sm:text-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 transition-colors duration-300" />
+                        <label htmlFor="numQuestions" className="block text-xs sm:text-sm font-medium text-muted-foreground transition-colors duration-200">Questions</label>
+                        <input type="number" id="numQuestions" name="numQuestions" min="1" max="50" value={config.numQuestions} onChange={handleConfigChange} className="mt-1 block w-full rounded-md border border-input bg-background text-foreground py-2 px-2 sm:px-3 text-xs sm:text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-ring transition-colors duration-200" />
                     </div>
                 </div>
 
                 {/* Time Calculation Display */}
-                <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg transition-colors duration-300">
-                  <h3 className="text-sm font-semibold text-blue-800 dark:text-blue-300 mb-2 transition-colors duration-300">⏱️ Estimated Exam Time</h3>
+                <div className="mt-6 p-4 bg-primary/5 border border-primary/20 rounded-lg transition-colors duration-200">
+                  <h3 className="text-sm font-semibold text-primary mb-2 transition-colors duration-200">⏱️ Estimated Exam Time</h3>
                   <div className="flex items-center gap-4">
-                    <div className="text-2xl font-bold text-blue-900 dark:text-blue-100 transition-colors duration-300">
+                    <div className="text-2xl font-bold text-foreground transition-colors duration-200">
                       {formattedTime}
                     </div>
-                    <div className="text-sm text-blue-700 dark:text-blue-300 transition-colors duration-300">
+                    <div className="text-sm text-muted-foreground transition-colors duration-200">
                       <div>Speed: {config.intensity}</div>
                       <div>Questions: {config.numQuestions}</div>
                       <div>Time per question: {formatTime(TIME_PER_INTENSITY[config.intensity])}</div>
@@ -404,13 +405,15 @@ const SetupScreen: React.FC<SetupScreenProps> = ({ onExamStart }) => {
 
               {/* Submission Button */}
               <div className="pt-4 flex flex-col sm:flex-row sm:justify-end gap-3">
-                <button
+                <Button
                   type="submit"
+                  size="lg"
                   disabled={isLoading || materials.length === 0}
-                  className="flex items-center justify-center gap-2 w-full sm:w-auto rounded-md bg-primary-600 px-6 py-3 text-sm sm:text-base font-semibold text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 disabled:bg-slate-400 disabled:cursor-not-allowed dark:disabled:bg-slate-600 transition-colors"
+                  loading={isLoading}
+                  className="w-full sm:w-auto font-semibold px-8"
                 >
                   Generate Exam
-                </button>
+                </Button>
               </div>
             </form></div>
           </ShaderBackground>
@@ -419,9 +422,5 @@ const SetupScreen: React.FC<SetupScreenProps> = ({ onExamStart }) => {
     </div>
   );
 };
-
-// In src/pages/Dashboard.tsx or wherever you need it
-import QuickFileUpload from '@/components/QuickFileUpload';
-
 
 export default SetupScreen;

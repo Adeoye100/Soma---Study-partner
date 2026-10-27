@@ -67,24 +67,24 @@ const AvatarUpload: React.FC<AvatarUploadProps> = ({ user, onAvatarUpdate, onClo
 
   return (
     <div className="p-4">
-      <h3 className="text-lg font-semibold text-slate-700 dark:text-slate-300 mb-4 transition-colors duration-300">Upload Custom Avatar</h3>
+      <h3 className="text-lg font-semibold text-foreground mb-4 transition-colors duration-200">Upload Custom Avatar</h3>
       <div className="flex flex-col items-center justify-center">
         {error && (
-          <div className="bg-red-100 dark:bg-red-900/30 border border-red-400 text-red-700 dark:text-red-300 px-4 py-2 rounded-lg text-sm mb-4 w-full transition-colors duration-300" role="alert">
+          <div className="bg-destructive/10 border border-destructive/30 text-destructive px-4 py-2 rounded-lg text-sm mb-4 w-full transition-colors duration-200" role="alert">
             {error}
           </div>
         )}
         <label
           htmlFor="avatar-upload-input"
-          className="cursor-pointer flex flex-col items-center justify-center w-48 h-48 border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-full text-slate-500 dark:text-slate-400 hover:border-primary-500 hover:text-primary-500 transition-colors duration-300"
+          className="cursor-pointer flex flex-col items-center justify-center w-48 h-48 border-2 border-dashed border-border rounded-full text-muted-foreground hover:border-primary hover:text-primary transition-colors duration-200"
         >
           {uploading ? (
             <Spinner size="lg" />
           ) : (
             <>
               <Upload className="h-12 w-12" />
-              <span className="mt-2 text-sm text-center transition-colors duration-300">Click to upload</span>
-              <span className="text-xs text-center transition-colors duration-300">(Max 5MB, JPG/PNG)</span>
+              <span className="mt-2 text-sm text-center transition-colors duration-200">Click to upload</span>
+              <span className="text-xs text-center transition-colors duration-200">(Max 5MB, JPG/PNG)</span>
             </>
           )}
           <input

@@ -13,9 +13,8 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ user, onLogout, onOpenProfileSettings }) => {
   const userName = user.user_metadata?.full_name || user.email || 'Learner';
-  const userGender = user.user_metadata?.gender || 'male';
   const customAvatarUrl = user.user_metadata?.avatar_url;
-  const avatarUrl = customAvatarUrl || `https://api.dicebear.com/8.x/${userGender === 'other' ? 'micah' : (userGender === 'male' ? 'pixel-art' : 'avataaars')}/svg?seed=${userName}`;
+  const avatarUrl = customAvatarUrl || `https://api.dicebear.com/10.x/triangles/svg?seed=${encodeURIComponent(userName)}`;
   const fallbackName = (userName || 'A').slice(0, 2).toUpperCase();
 
   return (
