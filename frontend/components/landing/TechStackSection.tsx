@@ -15,49 +15,49 @@ export const TechStackSection: React.FC = () => {
     {
       name: 'Canvas LMS',
       category: 'Course Portal',
-      description: 'Direct syllabus and slide sync from your university Canvas modules.',
+      description: 'Import syllabi, lecture decks, and reading lists from your Canvas courses.',
       icon: GraduationCap,
     },
     {
       name: 'Blackboard Learn',
       category: 'Course Portal',
-      description: 'One-click import of course announcements, assignments, and slide packages.',
+      description: 'Import announcements and slide packages directly from Blackboard.',
       icon: Layers,
     },
     {
       name: 'Google Drive',
       category: 'Cloud Storage',
-      description: 'Live sync with lecture folders, shared study docs, and textbook chapters.',
+      description: 'Sync lecture folders, shared study guides, and textbook chapters.',
       icon: FolderSync,
     },
     {
       name: 'Notion & Obsidian',
       category: 'Knowledge Base',
-      description: 'Export structured question banks and Markdown rationale summaries directly to your vault.',
+      description: 'Export generated practice questions and summaries directly to your notes.',
       icon: FileCode,
     },
     {
-      name: 'Anki Pro & Quizlet',
+      name: 'Anki & Quizlet',
       category: 'Spaced Flashcards',
-      description: 'Export AI-generated distractor decks with embedded explanations in Anki format.',
+      description: 'Export tricky questions with explanations directly into Anki flashcard decks.',
       icon: Sparkles,
     },
     {
-      name: 'PDF, PPTX & Word',
+      name: 'PDF, Slides & Word',
       category: 'Document Formats',
-      description: 'Native parsing of slides, speaker notes, textbook PDFs, and handwritten notes.',
+      description: 'Read text from PowerPoint slides, textbook PDFs, Word documents, and typed notes.',
       icon: FileText,
     },
     {
-      name: 'Zoom & Transcripts',
+      name: 'Lecture Transcripts',
       category: 'Recorded Lectures',
-      description: 'Ingest raw lecture audio transcripts and convert verbal emphasis into test questions.',
+      description: 'Paste recorded lecture transcripts and create review questions on key spoken points.',
       icon: Share2,
     },
     {
-      name: 'LTI & Custom Webhooks',
-      category: 'Developer API',
-      description: 'Connect Somma mock exam telemetry to custom dashboards and study group workflows.',
+      name: 'Export & APIs',
+      category: 'Study Groups',
+      description: 'Download question banks as JSON or CSV to share with your study group.',
       icon: Workflow,
     },
   ];
@@ -67,13 +67,13 @@ export const TechStackSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <p className="text-xs font-mono font-semibold uppercase tracking-wider text-primary mb-2">
-            ECOSYSTEM COMPATIBILITY
+            INTEGRATIONS
           </p>
           <h2 className="text-3xl sm:text-4xl font-heading font-bold tracking-tight text-foreground">
-            Works seamlessly with your study tech stack
+            Works with your existing study tools
           </h2>
           <p className="mt-3 text-base text-muted-foreground leading-relaxed">
-            Connect Somma directly with your university portal, note taking apps, cloud drives, and spaced repetition tools.
+            Import slides and notes from your university portal, cloud storage, or note-taking apps.
           </p>
         </div>
 

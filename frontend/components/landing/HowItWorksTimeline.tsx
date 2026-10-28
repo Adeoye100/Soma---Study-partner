@@ -75,11 +75,11 @@ export const HowItWorksTimeline: React.FC = () => {
                   <ul className="space-y-3 text-sm text-foreground/90 pt-1">
                     <li className="flex items-center gap-2.5">
                       <CheckCircle2 className="size-4 text-primary shrink-0" aria-hidden="true" />
-                      PDF, DOCX, and PPTX supported
+                      Supports PDF, DOCX, or PPTX files
                     </li>
                     <li className="flex items-center gap-2.5">
                       <CheckCircle2 className="size-4 text-primary shrink-0" aria-hidden="true" />
-                      Definitions, formulas, and relationships detected
+                      Extracts definitions, formulas, and key diagrams
                     </li>
                   </ul>
                 </div>
@@ -97,7 +97,7 @@ export const HowItWorksTimeline: React.FC = () => {
                         <p className="text-xs text-muted-foreground font-mono mt-0.5">3.4 MB · 42 slides</p>
                       </div>
                     </div>
-                    <span className="text-xs font-mono font-semibold text-emerald-500 shrink-0">✓ Processed</span>
+                    <span className="text-xs font-mono font-semibold text-emerald-500 shrink-0">Processed</span>
                   </div>
                   <div className="space-y-2 text-xs">
                     <p className="text-muted-foreground font-semibold">Indexed concepts</p>
@@ -128,12 +128,12 @@ export const HowItWorksTimeline: React.FC = () => {
                   </span>
                   <h3 className="text-2xl sm:text-3xl font-heading font-bold text-foreground">Configure the drill</h3>
                   <p className="text-base text-muted-foreground leading-relaxed [text-wrap:pretty]">
-                    Pick question count from 5 to 50, difficulty, formats, and a timer that matches how your professor paces exams.
+                    Choose question count from 5 to 50, difficulty level, and a timer that matches your exam format.
                   </p>
                   <ul className="space-y-3 text-sm text-foreground/90 pt-1">
                     <li className="flex items-center gap-2.5">
                       <CheckCircle2 className="size-4 text-primary shrink-0" aria-hidden="true" />
-                      Timed pressure such as 90 seconds per question
+                      Timed pacing such as 90 seconds per question
                     </li>
                     <li className="flex items-center gap-2.5">
                       <CheckCircle2 className="size-4 text-primary shrink-0" aria-hidden="true" />
@@ -164,7 +164,7 @@ export const HowItWorksTimeline: React.FC = () => {
                     </div>
                   </div>
                   <div>
-                    <p className="text-xs font-semibold text-foreground mb-2">Difficulty Cadence</p>
+                    <p className="text-xs font-semibold text-foreground mb-2">Difficulty level</p>
                     <div className="grid grid-cols-3 gap-2 text-xs">
                       {['Core review', 'Standard', 'Rigorous'].map((level) => (
                         <button
@@ -199,18 +199,18 @@ export const HowItWorksTimeline: React.FC = () => {
                   <span className="text-[11px] font-mono font-semibold px-2.5 py-1 rounded-md bg-primary/10 text-primary border border-primary/20">
                     STEP 03
                   </span>
-                  <h3 className="text-2xl sm:text-3xl font-heading font-bold text-foreground">Drill, review, master</h3>
+                  <h3 className="text-2xl sm:text-3xl font-heading font-bold text-foreground">Practice and review</h3>
                   <p className="text-base text-muted-foreground leading-relaxed [text-wrap:pretty]">
-                    Finish the timed session. Read diagnostic feedback, study distractor rationales, and export a session summary.
+                    Finish your timed session, review why wrong choices fail, and export a quick study summary.
                   </p>
                   <ul className="space-y-3 text-sm text-foreground/90 pt-1">
                     <li className="flex items-center gap-2.5">
                       <CheckCircle2 className="size-4 text-primary shrink-0" aria-hidden="true" />
-                      Slide citations on every miss
+                      Slide references on every missed item
                     </li>
                     <li className="flex items-center gap-2.5">
                       <CheckCircle2 className="size-4 text-primary shrink-0" aria-hidden="true" />
-                      One click PDF summary export
+                      One-click PDF summary export
                     </li>
                   </ul>
                 </div>

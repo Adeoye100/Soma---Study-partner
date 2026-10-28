@@ -8,31 +8,31 @@ interface LevelUpSectionProps {
 export const LevelUpSection: React.FC<LevelUpSectionProps> = ({ onScrollToSection }) => {
   const cards = [
     {
-      badge: 'Ingestion Hub',
-      title: 'Dense Slide & Syllabus Parser',
+      badge: 'Fast File Parser',
+      title: 'Turn heavy slide decks into study outlines',
       description:
-        'Upload 80+ slide lecture decks, textbook chapters, or handwritten notes. Somma indexes definitions, formulas, and biochemical pathways into a structured concept graph in seconds.',
+        'Upload 80-slide decks, reading lists, or textbook chapters. Somma extracts definitions, formulas, and diagrams so you can practice questions right away.',
       icon: BookOpen,
       actionId: 'how-it-works',
-      actionText: 'Explore ingestion workflow',
+      actionText: 'See how uploads work',
     },
     {
-      badge: 'Active Recall AI',
-      title: 'Distractor & Misconception Engine',
+      badge: 'Practice Drills',
+      title: 'Spot tricky wrong answers before test day',
       description:
-        'Stop memorizing trivial flashcards. Somma crafts realistic exam questions with plausible trap answers, teaching you why common misconceptions fail under exam pressure.',
+        'Real exams test edge cases. Somma writes realistic multiple-choice questions with convincing distractors and explains why each wrong option fails.',
       icon: Brain,
       actionId: 'features',
-      actionText: 'Learn about distractor intelligence',
+      actionText: 'See question generator',
     },
     {
-      badge: 'Focus & Integrity',
-      title: 'Proctor Telemetry & Focus Guard',
+      badge: 'Focus Training',
+      title: 'Practice under timed, closed-book pressure',
       description:
-        'Simulate authentic testing conditions. Track gaze orientation, tab defections, and pacing metrics to build true stamina before test day arrives.',
+        'Taking untimed tests with Google open builds false confidence. Practice with realistic timers and focus checks to build actual stamina for exam day.',
       icon: ShieldCheck,
       actionId: 'demo-preview',
-      actionText: 'Try interactive exam drill',
+      actionText: 'Try the sample question',
     },
   ];
 
@@ -41,13 +41,13 @@ export const LevelUpSection: React.FC<LevelUpSectionProps> = ({ onScrollToSectio
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mb-12">
           <p className="text-xs font-mono font-semibold uppercase tracking-wider text-primary mb-2">
-            ACADEMIC ACCELERATION
+            HOW SOMMA HELPS
           </p>
           <h2 className="text-3xl sm:text-4xl font-heading font-bold tracking-tight text-foreground">
-            Level Up Your Study Workflow
+            Study active recall, not passive highlighting
           </h2>
           <p className="mt-3 text-base text-muted-foreground">
-            Core systems engineered to convert passive reading into scored, exam-ready recall.
+            Three ways Somma prepares you for actual exams instead of just rereading your notes.
           </p>
         </div>
 

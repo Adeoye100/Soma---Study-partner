@@ -58,7 +58,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToDemo }) => {
             <Sparkles className="size-3.5" />
             <span className="font-mono uppercase tracking-wider text-[11px]">SOMMA ATLAS</span>
             <span className="text-muted-foreground/60">•</span>
-            <span>Intelligent Study Platform for Hard Courses</span>
+            <span>Practice exams built from your course materials</span>
             <ArrowRight className="size-3" />
           </motion.div>
 
@@ -88,7 +88,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToDemo }) => {
             transition={{ duration: 0.7, delay: 0.16, ease }}
             className="mt-6 text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed [text-wrap:pretty]"
           >
-            Combine slide parsing, vector knowledge retrieval, distractor intelligence, and exam-grade proctoring in a single intelligent learning platform built for active recall.
+            Upload your syllabus, lecture notes, or slides. Somma extracts the core concepts, writes realistic practice questions, and explains why tricky wrong answers fail.
           </motion.p>
 
           <motion.div
@@ -161,7 +161,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToDemo }) => {
                   }`}
                 >
                   <Cpu className="size-3.5" />
-                  <span>Interactive Exam</span>
+                  <span>Practice Question</span>
                 </button>
                 <button
                   type="button"
@@ -173,7 +173,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToDemo }) => {
                   }`}
                 >
                   <Layers className="size-3.5" />
-                  <span>Vector Grounding</span>
+                  <span>Source Grounding</span>
                 </button>
                 <button
                   type="button"
@@ -185,7 +185,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToDemo }) => {
                   }`}
                 >
                   <ShieldCheck className="size-3.5" />
-                  <span>Proctor Guard</span>
+                  <span>Focus Monitor</span>
                 </button>
               </div>
             </div>
@@ -197,7 +197,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToDemo }) => {
                   <div className="mb-4 flex items-center justify-between text-xs text-muted-foreground">
                     <span className="flex items-center gap-1.5 font-mono">
                       <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
-                      LIVE RETRIEVAL ENGINE ACTIVE
+                      PRACTICE ENGINE ACTIVE
                     </span>
                     <span className="font-mono">Course: Biochemistry 301</span>
                   </div>
@@ -208,31 +208,31 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToDemo }) => {
               {activeStudioTab === 'pipeline' && (
                 <div className="space-y-4 py-2">
                   <div className="flex items-center justify-between text-xs text-muted-foreground pb-2 border-b border-border">
-                    <span className="font-mono text-primary font-semibold">RAG Retrieval Pipeline: Bio301_Glycolysis.pdf</span>
-                    <span className="font-mono">Match confidence: 99.4%</span>
+                    <span className="font-mono text-primary font-semibold">Source Material: Bio301_Glycolysis.pdf</span>
+                    <span className="font-mono">Exact slide reference</span>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="p-4 rounded-xl border border-border bg-background/50 font-mono text-xs space-y-2">
-                      <p className="text-muted-foreground uppercase text-[10px] tracking-wider font-semibold">Extracted Slide Text Chunk #14</p>
+                      <p className="text-muted-foreground uppercase text-[10px] tracking-wider font-semibold">Slide 14 Excerpt</p>
                       <p className="text-foreground/90 leading-relaxed bg-muted/20 p-2.5 rounded border border-border">
                         "Phosphofructokinase-1 (PFK-1) catalyzes the committed rate-limiting step of glycolysis: converting Fructose-6-P to Fructose-1,6-bisphosphate. Allosterically inhibited by ATP."
                       </p>
                       <div className="flex items-center gap-2 text-emerald-500 text-[11px] pt-1">
                         <CheckCircle2 className="size-3.5" />
-                        <span>Semantic Vector Embedding: 1536 dim [0.892, -0.421, 0.771...]</span>
+                        <span>Question generated directly from slide concepts</span>
                       </div>
                     </div>
                     <div className="p-4 rounded-xl border border-border bg-background/50 font-mono text-xs space-y-2">
-                      <p className="text-muted-foreground uppercase text-[10px] tracking-wider font-semibold">Synthesized Distractor Matrix</p>
+                      <p className="text-muted-foreground uppercase text-[10px] tracking-wider font-semibold">How Wrong Answers Were Built</p>
                       <div className="space-y-1.5 text-[11px]">
                         <div className="p-1.5 rounded bg-muted/30 border border-border text-foreground/80">
-                          <span className="text-primary font-bold">Trap A:</span> Hexokinase (Misconception: first step vs committed pacemaker)
+                          <span className="text-primary font-bold">Option A:</span> Hexokinase (Trap: first step, but not the committed rate-limiting step)
                         </div>
                         <div className="p-1.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 font-semibold">
-                          <span className="font-bold">Key B:</span> PFK-1 (Accurate committed irreversible regulatory step)
+                          <span className="font-bold">Correct B:</span> PFK-1 (The committed irreversible regulatory pacemaker)
                         </div>
                         <div className="p-1.5 rounded bg-muted/30 border border-border text-foreground/80">
-                          <span className="text-primary font-bold">Trap C:</span> Pyruvate Kinase (Downstream feedforward target)
+                          <span className="text-primary font-bold">Option C:</span> Pyruvate Kinase (Trap: downstream step, not primary controller)
                         </div>
                       </div>
                     </div>
@@ -245,25 +245,25 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToDemo }) => {
                   <div className="flex items-center justify-between text-xs text-muted-foreground pb-2 border-b border-border">
                     <span className="text-emerald-500 font-semibold flex items-center gap-1.5">
                       <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
-                      Proctor Telemetry Stream: Connected
+                      Focus Monitor: Active
                     </span>
-                    <span>Session ID: #exam-8842-active</span>
+                    <span>Session ID: #practice-8842</span>
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     <div className="p-4 rounded-xl border border-border bg-background/50 space-y-1">
-                      <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Gaze & Attention</p>
+                      <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Screen Attention</p>
                       <p className="text-lg font-bold text-foreground">98.6%</p>
-                      <p className="text-[11px] text-emerald-500">Center alignment verified</p>
+                      <p className="text-[11px] text-emerald-500">Looking at exam</p>
                     </div>
                     <div className="p-4 rounded-xl border border-border bg-background/50 space-y-1">
-                      <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Tab Switch Events</p>
-                      <p className="text-lg font-bold text-foreground">0 Defections</p>
-                      <p className="text-[11px] text-muted-foreground">Fullscreen locked</p>
+                      <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Browser Focus</p>
+                      <p className="text-lg font-bold text-foreground">Locked</p>
+                      <p className="text-[11px] text-emerald-500">0 tab switches</p>
                     </div>
                     <div className="p-4 rounded-xl border border-border bg-background/50 space-y-1">
-                      <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Time Per Question</p>
-                      <p className="text-lg font-bold text-foreground">22.4 sec</p>
-                      <p className="text-[11px] text-primary">Target: &lt; 45 sec pace</p>
+                      <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-semibold">Pacing Speed</p>
+                      <p className="text-lg font-bold text-foreground">42s / question</p>
+                      <p className="text-[11px] text-primary">On target</p>
                     </div>
                   </div>
                 </div>

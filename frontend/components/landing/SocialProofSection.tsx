@@ -93,13 +93,13 @@ export const SocialProofSection: React.FC = () => {
         {/* Testimonials Header */}
         <div className="max-w-3xl mx-auto text-center mb-14">
           <p className="text-xs font-mono font-semibold uppercase tracking-wider text-primary mb-2">
-            PROVEN STUDENT OUTCOMES
+            STUDENT EXPERIENCES
           </p>
           <h2 className="text-3xl sm:text-5xl font-heading font-bold tracking-tight text-foreground [text-wrap:balance]">
-            Results where the grade is on the line
+            How students use Somma for tough classes
           </h2>
           <p className="mt-4 text-base sm:text-lg text-muted-foreground [text-wrap:pretty] leading-relaxed">
-            Specific outcomes from students who replaced rereading with timed retrieval.
+            Feedback from students who switched from rereading slides to timed practice exams.
           </p>
         </div>
 
@@ -115,7 +115,7 @@ export const SocialProofSection: React.FC = () => {
                   {t.metric}
                 </span>
                 <blockquote className="text-sm text-foreground/90 leading-relaxed [text-wrap:pretty]">
-                  “{t.quote}”
+                  "{t.quote}"
                 </blockquote>
               </div>
               <figcaption className="pt-5 border-t border-border">

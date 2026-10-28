@@ -50,7 +50,7 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onScrollToSection 
             <div className="max-w-3xl mx-auto text-center space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-primary/10 text-primary border border-primary/20">
                 <Sparkles className="size-3.5" />
-                <span>START TODAY • ZERO FRICTION</span>
+                <span>START STUDYING TODAY</span>
               </div>
 
               <h2 className="text-3xl sm:text-5xl font-heading font-bold tracking-tight text-foreground [text-wrap:balance]">
@@ -88,11 +88,11 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onScrollToSection 
                 </span>
                 <span className="flex items-center gap-1.5">
                   <CheckCircle2 className="size-3.5 text-emerald-500" />
-                  Instant document ingestion
+                  Fast file upload
                 </span>
                 <span className="flex items-center gap-1.5">
                   <CheckCircle2 className="size-3.5 text-emerald-500" />
-                  Works on desktop, tablet, and phone
+                  Works on desktop, tablet, or phone
                 </span>
               </div>
             </div>
@@ -113,7 +113,7 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onScrollToSection 
                 <span className="font-brand font-bold text-xl text-foreground">Somma</span>
               </div>
               <p className="text-xs text-muted-foreground leading-relaxed max-w-sm">
-                The intelligent study and exam preparation platform built for hard courses. Transforming passive reading into verified active retrieval.
+                The practice exam platform built for hard courses. Convert lecture decks into timed mock tests with slide citations.
               </p>
               <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-xs font-mono">
                 <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -129,22 +129,22 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onScrollToSection 
               <ul className="space-y-2 text-xs">
                 <li>
                   <button type="button" onClick={() => onScrollToSection('platform-workloads')} className="hover:text-foreground transition-colors">
-                    Vector Knowledge RAG
+                    Slide Grounding
                   </button>
                 </li>
                 <li>
                   <button type="button" onClick={() => onScrollToSection('platform-workloads')} className="hover:text-foreground transition-colors">
-                    Focus Guard Telemetry
+                    Focus Monitor
                   </button>
                 </li>
                 <li>
                   <button type="button" onClick={() => onScrollToSection('features')} className="hover:text-foreground transition-colors">
-                    Distractor Intelligence
+                    Wrong-Answer Explanations
                   </button>
                 </li>
                 <li>
                   <button type="button" onClick={() => onScrollToSection('features')} className="hover:text-foreground transition-colors">
-                    Multi-Format Ingestion
+                    File Imports
                   </button>
                 </li>
               </ul>
@@ -163,7 +163,7 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onScrollToSection 
                 </li>
                 <li>
                   <button type="button" onClick={() => onScrollToSection('demo-preview')} className="hover:text-foreground transition-colors">
-                    Interactive Exam Demo
+                    Sample Question
                   </button>
                 </li>
                 <li>

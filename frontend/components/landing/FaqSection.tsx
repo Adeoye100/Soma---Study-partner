@@ -9,34 +9,34 @@ interface FaqItem {
 
 const FAQS: FaqItem[] = [
   {
-    question: 'How does Somma prevent hallucinated or irrelevant questions?',
+    question: 'How does Somma make sure questions match my class materials?',
     answer:
-      'Somma grounds every item in your uploaded documents. It parses definitions, formulas, and mechanisms in your lecture slides. If a concept is not in your coursework, it will not appear as an answer key.',
+      'Somma builds questions directly from the files you upload. It extracts the definitions, formulas, and diagrams from your lecture slides. If a concept is not in your coursework, Somma will not test you on it.',
   },
   {
-    question: 'What document formats are supported?',
+    question: 'What file formats can I upload?',
     answer:
-      'PDF lecture decks, PowerPoint PPTX files, DOCX notes, plain text, and scanned handwritten pages. Somma uses both text extraction and structure from slide hierarchy.',
+      'You can upload PDF slides, PowerPoint PPTX decks, Word documents, text notes, or exported handwritten PDF notes.',
   },
   {
-    question: 'Is my uploaded coursework private?',
+    question: 'Is my coursework private?',
     answer:
-      'Yes. Notes, presentations, and exam history stay inside your authenticated account. Coursework is never shared publicly or sold.',
+      'Yes. Your files and quiz history are saved only inside your personal account. We do not sell your data or share your notes publicly.',
   },
   {
-    question: 'Is there a free tier, and do I need a card?',
+    question: 'Is there a free plan, and do I need a credit card?',
     answer:
-      'You can register and generate practice tests on the free tier with no credit card. Core timers, diagnostics, and rationales are available without payment friction.',
+      'You can sign up and start generating mock exams without entering a credit card. Core features, timed tests, and answer explanations are available for free.',
   },
   {
-    question: 'How fast does Somma generate a practice exam?',
+    question: 'How fast does Somma generate an exam?',
     answer:
-      'A 30 to 60 slide lecture deck typically becomes a formatted 15 to 25 question mock exam with explanations in under thirty seconds.',
+      'A typical 40 to 60 slide lecture deck turns into a timed 15 to 25 question mock exam with full explanations in about thirty seconds.',
   },
   {
-    question: 'Can I track scores and review past sessions?',
+    question: 'Can I review past tests and track my progress?',
     answer:
-      'Yes. Every completed session is saved. You can review pacing, missed distractors, and retention across later attempts.',
+      'Yes. Every completed practice exam is saved in your history so you can see where you improved and which topics to review before test day.',
   },
 ];
 
@@ -55,7 +55,7 @@ export const FaqSection: React.FC = () => {
             Questions before you start
           </h2>
           <p className="mt-4 text-base sm:text-lg text-muted-foreground [text-wrap:pretty]">
-            Accuracy, formats, privacy, and free access.
+            Everything you need to know about question accuracy, supported files, and privacy.
           </p>
         </div>
 

@@ -19,13 +19,13 @@ export const BentoFeatureGrid: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mb-16">
           <p className="text-xs font-mono font-semibold uppercase tracking-wider text-primary mb-2">
-            INTELLIGENT STUDY ARCHITECTURE
+            HOW YOU PREPARE
           </p>
           <h2 className="text-3xl sm:text-5xl font-heading font-bold tracking-tight text-foreground [text-wrap:balance]">
             Built for the way hard courses actually test you
           </h2>
           <p className="mt-4 text-base sm:text-lg text-muted-foreground [text-wrap:pretty] leading-relaxed">
-            Document intake, distractor analysis, timed pressure, and retention signals in one unified study loop.
+            Upload course slides, practice timed questions, learn why wrong answers fail, and review tricky concepts before finals.
           </p>
         </div>
 
