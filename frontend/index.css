@@ -3,6 +3,218 @@
 @tailwind utilities;
 
 @layer base {
+  /* ==========================================================================
+     Typography: Sora (Logo Wordmarks), ITC Garamond Std (Headings), Poppins (Body)
+     ========================================================================== */
+
+  /* Sora - Brand / Logo Wordmark */
+  @font-face {
+    font-family: 'Sora';
+    src: url('/fonts/sora.otf') format('opentype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  /* ITC Garamond Std - Headings / Serif */
+  @font-face {
+    font-family: 'ITC Garamond Std';
+    src: url('/fonts/ITCGaramondStd-Lt.woff2') format('woff2'),
+         url('/fonts/ITCGaramondStd-Lt.woff') format('woff'),
+         url('/fonts/ITCGaramondStd-Lt.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'ITC Garamond Std';
+    src: url('/fonts/ITCGaramondStd-LtIta.woff2') format('woff2'),
+         url('/fonts/ITCGaramondStd-LtIta.woff') format('woff'),
+         url('/fonts/ITCGaramondStd-LtIta.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'ITC Garamond Std';
+    src: url('/fonts/ITCGaramondStd-Bk.woff2') format('woff2'),
+         url('/fonts/ITCGaramondStd-Bk.woff') format('woff'),
+         url('/fonts/ITCGaramondStd-Bk.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'ITC Garamond Std';
+    src: url('/fonts/ITCGaramondStd-BkIta.woff2') format('woff2'),
+         url('/fonts/ITCGaramondStd-BkIta.woff') format('woff'),
+         url('/fonts/ITCGaramondStd-BkIta.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'ITC Garamond Std';
+    src: url('/fonts/ITCGaramondStd-Bd.woff2') format('woff2'),
+         url('/fonts/ITCGaramondStd-Bd.woff') format('woff'),
+         url('/fonts/ITCGaramondStd-Bd.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'ITC Garamond Std';
+    src: url('/fonts/ITCGaramondStd-BdIta.woff2') format('woff2'),
+         url('/fonts/ITCGaramondStd-BdIta.woff') format('woff'),
+         url('/fonts/ITCGaramondStd-BdIta.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'ITC Garamond Std';
+    src: url('/fonts/ITCGaramondStd-Ult.woff2') format('woff2'),
+         url('/fonts/ITCGaramondStd-Ult.woff') format('woff'),
+         url('/fonts/ITCGaramondStd-Ult.ttf') format('truetype');
+    font-weight: 800 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'ITC Garamond Std';
+    src: url('/fonts/ITCGaramondStd-UltIta.woff2') format('woff2'),
+         url('/fonts/ITCGaramondStd-UltIta.woff') format('woff'),
+         url('/fonts/ITCGaramondStd-UltIta.ttf') format('truetype');
+    font-weight: 800 900;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  /* Alias ITCGaramond */
+  @font-face {
+    font-family: 'ITCGaramond';
+    src: url('/fonts/ITCGaramondStd-Bk.woff2') format('woff2'),
+         url('/fonts/ITCGaramondStd-Bk.woff') format('woff'),
+         url('/fonts/ITCGaramondStd-Bk.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'ITCGaramond';
+    src: url('/fonts/ITCGaramondStd-Bd.woff2') format('woff2'),
+         url('/fonts/ITCGaramondStd-Bd.woff') format('woff'),
+         url('/fonts/ITCGaramondStd-Bd.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  /* Poppins - Body / Sans */
+  @font-face {
+    font-family: 'Poppins';
+    src: url('/fonts/Poppins-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Poppins';
+    src: url('/fonts/Poppins-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Poppins';
+    src: url('/fonts/Poppins-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Poppins';
+    src: url('/fonts/Poppins-Italic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Poppins';
+    src: url('/fonts/Poppins-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Poppins';
+    src: url('/fonts/Poppins-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Poppins';
+    src: url('/fonts/Poppins-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Poppins';
+    src: url('/fonts/Poppins-SemiBoldItalic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Poppins';
+    src: url('/fonts/Poppins-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Poppins';
+    src: url('/fonts/Poppins-BoldItalic.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Poppins';
+    src: url('/fonts/Poppins-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Poppins';
+    src: url('/fonts/Poppins-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
   :root {
     --background: 220 20% 4%;
     --foreground: 0 0% 98%;
@@ -37,12 +249,24 @@
     --sidebar-border: 220 14% 15%;
     --sidebar-ring: 245 100% 68%;
 
-    /* Motion tokens */
+    /* Motion tokens per landing page fluid dynamics */
     --duration-150: 150ms;
     --duration-200: 200ms;
     --duration-300: 300ms;
     --ease-ui: cubic-bezier(0.23, 1, 0.32, 1);
     --ease-ui-inout: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-fluid: cubic-bezier(0.32, 0.72, 0, 1);
+
+    /* transitions-dev semantic tokens */
+    --text-swap-dur: 200ms;
+    --text-swap-translate-y: 8px;
+    --text-swap-blur: 2px;
+    --text-swap-ease: ease-out;
+    --modal-open-dur: 250ms;
+    --modal-close-dur: 150ms;
+    --modal-scale: 0.96;
+    --modal-scale-close: 0.96;
+    --modal-ease: cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .light {
@@ -89,7 +313,43 @@
   }
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Inter Variable', 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6,
+  .font-heading,
+  [data-heading] {
+    font-family: 'ITC Garamond Std', 'ITCGaramond', Georgia, serif;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* transitions-dev: text states swap */
+.t-text-swap {
+  display: inline-block;
+  transform: translateY(0);
+  filter: blur(0);
+  opacity: 1;
+  transition:
+    transform var(--text-swap-dur) var(--text-swap-ease),
+    filter var(--text-swap-dur) var(--text-swap-ease),
+    opacity var(--text-swap-dur) var(--text-swap-ease);
+  will-change: transform, filter, opacity;
+}
+.t-text-swap.is-exit {
+  transform: translateY(calc(var(--text-swap-translate-y) * -1));
+  filter: blur(var(--text-swap-blur));
+  opacity: 0;
+}
+.t-text-swap.is-enter-start {
+  transform: translateY(var(--text-swap-translate-y));
+  filter: blur(var(--text-swap-blur));
+  opacity: 0;
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .t-text-swap {
+    transition: none !important;
   }
 }
 

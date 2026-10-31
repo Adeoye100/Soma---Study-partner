@@ -188,9 +188,9 @@ const LoginScreen: React.FC = () => {
         <div className="hidden md:flex flex-col p-6 md:p-8">
           <div className="flex items-center gap-3 mb-4">
             <BookOpen className="h-8 sm:h-10 w-8 sm:w-10 text-primary animated-book" />
-            <h1 className="text-3xl sm:text-4xl font-bold animated-gradient-text">
-                Somma
-              </h1>
+            <h1 className="font-brand text-3xl sm:text-4xl font-bold animated-gradient-text">
+              Somma
+            </h1>
           </div>
           <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg mb-6 transition-colors duration-300">
             Your personalized AI study partner. Generate exams from your course materials and master any subject.
