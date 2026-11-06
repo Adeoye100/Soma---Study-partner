@@ -17,11 +17,11 @@ overrides:
   qs@<6.14.2: '>=6.14.2'
   proxy-addr: '>=2.0.8'
   '@grpc/grpc-js': '>=1.14.5'
-  joi: '>=17.13.5'
+  joi: '>=18.3.2'
   uuid: ^11.1.1
   protobufjs: '>=7.5.5'
   axios: '>=1.15.2'
-  follow-redirects: '>=1.16.0'
+  follow-redirects: '>=1.16.2'
   form-data: '>=4.0.6'
   adm-zip: '>=0.6.0'
   body-parser: '>=2.4.0'
@@ -59,7 +59,7 @@ overrides:
   brace-expansion@>=4.0.0 <5.0.9: ^5.0.9
   browserslist@<=4.28.6: ^4.28.7
   compression@<1.8.2: ^1.8.2
-  follow-redirects@>=1.16.0 <1.16.1: ^1.16.1
+  follow-redirects@>=1.16.0 <=1.16.1: ^1.16.2
   handlebars@>=3.0.0 <=4.7.9: ^4.7.10
   handlebars@>=4.0.0 <=4.7.9: ^4.7.10
   js-yaml@<3.15.0: ^3.15.0
@@ -154,8 +154,8 @@ importers:
         specifier: ^5.10.0
         version: 5.10.1(supports-color@5.5.0)
       joi:
-        specifier: '>=17.13.5'
-        version: 18.3.0
+        specifier: '>=18.3.2'
+        version: 18.3.2
       jsonwebtoken:
         specifier: ^9.0.3
         version: 9.0.3
@@ -2461,8 +2461,8 @@ packages:
   fn.name@1.1.0:
     resolution: {integrity: sha512-GRnmB5gPyJpAhTQdSZTSp9uaPSvl09KoYcMQtsB9rQoOmzs9dH6ffeccH+Z+cv6P68Hu5bC6JjRh4Ah/mHSNRw==}
 
-  follow-redirects@1.16.1:
-    resolution: {integrity: sha512-FNvFGzoMLWmE6Yj9spb/zjd7yiNCHiAW9/Tg9CXrQ8wuu32HtlJOwWO11OJafl5FfY3DxTdQ0vj42zU1kvv5jg==}
+  follow-redirects@1.16.2:
+    resolution: {integrity: sha512-/kVP2U8z596Ia0gwFrwyIeo74ta5aVmSeU1FfAUMAmcEP5EP7zydmag3SLiN64NaRKef3lxsq7i/g7ltJQDGow==}
     engines: {node: '>=4.0'}
     peerDependencies:
       debug: '*'
@@ -2910,8 +2910,8 @@ packages:
       node-notifier:
         optional: true
 
-  joi@18.3.0:
-    resolution: {integrity: sha512-/RwAK4BAfzcdbdFg073tzq4/xhY6Q7lMd5AmjqTL6pu0QFJdEmtswgm8BvgwXvOKuPNYQ8XrdQrrW/gF65LiNw==}
+  joi@18.3.2:
+    resolution: {integrity: sha512-iUivApKYw5GpZmq2Sy6El99j7noo8QSUFZlyQtr3HCkosC/b5wKF6/Y3teiHIlaM8WI38sAT3P+51rB0lhAhJA==}
     engines: {node: '>= 20'}
 
   js-tokens@4.0.0:
@@ -5942,7 +5942,7 @@ snapshots:
 
   axios@1.20.0(debug@4.4.3(supports-color@5.5.0))(supports-color@5.5.0):
     dependencies:
-      follow-redirects: 1.16.1(debug@4.4.3(supports-color@5.5.0))
+      follow-redirects: 1.16.2(debug@4.4.3(supports-color@5.5.0))
       form-data: 4.0.6
       https-proxy-agent: 5.0.1(supports-color@5.5.0)
       proxy-from-env: 2.1.0
@@ -6586,7 +6586,7 @@ snapshots:
 
   fn.name@1.1.0: {}
 
-  follow-redirects@1.16.1(debug@4.4.3(supports-color@5.5.0)):
+  follow-redirects@1.16.2(debug@4.4.3(supports-color@5.5.0)):
     optionalDependencies:
       debug: 4.4.3(supports-color@5.5.0)
 
@@ -7262,7 +7262,7 @@ snapshots:
       - supports-color
       - ts-node
 
-  joi@18.3.0:
+  joi@18.3.2:
     dependencies:
       '@hapi/address': 5.1.1
       '@hapi/formula': 3.0.2
