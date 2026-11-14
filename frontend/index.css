@@ -216,18 +216,35 @@
   }
 
   :root {
-    --background: 220 20% 4%;
-    --foreground: 0 0% 98%;
-    --card: 220 14% 8%;
-    --card-foreground: 0 0% 98%;
-    --popover: 220 14% 8%;
-    --popover-foreground: 0 0% 98%;
+    /* Base surfaces — dark mode */
+    --color-base:        #0D0D0F;   /* page background */
+    --color-surface-1:   #131316;   /* card base */
+    --color-surface-2:   #1A1A1F;   /* elevated card */
+    --color-surface-3:   #222228;   /* input, pill bg */
+    --color-border:      #2A2A32;   /* default border */
+    --color-border-glow: #695CFF40; /* violet border glow (40 = 25% alpha) */
+
+    /* Accent */
+    --color-accent:      #695CFF;   /* primary violet — existing brand token */
+    --color-accent-mute: #695CFF33; /* violet wash for card bg tints */
+
+    /* Text */
+    --color-text-1:      #F2F2F5;   /* headings */
+    --color-text-2:      #9999AA;   /* body, subtext */
+    --color-text-3:      #55555F;   /* muted labels */
+
+    --background: 240 10% 4%;
+    --foreground: 240 10% 96%;
+    --card: 240 10% 7%;
+    --card-foreground: 240 10% 96%;
+    --popover: 240 10% 7%;
+    --popover-foreground: 240 10% 96%;
     --primary: 245 100% 68%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 220 14% 12%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 220 14% 12%;
-    --muted-foreground: 220 10% 60%;
+    --secondary: 240 10% 11%;
+    --secondary-foreground: 240 10% 96%;
+    --muted: 240 10% 11%;
+    --muted-foreground: 240 10% 60%;
     --accent: 245 100% 68%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
@@ -236,23 +253,25 @@
     --success-foreground: 0 0% 100%;
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 100%;
-    --border: 220 14% 15%;
-    --input: 220 14% 15%;
+    --border: 240 10% 18%;
+    --input: 240 10% 18%;
     --ring: 245 100% 68%;
     --radius: 0.75rem;
-    --sidebar-background: 220 14% 6%;
-    --sidebar-foreground: 0 0% 98%;
+    --sidebar-background: 240 10% 6%;
+    --sidebar-foreground: 240 10% 96%;
     --sidebar-primary: 245 100% 68%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 14% 12%;
-    --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 220 14% 15%;
+    --sidebar-accent: 240 10% 11%;
+    --sidebar-accent-foreground: 240 10% 96%;
+    --sidebar-border: 240 10% 18%;
     --sidebar-ring: 245 100% 68%;
 
     /* Motion tokens per landing page fluid dynamics */
     --duration-150: 150ms;
     --duration-200: 200ms;
     --duration-300: 300ms;
+    --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+    --ease-snap: cubic-bezier(0.22, 1, 0.36, 1);
     --ease-ui: cubic-bezier(0.23, 1, 0.32, 1);
     --ease-ui-inout: cubic-bezier(0.4, 0, 0.2, 1);
     --ease-fluid: cubic-bezier(0.32, 0.72, 0, 1);
@@ -269,7 +288,20 @@
     --modal-ease: cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .light {
+  .light,
+  [data-theme="light"] {
+    --color-base:        #FFFFFF;
+    --color-surface-1:   #F7F7FA;
+    --color-surface-2:   #EFEFF4;
+    --color-surface-3:   #E5E5EB;
+    --color-border:      #D8D8E2;
+    --color-border-glow: #695CFF40;
+    --color-accent:      #695CFF;
+    --color-accent-mute: #695CFF1F;
+    --color-text-1:      #0D0D12;
+    --color-text-2:      #4C4C5E;
+    --color-text-3:      #828294;
+
     --background: 0 0% 100%;
     --foreground: 220 20% 10%;
     --card: 0 0% 100%;
@@ -312,14 +344,18 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+    @apply bg-base text-text-1 font-sans antialiased;
+    font-family: 'Geist', system-ui, -apple-system, sans-serif;
   }
   h1, h2, h3, h4, h5, h6,
   .font-heading,
   [data-heading] {
-    font-family: 'ITC Garamond Std', 'ITCGaramond', Georgia, serif;
+    font-family: 'Geist', system-ui, -apple-system, sans-serif;
+    text-wrap: balance;
     letter-spacing: -0.02em;
+  }
+  p {
+    text-wrap: pretty;
   }
 }
 
@@ -388,6 +424,20 @@
   -webkit-text-fill-color: transparent;
   color: transparent;
   animation: gradient-animation 6s ease infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.mask-gradient {
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
 }
 
 @keyframes gradient-animation {

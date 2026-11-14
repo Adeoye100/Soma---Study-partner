@@ -1,57 +1,93 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   FileUp,
   Brain,
   Timer,
-  TrendingUp,
-  CheckCircle2,
-  AlertTriangle,
+  LineChart as LineChartIcon,
+  ShieldCheck,
+  Check,
   BookmarkCheck,
-  Eye,
+  Sparkles,
 } from 'lucide-react';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  ResponsiveContainer,
+  Tooltip,
+} from 'recharts';
+
+const RETENTION_DATA = [
+  { session: 'Session 1', score: 61 },
+  { session: 'Session 2', score: 74 },
+  { session: 'Session 3', score: 89 },
+];
 
 export const BentoFeatureGrid: React.FC = () => {
-  const [activeFormat, setActiveFormat] = useState('PDF');
+  const [activeFileFormat, setActiveFileFormat] = useState('PPTX');
   const [isQuestionFlagged, setIsQuestionFlagged] = useState(false);
+  const [timerSeconds, setTimerSeconds] = useState(72);
+  const [dropProgress, setDropProgress] = useState(100);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimerSeconds((prev) => (prev > 0 ? prev - 1 : 90));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleSimulateDrop = (fmt: string) => {
+    setActiveFileFormat(fmt);
+    setDropProgress(0);
+    setTimeout(() => setDropProgress(45), 200);
+    setTimeout(() => setDropProgress(85), 450);
+    setTimeout(() => setDropProgress(100), 700);
+  };
 
   return (
-    <section id="features" className="py-24 border-t border-border bg-background">
+    <section id="features" className="py-24 sm:py-32 border-t border-border bg-base">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mb-16">
-          <p className="text-xs font-mono font-semibold uppercase tracking-wider text-primary mb-2">
-            HOW YOU PREPARE
-          </p>
-          <h2 className="text-3xl sm:text-5xl font-heading font-bold tracking-tight text-foreground [text-wrap:balance]">
+        {/* Section Header */}
+        <div className="max-w-2xl mb-16 text-left">
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent-mute text-accent text-xs font-semibold px-3 py-1 mb-3">
+            <span>Core Mechanisms</span>
+          </div>
+          <h2 className="text-3xl sm:text-5xl font-bold tracking-display text-text-1 [text-wrap:balance]">
             Built for the way hard courses actually test you
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-muted-foreground [text-wrap:pretty] leading-relaxed">
-            Upload course slides, practice timed questions, learn why wrong answers fail, and review tricky concepts before finals.
+          <p className="mt-4 text-base sm:text-lg text-text-2 [text-wrap:pretty]">
+            Every feature exposes the underlying mechanism of active recall, distractor detection, and exam pacing.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-6">
-          <div className="md:col-span-4 rounded-3xl border border-border bg-card p-6 sm:p-8 flex flex-col justify-between group hover:border-primary/40 hover:shadow-md transition-all duration-300">
-            <div className="space-y-3">
-              <div className="size-11 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* Card 1 — Document Intake (Tall Left) */}
+          <div className="rounded-2xl border border-border bg-surface-1 p-6 flex flex-col justify-between transition-all duration-300 ease-spring hover:scale-[1.02] hover:border-accent/40 active:scale-[0.98] shadow-lg shadow-black/20 md:row-span-2">
+            <div>
+              <div className="size-10 rounded-xl bg-accent/15 text-accent flex items-center justify-center mb-4">
                 <FileUp className="size-5" aria-hidden="true" />
               </div>
-              <h3 className="text-2xl font-heading font-bold text-foreground">Multi format document intake</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed [text-wrap:pretty]">
-                No manual flashcard formatting. Drop your 80 slide PowerPoint, syllabus PDF, or chapter notes and get a question bank.
+              <h3 className="text-xl font-bold text-text-1 mb-2">
+                Document intake
+              </h3>
+              <p className="text-sm text-text-2 leading-relaxed [text-wrap:pretty]">
+                Drop a 50-slide PowerPoint or a scanned lab manual. Soma indexes structure, diagrams, and definitions in one pass.
               </p>
             </div>
 
-            <div className="mt-8 pt-6 border-t border-border">
-              <div className="flex flex-wrap items-center gap-2 mb-4">
-                {['PDF', 'PPTX', 'DOCX', 'Handwritten notes'].map((fmt) => (
+            <div className="mt-8 space-y-4">
+              <div className="flex flex-wrap gap-2">
+                {['PPTX', 'PDF', 'DOCX', 'Scanned Notes'].map((fmt) => (
                   <button
                     key={fmt}
                     type="button"
-                    onClick={() => setActiveFormat(fmt)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all duration-200 border ${
-                      activeFormat === fmt
-                        ? 'bg-primary text-primary-foreground border-primary shadow-xs'
-                        : 'bg-muted/50 text-muted-foreground border-border hover:text-foreground'
+                    onClick={() => handleSimulateDrop(fmt)}
+                    className={`px-2.5 py-1 rounded-lg text-xs font-semibold border transition-all ${
+                      activeFileFormat === fmt
+                        ? 'bg-accent text-white border-accent'
+                        : 'bg-surface-2 text-text-2 border-border hover:text-text-1'
                     }`}
                   >
                     {fmt}
@@ -59,140 +95,191 @@ export const BentoFeatureGrid: React.FC = () => {
                 ))}
               </div>
 
-              <div className="p-4 rounded-xl border border-border/80 bg-muted/20 flex items-center justify-between gap-3 text-xs">
-                <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="size-2 rounded-full bg-emerald-500 shrink-0" aria-hidden="true" />
-                  <span className="font-mono text-foreground font-medium truncate">
-                    Neuro_301_Synaptic_Transmission.{activeFormat === 'Handwritten notes' ? 'jpg' : activeFormat.toLowerCase()}
+              {/* Animated Dropzone Widget */}
+              <div className="p-4 rounded-xl border border-border bg-surface-2/60 space-y-3">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-mono text-text-1 font-medium truncate max-w-[180px]">
+                    Cell_Bio_Lecture_04.{activeFileFormat === 'Scanned Notes' ? 'png' : activeFileFormat.toLowerCase()}
+                  </span>
+                  <span className="text-accent font-mono font-semibold">
+                    {dropProgress === 100 ? '127 concepts indexed' : `${dropProgress}%`}
                   </span>
                 </div>
-                <span className="text-primary font-mono font-semibold shrink-0">Indexed in 4.2s</span>
+
+                <div className="h-1.5 w-full bg-surface-3 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-accent rounded-full transition-all duration-300"
+                    style={{ width: `${dropProgress}%` }}
+                  />
+                </div>
+
+                <div className="flex items-center gap-1.5 text-[11px] text-text-3 font-mono pt-1">
+                  <Sparkles className="size-3 text-accent" />
+                  <span>Structure, definitions, and equations mapped</span>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="md:col-span-2 rounded-3xl border border-border bg-card p-6 sm:p-8 flex flex-col justify-between group hover:border-primary/40 hover:shadow-md transition-all duration-300">
-            <div className="space-y-3">
-              <div className="size-11 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
-                <Eye className="size-5" aria-hidden="true" />
-              </div>
-              <h3 className="text-2xl font-heading font-bold text-foreground">Focus Guard</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed [text-wrap:pretty]">
-                Keep solo sessions honest with focus tracking and tab switch detection.
-              </p>
-            </div>
-
-            <div className="mt-8 p-4 rounded-xl border border-border bg-muted/30 space-y-3 font-mono">
-              <div className="flex items-center justify-between text-xs font-semibold">
-                <span className="flex items-center gap-1.5 text-emerald-500">
-                  <CheckCircle2 className="size-3.5" aria-hidden="true" />
-                  Camera connected
-                </span>
-                <span className="text-foreground">98% focus</span>
-              </div>
-              <div className="h-2 w-full bg-muted rounded-full overflow-hidden">
-                <div className="h-full bg-emerald-500 rounded-full w-[98%]" />
-              </div>
-              <div className="text-[11px] text-muted-foreground flex items-center justify-between">
-                <span>Tab switches: 0</span>
-                <span>Gaze: center</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="md:col-span-3 rounded-3xl border border-border bg-card p-6 sm:p-8 flex flex-col justify-between group hover:border-primary/40 hover:shadow-md transition-all duration-300">
-            <div className="space-y-3">
-              <div className="size-11 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
+          {/* Card 2 — Distractor Intelligence (Tall Left) */}
+          <div className="rounded-2xl border border-border bg-surface-1 p-6 flex flex-col justify-between transition-all duration-300 ease-spring hover:scale-[1.02] hover:border-accent/40 active:scale-[0.98] shadow-lg shadow-black/20 md:row-span-2">
+            <div>
+              <div className="size-10 rounded-xl bg-accent/15 text-accent flex items-center justify-center mb-4">
                 <Brain className="size-5" aria-hidden="true" />
               </div>
-              <h3 className="text-2xl font-heading font-bold text-foreground">Distractor intelligence</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed [text-wrap:pretty]">
-                Do not memorize letters. Learn the trap inside every false option before your professor writes it.
+              <h3 className="text-xl font-bold text-text-1 mb-2">
+                Distractor intelligence
+              </h3>
+              <p className="text-sm text-text-2 leading-relaxed [text-wrap:pretty]">
+                Don't memorise letters. Understand the trap built into every wrong answer.
               </p>
             </div>
 
             <div className="mt-8 space-y-2.5">
-              <div className="p-3.5 rounded-xl border border-emerald-500/30 bg-emerald-500/5 text-xs flex items-start gap-2.5">
-                <CheckCircle2 className="size-4 text-emerald-500 shrink-0 mt-0.5" aria-hidden="true" />
-                <p>
-                  <span className="font-semibold text-foreground">Option B correct. </span>
-                  <span className="text-muted-foreground">Supported by Slide 14 reaction mechanism.</span>
+              <div className="p-3.5 rounded-xl border border-emerald-500/40 bg-emerald-500/10 text-xs">
+                <div className="flex items-center gap-2 font-semibold text-text-1 mb-1">
+                  <div className="size-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px]">
+                    <Check className="size-3" />
+                  </div>
+                  <span>Phosphofructokinase-1</span>
+                </div>
+                <p className="text-text-2 text-[11px] pl-6">
+                  Committed rate-limiting step with irreversible flux control.
                 </p>
               </div>
-              <div className="p-3.5 rounded-xl border border-destructive/30 bg-destructive/5 text-xs flex items-start gap-2.5">
-                <AlertTriangle className="size-4 text-destructive shrink-0 mt-0.5" aria-hidden="true" />
-                <p>
-                  <span className="font-semibold text-foreground">Option D trap. </span>
-                  <span className="text-muted-foreground">Only true under anaerobic conditions.</span>
+
+              <div className="p-3.5 rounded-xl border border-red-500/40 bg-red-500/10 text-xs relative group">
+                <div className="flex items-center justify-between text-text-1 font-semibold mb-1">
+                  <div className="flex items-center gap-2">
+                    <div className="size-4 rounded-full bg-red-500 text-white flex items-center justify-center text-[10px]">
+                      ✕
+                    </div>
+                    <span>Hexokinase</span>
+                  </div>
+                  <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-red-500/20 text-red-400">
+                    Trap
+                  </span>
+                </div>
+                <p className="text-text-2 text-[11px] pl-6">
+                  This is the first step, not the committed step.
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="md:col-span-3 rounded-3xl border border-border bg-card p-6 sm:p-8 flex flex-col justify-between group hover:border-primary/40 hover:shadow-md transition-all duration-300">
-            <div className="space-y-3">
-              <div className="size-11 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
+          {/* Card 3 — Timed Exam Simulation */}
+          <div className="rounded-2xl border border-border bg-surface-1 p-6 flex flex-col justify-between transition-all duration-300 ease-spring hover:scale-[1.02] hover:border-accent/40 active:scale-[0.98] shadow-lg shadow-black/20">
+            <div>
+              <div className="size-10 rounded-xl bg-accent/15 text-accent flex items-center justify-center mb-4">
                 <Timer className="size-5" aria-hidden="true" />
               </div>
-              <h3 className="text-2xl font-heading font-bold text-foreground">Exam room timing</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed [text-wrap:pretty]">
-                Replicate testing pressure with countdown pacing and question review flags.
+              <h3 className="text-xl font-bold text-text-1 mb-2">
+                Timed exam simulation
+              </h3>
+              <p className="text-sm text-text-2 leading-relaxed [text-wrap:pretty]">
+                Set question count, difficulty, and time limit. Practice under real exam room conditions.
               </p>
             </div>
 
-            <div className="mt-8 p-4 rounded-xl border border-border bg-muted/30 flex items-center justify-between gap-3 text-xs">
-              <div>
-                <p className="font-semibold text-foreground">Session pacing</p>
-                <p className="text-muted-foreground font-mono mt-1">01:30 per question</p>
+            <div className="mt-6 p-4 rounded-xl border border-border bg-surface-2/60 space-y-3">
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-mono text-text-2">Progress: 14 / 20</span>
+                <span className="font-mono text-accent font-semibold">
+                  00:{timerSeconds.toString().padStart(2, '0')}
+                </span>
               </div>
-              <button
-                type="button"
-                onClick={() => setIsQuestionFlagged((prev) => !prev)}
-                className={`px-3 py-1.5 rounded-lg border text-xs font-semibold flex items-center gap-1.5 transition-colors duration-200 ease-fluid ${
-                  isQuestionFlagged
-                    ? 'bg-amber-500/10 text-amber-500 border-amber-500/30'
-                    : 'bg-card text-muted-foreground border-border hover:text-foreground'
-                }`}
-              >
-                <BookmarkCheck className="size-3.5" aria-hidden="true" />
-                {isQuestionFlagged ? 'Flagged' : 'Flag question'}
-              </button>
+
+              <div className="h-1.5 w-full bg-surface-3 rounded-full overflow-hidden">
+                <div className="h-full bg-accent rounded-full w-[70%]" />
+              </div>
+
+              <div className="flex items-center justify-between pt-1">
+                <span className="text-xs text-text-3 font-mono">Difficulty: High</span>
+                <button
+                  type="button"
+                  onClick={() => setIsQuestionFlagged(!isQuestionFlagged)}
+                  className={`px-2.5 py-1 rounded-md text-xs font-semibold flex items-center gap-1.5 border transition-colors ${
+                    isQuestionFlagged
+                      ? 'bg-amber-500/20 text-amber-400 border-amber-500/40'
+                      : 'bg-surface-3 text-text-2 border-border hover:text-text-1'
+                  }`}
+                >
+                  <BookmarkCheck className="size-3" />
+                  <span>{isQuestionFlagged ? 'Flagged for review' : 'Flag for review'}</span>
+                </button>
+              </div>
             </div>
           </div>
 
-          <div className="md:col-span-6 rounded-3xl border border-border bg-card p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 group hover:border-primary/40 hover:shadow-md transition-all duration-300">
-            <div className="space-y-2.5 max-w-md">
-              <div className="size-11 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
-                <TrendingUp className="size-5" aria-hidden="true" />
+          {/* Card 4 — Retention Analytics */}
+          <div className="rounded-2xl border border-border bg-surface-1 p-6 flex flex-col justify-between transition-all duration-300 ease-spring hover:scale-[1.02] hover:border-accent/40 active:scale-[0.98] shadow-lg shadow-black/20">
+            <div>
+              <div className="size-10 rounded-xl bg-accent/15 text-accent flex items-center justify-center mb-4">
+                <LineChartIcon className="size-5" aria-hidden="true" />
               </div>
-              <h3 className="text-2xl font-heading font-bold text-foreground">Retention before exam week</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed [text-wrap:pretty]">
-                Spot weak topics early. Track how recall holds after spaced practice, not after one lucky pass.
+              <h3 className="text-xl font-bold text-text-1 mb-2">
+                Retention analytics
+              </h3>
+              <p className="text-sm text-text-2 leading-relaxed [text-wrap:pretty]">
+                Spot knowledge gaps before the exam. Track topic-by-topic retention across every drill.
               </p>
             </div>
 
-            <div className="w-full md:w-auto p-5 rounded-2xl border border-border bg-muted/20 min-w-[300px]">
-              <div className="flex items-center justify-between text-xs font-semibold mb-3">
-                <span className="text-foreground">Recall after practice</span>
-                <span className="text-emerald-500 font-mono">+34% vs reread</span>
+            <div className="mt-6 p-4 rounded-xl border border-border bg-surface-2/60">
+              <div className="flex items-center justify-between text-xs font-semibold mb-2">
+                <span className="text-text-1">Spaced Recall Progression</span>
+                <span className="text-emerald-400 font-mono">61% → 74% → 89%</span>
               </div>
-              <div className="space-y-2.5 text-xs">
-                {[
-                  { label: 'Day 1 drill', value: '94%', width: 'w-[94%]', color: 'bg-primary' },
-                  { label: 'Day 7 spaced recall', value: '89%', width: 'w-[89%]', color: 'bg-emerald-500' },
-                  { label: 'Passive reread only', value: '23%', width: 'w-[23%]', color: 'bg-destructive/60' },
-                ].map((row) => (
-                  <div key={row.label}>
-                    <div className="flex justify-between text-muted-foreground mb-1">
-                      <span>{row.label}</span>
-                      <span className="font-mono text-foreground font-semibold">{row.value}</span>
-                    </div>
-                    <div className="h-2 rounded-full bg-muted overflow-hidden">
-                      <div className={`h-full rounded-full ${row.color} ${row.width}`} />
-                    </div>
-                  </div>
-                ))}
+              <div className="h-24 w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={RETENTION_DATA} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
+                    <XAxis dataKey="session" stroke="#55555F" fontSize={10} tickLine={false} />
+                    <YAxis domain={[50, 100]} stroke="#55555F" fontSize={10} tickLine={false} />
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: '#131316',
+                        borderColor: '#2A2A32',
+                        borderRadius: '8px',
+                        fontSize: '11px',
+                        color: '#F2F2F5',
+                      }}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="score"
+                      stroke="#695CFF"
+                      strokeWidth={2.5}
+                      dot={{ fill: '#695CFF', r: 4 }}
+                      activeDot={{ r: 6 }}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
               </div>
+            </div>
+          </div>
+
+          {/* Card 5 — Focus Guard */}
+          <div className="rounded-2xl border border-border bg-surface-1 p-6 flex flex-col justify-between transition-all duration-300 ease-spring hover:scale-[1.02] hover:border-accent/40 active:scale-[0.98] shadow-lg shadow-black/20">
+            <div>
+              <div className="size-10 rounded-xl bg-accent/15 text-accent flex items-center justify-center mb-4">
+                <ShieldCheck className="size-5" aria-hidden="true" />
+              </div>
+              <h3 className="text-xl font-bold text-text-1 mb-2">
+                Focus guard
+              </h3>
+              <p className="text-sm text-text-2 leading-relaxed [text-wrap:pretty]">
+                Self-study discipline, enforced. Soma flags tab switches and focus breaks so sessions stay honest.
+              </p>
+            </div>
+
+            <div className="mt-6 p-4 rounded-xl border border-border bg-surface-2/60 space-y-2.5">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-3 border border-border text-xs font-mono text-text-1">
+                <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span>● Focus active — 0 interruptions</span>
+              </div>
+              <p className="text-[11px] text-text-3 font-mono">
+                Tab blur & window switch telemetry active
+              </p>
             </div>
           </div>
         </div>

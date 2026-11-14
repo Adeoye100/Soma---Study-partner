@@ -4,21 +4,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const LINE_ONE = ['Passive', 'reading', 'feels', 'productive', 'until', 'the', 'exam', 'starts.'];
-const LINE_TWO = [
-  'Active',
-  'recall',
-  'from',
-  'your',
-  'own',
-  'slides',
-  'builds',
-  'memory',
-  'that',
-  'holds',
-  'under',
-  'pressure.',
-];
+const LINE_ONE = ['Passive', 'reading', 'gives', 'you', 'the', 'illusion', 'of', 'knowledge.'];
+const LINE_TWO = ['Active', 'recall', 'is', 'how', 'you', 'actually', 'keep', 'it.'];
 
 export const TaglineRevealSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -32,23 +19,25 @@ export const TaglineRevealSection: React.FC = () => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (prefersReduced) {
-      gsap.set(words, { opacity: 1, color: 'hsl(var(--foreground))' });
+      gsap.set(words, { color: 'var(--color-text-1)' });
       return;
     }
 
-    gsap.set(words, { opacity: 0.28 });
+    gsap.set(words, { color: 'var(--color-text-3)' });
 
     const ctx = gsap.context(() => {
-      gsap.to(words, {
-        opacity: 1,
-        stagger: 0.08,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 70%',
-          end: 'center 40%',
-          scrub: 0.6,
-        },
+      words.forEach((word, i) => {
+        ScrollTrigger.create({
+          trigger: word,
+          start: 'top 75%',
+          onEnter: () =>
+            gsap.to(word, {
+              color: 'var(--color-text-1)',
+              duration: 0.5,
+              ease: 'power2.out',
+              delay: i * 0.03,
+            }),
+        });
       });
     }, section);
 
@@ -58,7 +47,7 @@ export const TaglineRevealSection: React.FC = () => {
   let wordIndex = 0;
 
   const renderLine = (line: string[]) => (
-    <p className="flex flex-wrap justify-center gap-x-2.5 gap-y-2">
+    <div className="flex flex-wrap justify-center gap-x-3 gap-y-2">
       {line.map((word) => {
         const index = wordIndex;
         wordIndex += 1;
@@ -68,29 +57,26 @@ export const TaglineRevealSection: React.FC = () => {
             ref={(el) => {
               wordRefs.current[index] = el;
             }}
-            className="inline-block text-foreground will-change-[opacity]"
+            className="inline-block transition-colors duration-200"
           >
             {word}
           </span>
         );
       })}
-    </p>
+    </div>
   );
 
   return (
     <section
       ref={sectionRef}
-      className="py-24 sm:py-32 border-y border-border bg-card"
-      aria-label="Core study principle"
+      className="py-32 px-6 border-y border-border bg-base"
+      aria-label="Core active recall principle"
     >
-      <div className="max-w-[680px] mx-auto px-4 sm:px-6 text-center">
-        <div className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight leading-snug [text-wrap:balance] space-y-3">
+      <div className="max-w-[720px] mx-auto text-center">
+        <h2 className="text-3xl sm:text-5xl font-bold tracking-display leading-tight [text-wrap:balance] space-y-3">
           {renderLine(LINE_ONE)}
           {renderLine(LINE_TWO)}
-        </div>
-        <p className="mt-8 text-base text-muted-foreground max-w-lg mx-auto [text-wrap:pretty]">
-          Built on the testing effect: retrieving knowledge beats rereading it.
-        </p>
+        </h2>
       </div>
     </section>
   );

@@ -11,7 +11,21 @@ export default {
   theme: {
     extend: {
       colors: {
-        border: "hsl(var(--border))",
+        base: "var(--color-base)",
+        "surface-1": "var(--color-surface-1)",
+        "surface-2": "var(--color-surface-2)",
+        "surface-3": "var(--color-surface-3)",
+        border: "var(--color-border)",
+        "border-glow": "var(--color-border-glow)",
+        accent: {
+          DEFAULT: "var(--color-accent)",
+          mute: "var(--color-accent-mute)",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        "accent-mute": "var(--color-accent-mute)",
+        "text-1": "var(--color-text-1)",
+        "text-2": "var(--color-text-2)",
+        "text-3": "var(--color-text-3)",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
@@ -43,10 +57,6 @@ export default {
         muted: {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
@@ -83,12 +93,15 @@ export default {
         'glow-warning': "0 0 20px rgba(245, 158, 11, 0.3)",
         'glow-danger': "0 0 20px rgba(239, 68, 68, 0.3)",
       },
+      letterSpacing: {
+        display: "-0.03em",
+      },
       fontFamily: {
-        sans: ['Poppins', 'system-ui', '-apple-system', 'sans-serif'],
-        heading: ['"ITC Garamond Std"', 'ITCGaramond', 'Georgia', 'serif'],
-        serif: ['"ITC Garamond Std"', 'ITCGaramond', 'Georgia', 'serif'],
-        brand: ['Sora', 'sans-serif'],
-        logo: ['Sora', 'sans-serif'],
+        sans: ['Geist', 'system-ui', '-apple-system', 'sans-serif'],
+        heading: ['Geist', 'system-ui', '-apple-system', 'sans-serif'],
+        serif: ['Geist', 'system-ui', '-apple-system', 'sans-serif'],
+        brand: ['Geist', 'system-ui', '-apple-system', 'sans-serif'],
+        logo: ['Geist', 'system-ui', '-apple-system', 'sans-serif'],
         mono: ['"Geist Mono Variable"', '"Geist Mono"', 'monospace'],
       },
       transitionDuration: {
@@ -97,6 +110,8 @@ export default {
         '300': '300ms',
       },
       transitionTimingFunction: {
+        spring: "cubic-bezier(0.32, 0.72, 0, 1)",
+        snap: "cubic-bezier(0.22, 1, 0.36, 1)",
         'ui': 'cubic-bezier(0.23, 1, 0.32, 1)',
         'ui-inout': 'cubic-bezier(0.4, 0, 0.2, 1)',
         'fluid': 'cubic-bezier(0.32, 0.72, 0, 1)',
