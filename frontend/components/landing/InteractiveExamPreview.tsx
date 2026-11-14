@@ -5,9 +5,8 @@ import {
   Clock,
   Check,
   XCircle,
-  RefreshCw,
+  RotateCcw,
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 
 interface Option {
   id: string;
@@ -21,79 +20,49 @@ const SAMPLE_OPTIONS: Option[] = [
   {
     id: 'opt-a',
     label: 'A',
-    text: 'Hexokinase catalyzes the initial phosphorylation of glucose.',
+    text: 'Hexokinase',
     isCorrect: false,
     explanation:
-      'Hexokinase traps glucose as Glucose 6 Phosphate, but that step is reversible in gluconeogenic tissues and is not the committed rate limiting pacemaker.',
+      'Hexokinase catalyses the first step, not the committed step. PFK-1 is the key regulatory point.',
   },
   {
     id: 'opt-b',
     label: 'B',
-    text: 'Phosphofructokinase 1 (PFK 1) regulates the committed step.',
+    text: 'Phosphofructokinase-1',
     isCorrect: true,
     explanation:
-      'PFK 1 irreversibly converts Fructose 6 Phosphate to Fructose 1,6 Bisphosphate. ATP, AMP, and Fructose 2,6 Bisphosphate allosterically set glycolytic flux here.',
+      'PFK-1 irreversibly converts Fructose 6 Phosphate to Fructose 1,6 Bisphosphate and is the master rate-limiting pacemaker.',
   },
   {
     id: 'opt-c',
     label: 'C',
-    text: 'Pyruvate kinase mediates the final substrate level phosphorylation.',
+    text: 'Pyruvate kinase',
     isCorrect: false,
     explanation:
-      'Pyruvate kinase is regulated and produces ATP, but it sits downstream as a feed forward target rather than the master rate determining step.',
+      'Pyruvate kinase catalyzes the final substrate-level phosphorylation step, functioning as a downstream feed-forward target rather than the committed pacemaker.',
   },
   {
     id: 'opt-d',
     label: 'D',
-    text: 'Aldolase cleaves hexose diphosphate into two triose isomers.',
+    text: 'Phosphoglucose isomerase',
     isCorrect: false,
     explanation:
-      'Aldolase sits near equilibrium under physiological conditions and does not exert major flux control over glycolysis.',
+      'Phosphoglucose isomerase is a freely reversible equilibrium step with near-zero delta G, exerting minimal flux control.',
   },
 ];
-
-const swapText = (el: HTMLElement | null, next: string) => {
-  if (!el) return;
-  const durationRaw = getComputedStyle(document.documentElement)
-    .getPropertyValue('--text-swap-dur')
-    .trim();
-  const duration = Number.parseFloat(durationRaw) || 200;
-
-  el.classList.add('is-exit');
-  window.setTimeout(() => {
-    el.textContent = next;
-    el.classList.add('is-enter-start');
-    el.classList.remove('is-exit');
-    void el.offsetWidth;
-    el.classList.remove('is-enter-start');
-  }, duration);
-};
 
 export const InteractiveExamPreview: React.FC = () => {
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
   const [isAnswerRevealed, setIsAnswerRevealed] = useState(false);
-  const [secondsRemaining, setSecondsRemaining] = useState(104);
-  const helperRef = useRef<HTMLSpanElement>(null);
-  const prevHelper = useRef('');
+  const [secondsRemaining, setSecondsRemaining] = useState(45);
+  const [shakingOptionId, setShakingOptionId] = useState<string | null>(null);
 
   useEffect(() => {
     const timer = window.setInterval(() => {
-      setSecondsRemaining((prev) => (prev > 0 ? prev - 1 : 120));
+      setSecondsRemaining((prev) => (prev > 0 ? prev - 1 : 45));
     }, 1000);
     return () => window.clearInterval(timer);
   }, []);
-
-  useEffect(() => {
-    const next = selectedOptionId
-      ? 'Tap another choice to see how Somma explains the trap.'
-      : 'Pick an answer to see instant rationale grounded in the lecture.';
-    if (prevHelper.current && prevHelper.current !== next) {
-      swapText(helperRef.current, next);
-    } else if (helperRef.current) {
-      helperRef.current.textContent = next;
-    }
-    prevHelper.current = next;
-  }, [selectedOptionId]);
 
   const formatTimer = (totalSeconds: number) => {
     const mins = Math.floor(totalSeconds / 60);
@@ -101,111 +70,121 @@ export const InteractiveExamPreview: React.FC = () => {
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const handleSelectOption = (id: string) => {
-    setSelectedOptionId(id);
+  const handleSelectOption = (option: Option) => {
+    setSelectedOptionId(option.id);
     setIsAnswerRevealed(true);
+    if (!option.isCorrect) {
+      setShakingOptionId(option.id);
+      setTimeout(() => setShakingOptionId(null), 350);
+    }
   };
 
   const handleReset = () => {
     setSelectedOptionId(null);
     setIsAnswerRevealed(false);
+    setShakingOptionId(null);
   };
 
   return (
-    <div className="relative w-full max-w-4xl mx-auto text-left">
-      <div className="rounded-2xl border border-border bg-card overflow-hidden shadow-sm">
-        <div className="px-4 sm:px-6 py-3 border-b border-border bg-muted/40 flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm">
+    <div className="relative w-full max-w-xl mx-auto text-left">
+      <div className="rounded-2xl border border-border bg-surface-1 shadow-2xl overflow-hidden transition-all duration-300">
+        {/* Header bar */}
+        <div className="px-5 py-3.5 border-b border-border bg-surface-2/60 flex items-center justify-between gap-3 text-xs">
           <div className="flex items-center gap-2.5 min-w-0">
-            <div className="size-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
+            <div className="size-6 rounded-md bg-accent/15 text-accent flex items-center justify-center shrink-0">
               <FileText className="size-3.5" aria-hidden="true" />
             </div>
             <div className="min-w-0">
-              <p className="font-semibold text-foreground truncate">
-                Biochemistry Lecture 08 Glycolysis.pptx
+              <p className="font-semibold text-text-1 truncate text-xs">
+                Biochemistry Lecture 08 · Glycolysis
               </p>
-              <p className="text-muted-foreground text-xs mt-0.5">
+              <p className="text-text-3 text-[11px]">
                 Slide 18 of 54 indexed
               </p>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-secondary text-secondary-foreground font-mono text-xs border border-border">
-              <Clock className="size-3 text-primary" aria-hidden="true" />
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-surface-3 text-text-1 font-mono text-xs border border-border">
+              <Clock className="size-3 text-accent" aria-hidden="true" />
               <span>{formatTimer(secondsRemaining)}</span>
             </div>
-            <div className="px-2.5 py-1 rounded-lg bg-primary/10 text-primary font-semibold text-xs border border-primary/20">
+            <div className="px-2 py-1 rounded-md bg-accent/15 text-accent font-semibold text-xs border border-accent/20">
               7 / 20
             </div>
           </div>
         </div>
 
-        <div className="p-5 sm:p-8 space-y-6">
+        {/* Card Body */}
+        <div className="p-5 sm:p-6 space-y-4">
           <div>
-            <p className="text-sm text-muted-foreground mb-2">
-              Cellular energetics · Multiple choice
+            <p className="text-xs text-text-3 uppercase tracking-wider font-semibold mb-1.5">
+              Cellular Energetics · Multiple Choice
             </p>
-            <h3 className="text-lg sm:text-xl font-semibold text-foreground leading-snug [text-wrap:balance]">
+            <h3 className="text-base sm:text-lg font-bold text-text-1 leading-snug [text-wrap:balance]">
               Which enzyme catalyzes the committed, primary rate limiting step of glycolysis?
             </h3>
           </div>
 
-          <div className="space-y-3" role="radiogroup" aria-label="Sample interactive question choices">
+          <div className="space-y-2.5" role="radiogroup" aria-label="Sample interactive question choices">
             {SAMPLE_OPTIONS.map((option) => {
               const isSelected = selectedOptionId === option.id;
               const showFeedback = isAnswerRevealed && isSelected;
               const isCorrect = option.isCorrect;
+              const isShaking = shakingOptionId === option.id;
 
               let cardStyle =
-                'border-border hover:border-primary/50 bg-background text-foreground';
+                'border-border bg-surface-2/40 hover:bg-surface-2 hover:border-accent/40 text-text-1';
               if (isSelected) {
                 cardStyle = isCorrect
-                  ? 'border-emerald-500/80 bg-emerald-500/10 text-foreground'
-                  : 'border-destructive/80 bg-destructive/10 text-foreground';
+                  ? 'border-emerald-500/80 bg-emerald-500/10 text-text-1'
+                  : 'border-red-500/80 bg-red-500/10 text-text-1';
               }
 
               return (
-                <button
+                <motion.button
                   key={option.id}
                   type="button"
-                  onClick={() => handleSelectOption(option.id)}
-                  className={`w-full text-left p-4 rounded-xl border transition-all duration-200 ease-fluid flex items-start gap-3.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary active:scale-[0.98] ${cardStyle}`}
+                  animate={isShaking ? { x: [0, -6, 6, -4, 4, 0] } : { x: 0 }}
+                  transition={{ duration: 0.3 }}
+                  onClick={() => handleSelectOption(option)}
+                  className={`w-full text-left p-3.5 rounded-xl border transition-all duration-200 ease-spring flex items-start gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent active:scale-[0.98] ${cardStyle}`}
                   role="radio"
                   aria-checked={isSelected}
                 >
                   <div
-                    className={`flex items-center justify-center size-7 rounded-lg text-xs font-bold shrink-0 transition-colors duration-200 ease-fluid ${
+                    className={`flex items-center justify-center size-6 rounded-md text-xs font-bold shrink-0 transition-colors duration-200 ${
                       isSelected && isCorrect
                         ? 'bg-emerald-500 text-white'
                         : isSelected && !isCorrect
-                          ? 'bg-destructive text-white'
-                          : 'bg-muted text-muted-foreground'
+                          ? 'bg-red-500 text-white'
+                          : 'bg-surface-3 text-text-2'
                     }`}
                   >
                     {isSelected && isCorrect ? (
-                      <Check className="size-4" />
+                      <Check className="size-3.5" />
                     ) : isSelected && !isCorrect ? (
-                      <XCircle className="size-4" />
+                      <XCircle className="size-3.5" />
                     ) : (
                       option.label
                     )}
                   </div>
 
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm sm:text-base font-medium leading-relaxed [text-wrap:pretty]">
+                    <p className="text-sm font-medium leading-relaxed [text-wrap:pretty]">
                       {option.text}
                     </p>
                     <AnimatePresence initial={false}>
                       {showFeedback && (
                         <motion.p
                           key={option.id}
-                          initial={{ opacity: 0, y: 8 }}
+                          initial={{ opacity: 0, y: 6 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -4 }}
                           transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
-                          className="mt-2 text-xs sm:text-sm text-muted-foreground leading-relaxed [text-wrap:pretty]"
+                          className="mt-2 text-xs text-text-2 leading-relaxed [text-wrap:pretty]"
                         >
-                          <span className="font-semibold text-foreground">
+                          <span className={isCorrect ? 'font-bold text-emerald-400' : 'font-bold text-red-400'}>
                             {isCorrect ? 'Correct. ' : 'Common trap. '}
                           </span>
                           {option.explanation}
@@ -213,22 +192,27 @@ export const InteractiveExamPreview: React.FC = () => {
                       )}
                     </AnimatePresence>
                   </div>
-                </button>
+                </motion.button>
               );
             })}
           </div>
 
-          <div className="p-4 rounded-xl border border-border bg-muted/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs sm:text-sm">
-            <span ref={helperRef} className="t-text-swap text-muted-foreground [text-wrap:pretty]" />
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={handleReset}
-              className="text-sm font-semibold h-8 shrink-0"
-            >
-              <RefreshCw className="size-3.5" aria-hidden="true" />
-              Reset
-            </Button>
+          <div className="pt-2 flex items-center justify-between text-xs text-text-3">
+            <span>
+              {selectedOptionId
+                ? 'Select another choice to inspect distractor rationales'
+                : 'Click an option to test active recall'}
+            </span>
+            {selectedOptionId && (
+              <button
+                type="button"
+                onClick={handleReset}
+                className="flex items-center gap-1 text-text-2 hover:text-text-1 font-semibold px-2 py-1 rounded bg-surface-3 border border-border hover:border-accent/40 transition-colors"
+              >
+                <RotateCcw className="size-3" aria-hidden="true" />
+                <span>Reset</span>
+              </button>
+            )}
           </div>
         </div>
       </div>
