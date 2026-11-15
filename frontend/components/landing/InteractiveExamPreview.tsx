@@ -1,220 +1,329 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import {
-  FileText,
-  Clock,
-  Check,
-  XCircle,
-  RotateCcw,
-} from 'lucide-react';
+import { FileText, Clock, CheckCircle, XCircle } from 'lucide-react';
 
-interface Option {
-  id: string;
+type TabId = 'source' | 'session' | 'review';
+
+interface Tab {
+  id: TabId;
   label: string;
-  text: string;
-  isCorrect: boolean;
-  explanation: string;
 }
 
-const SAMPLE_OPTIONS: Option[] = [
+const TABS: Tab[] = [
+  { id: 'source', label: 'Source material' },
+  { id: 'session', label: 'Live session' },
+  { id: 'review', label: 'Graded review' },
+];
+
+const SOURCE_CHUNKS = [
   {
-    id: 'opt-a',
-    label: 'A',
-    text: 'Hexokinase',
-    isCorrect: false,
-    explanation:
-      'Hexokinase catalyses the first step, not the committed step. PFK-1 is the key regulatory point.',
+    index: '01',
+    title: 'Normalisation overview',
+    body: 'Database normalisation organises columns and tables to minimise redundancy. The process moves a schema through First, Second, and Third Normal Form (1NF, 2NF, 3NF).',
   },
   {
-    id: 'opt-b',
-    label: 'B',
-    text: 'Phosphofructokinase-1',
-    isCorrect: true,
-    explanation:
-      'PFK-1 irreversibly converts Fructose 6 Phosphate to Fructose 1,6 Bisphosphate and is the master rate-limiting pacemaker.',
+    index: '02',
+    title: 'B-Tree indexing',
+    body: 'A B-Tree index stores keys in a balanced tree so lookups, insertions, and deletions all run in O(log n) time. PostgreSQL uses B-Trees for primary key constraints by default.',
   },
   {
-    id: 'opt-c',
-    label: 'C',
-    text: 'Pyruvate kinase',
-    isCorrect: false,
-    explanation:
-      'Pyruvate kinase catalyzes the final substrate-level phosphorylation step, functioning as a downstream feed-forward target rather than the committed pacemaker.',
-  },
-  {
-    id: 'opt-d',
-    label: 'D',
-    text: 'Phosphoglucose isomerase',
-    isCorrect: false,
-    explanation:
-      'Phosphoglucose isomerase is a freely reversible equilibrium step with near-zero delta G, exerting minimal flux control.',
+    index: '03',
+    title: 'Third Normal Form (3NF)',
+    body: 'A relation is in 3NF if every non-key attribute is non-transitively dependent on the primary key. Violations create update anomalies when a derived attribute changes.',
   },
 ];
 
-export const InteractiveExamPreview: React.FC = () => {
-  const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
-  const [isAnswerRevealed, setIsAnswerRevealed] = useState(false);
-  const [secondsRemaining, setSecondsRemaining] = useState(45);
-  const [shakingOptionId, setShakingOptionId] = useState<string | null>(null);
+const MCQ_OPTIONS = [
+  { id: 'a', text: 'O(1) constant time regardless of table size', correct: false },
+  { id: 'b', text: 'O(log n) proportional to tree height', correct: true },
+  { id: 'c', text: 'O(n) full sequential scan', correct: false },
+  { id: 'd', text: 'O(n log n) same as sort complexity', correct: false },
+];
+
+function DigitRoll({ value, padded = 2 }: { value: number; padded?: number }) {
+  const str = value.toString().padStart(padded, '0');
+  return (
+    <span
+      className="inline-flex font-mono tabular-nums"
+      style={{ fontVariantNumeric: 'tabular-nums' }}
+    >
+      {str.split('').map((digit, i) => (
+        <span key={i} className="relative overflow-hidden inline-block w-[0.6em]">
+          <AnimatePresence mode="popLayout" initial={false}>
+            <motion.span
+              key={digit}
+              initial={{ y: '-100%', opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: '100%', opacity: 0 }}
+              transition={{ duration: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="inline-block leading-none"
+            >
+              {digit}
+            </motion.span>
+          </AnimatePresence>
+        </span>
+      ))}
+    </span>
+  );
+}
+
+function SourceTab() {
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center gap-2 pb-2 border-b border-border">
+        <FileText className="size-3.5 text-cobalt shrink-0" aria-hidden="true" />
+        <span className="text-xs font-medium text-text-1">
+          SEN 203: Database Management Systems
+        </span>
+        <span className="ml-auto text-xs text-text-2">Normalization and Indexing</span>
+      </div>
+      {SOURCE_CHUNKS.map((chunk) => (
+        <div
+          key={chunk.index}
+          className="rounded-md border border-border bg-surface-2 p-3 transition-colors duration-200 hover:border-cobalt/40"
+        >
+          <div className="flex items-start gap-2.5">
+            <span className="font-mono text-[10px] text-cobalt font-semibold shrink-0 mt-0.5 w-6">
+              {chunk.index}
+            </span>
+            <div>
+              <p className="text-xs font-semibold text-text-1 mb-1">{chunk.title}</p>
+              <p className="text-xs text-text-2 leading-relaxed">{chunk.body}</p>
+            </div>
+          </div>
+        </div>
+      ))}
+      <p className="text-[11px] text-text-3 text-center pt-1">
+        127 concepts indexed from 48 pages
+      </p>
+    </div>
+  );
+}
+
+function SessionTab() {
+  const [secondsRemaining, setSecondsRemaining] = useState(14 * 60 + 22);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [revealed, setRevealed] = useState(false);
+  const [shakingId, setShakingId] = useState<string | null>(null);
 
   useEffect(() => {
     const timer = window.setInterval(() => {
-      setSecondsRemaining((prev) => (prev > 0 ? prev - 1 : 45));
+      setSecondsRemaining((prev) => (prev > 0 ? prev - 1 : 14 * 60 + 22));
     }, 1000);
     return () => window.clearInterval(timer);
   }, []);
 
-  const formatTimer = (totalSeconds: number) => {
-    const mins = Math.floor(totalSeconds / 60);
-    const secs = totalSeconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-  };
+  const mins = Math.floor(secondsRemaining / 60);
+  const secs = secondsRemaining % 60;
 
-  const handleSelectOption = (option: Option) => {
-    setSelectedOptionId(option.id);
-    setIsAnswerRevealed(true);
-    if (!option.isCorrect) {
-      setShakingOptionId(option.id);
-      setTimeout(() => setShakingOptionId(null), 350);
+  const handleSelect = (opt: (typeof MCQ_OPTIONS)[number]) => {
+    if (revealed) return;
+    setSelectedId(opt.id);
+    setRevealed(true);
+    if (!opt.correct) {
+      setShakingId(opt.id);
+      setTimeout(() => setShakingId(null), 350);
     }
   };
 
   const handleReset = () => {
-    setSelectedOptionId(null);
-    setIsAnswerRevealed(false);
-    setShakingOptionId(null);
+    setSelectedId(null);
+    setRevealed(false);
   };
 
   return (
-    <div className="relative w-full max-w-xl mx-auto text-left">
-      <div className="rounded-2xl border border-border bg-surface-1 shadow-2xl overflow-hidden transition-all duration-300">
-        {/* Header bar */}
-        <div className="px-5 py-3.5 border-b border-border bg-surface-2/60 flex items-center justify-between gap-3 text-xs">
-          <div className="flex items-center gap-2.5 min-w-0">
-            <div className="size-6 rounded-md bg-accent/15 text-accent flex items-center justify-center shrink-0">
-              <FileText className="size-3.5" aria-hidden="true" />
-            </div>
-            <div className="min-w-0">
-              <p className="font-semibold text-text-1 truncate text-xs">
-                Biochemistry Lecture 08 · Glycolysis
-              </p>
-              <p className="text-text-3 text-[11px]">
-                Slide 18 of 54 indexed
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-surface-3 text-text-1 font-mono text-xs border border-border">
-              <Clock className="size-3 text-accent" aria-hidden="true" />
-              <span>{formatTimer(secondsRemaining)}</span>
-            </div>
-            <div className="px-2 py-1 rounded-md bg-accent/15 text-accent font-semibold text-xs border border-accent/20">
-              7 / 20
-            </div>
-          </div>
+    <div className="space-y-3">
+      {/* Timer + progress bar */}
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-1.5 text-xs text-text-2">
+          <Clock className="size-3.5 shrink-0" aria-hidden="true" />
+          <span>Question 7 of 20</span>
         </div>
+        <div
+          className="flex items-center gap-1 px-2 py-0.5 rounded bg-surface-2 border border-border text-xs font-semibold text-emerald"
+          aria-label="Time remaining"
+          aria-live="off"
+        >
+          <DigitRoll value={mins} />
+          <span className="text-text-2">:</span>
+          <DigitRoll value={secs} />
+        </div>
+      </div>
 
-        {/* Card Body */}
-        <div className="p-5 sm:p-6 space-y-4">
-          <div>
-            <p className="text-xs text-text-3 uppercase tracking-wider font-semibold mb-1.5">
-              Cellular Energetics · Multiple Choice
-            </p>
-            <h3 className="text-base sm:text-lg font-bold text-text-1 leading-snug [text-wrap:balance]">
-              Which enzyme catalyzes the committed, primary rate limiting step of glycolysis?
-            </h3>
-          </div>
+      <div className="h-1 w-full rounded-full bg-surface-3 overflow-hidden">
+        <div
+          className="h-full rounded-full bg-cobalt transition-all duration-700"
+          style={{ width: '35%' }}
+        />
+      </div>
 
-          <div className="space-y-2.5" role="radiogroup" aria-label="Sample interactive question choices">
-            {SAMPLE_OPTIONS.map((option) => {
-              const isSelected = selectedOptionId === option.id;
-              const showFeedback = isAnswerRevealed && isSelected;
-              const isCorrect = option.isCorrect;
-              const isShaking = shakingOptionId === option.id;
+      {/* Question */}
+      <div className="pt-1">
+        <p className="text-xs font-semibold text-text-1 leading-snug mb-3">
+          What is the time complexity of a lookup on a B-Tree index with n leaf nodes?
+        </p>
+        <div
+          className="space-y-2"
+          role="radiogroup"
+          aria-label="Multiple choice options"
+        >
+          {MCQ_OPTIONS.map((opt) => {
+            const isSelected = selectedId === opt.id;
+            const showResult = revealed && isSelected;
+            const isShaking = shakingId === opt.id;
 
-              let cardStyle =
-                'border-border bg-surface-2/40 hover:bg-surface-2 hover:border-accent/40 text-text-1';
-              if (isSelected) {
-                cardStyle = isCorrect
-                  ? 'border-emerald-500/80 bg-emerald-500/10 text-text-1'
-                  : 'border-red-500/80 bg-red-500/10 text-text-1';
-              }
+            let ring = 'border-border bg-surface-2 hover:border-cobalt/60';
+            if (isSelected && opt.correct) ring = 'border-emerald bg-emerald/5';
+            if (isSelected && !opt.correct) ring = 'border-amber bg-amber/5';
 
-              return (
-                <motion.button
-                  key={option.id}
-                  type="button"
-                  animate={isShaking ? { x: [0, -6, 6, -4, 4, 0] } : { x: 0 }}
-                  transition={{ duration: 0.3 }}
-                  onClick={() => handleSelectOption(option)}
-                  className={`w-full text-left p-3.5 rounded-xl border transition-all duration-200 ease-spring flex items-start gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent active:scale-[0.98] ${cardStyle}`}
-                  role="radio"
-                  aria-checked={isSelected}
-                >
-                  <div
-                    className={`flex items-center justify-center size-6 rounded-md text-xs font-bold shrink-0 transition-colors duration-200 ${
-                      isSelected && isCorrect
-                        ? 'bg-emerald-500 text-white'
-                        : isSelected && !isCorrect
-                          ? 'bg-red-500 text-white'
-                          : 'bg-surface-3 text-text-2'
-                    }`}
-                  >
-                    {isSelected && isCorrect ? (
-                      <Check className="size-3.5" />
-                    ) : isSelected && !isCorrect ? (
-                      <XCircle className="size-3.5" />
-                    ) : (
-                      option.label
-                    )}
-                  </div>
-
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium leading-relaxed [text-wrap:pretty]">
-                      {option.text}
-                    </p>
-                    <AnimatePresence initial={false}>
-                      {showFeedback && (
-                        <motion.p
-                          key={option.id}
-                          initial={{ opacity: 0, y: 6 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -4 }}
-                          transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
-                          className="mt-2 text-xs text-text-2 leading-relaxed [text-wrap:pretty]"
-                        >
-                          <span className={isCorrect ? 'font-bold text-emerald-400' : 'font-bold text-red-400'}>
-                            {isCorrect ? 'Correct. ' : 'Common trap. '}
-                          </span>
-                          {option.explanation}
-                        </motion.p>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                </motion.button>
-              );
-            })}
-          </div>
-
-          <div className="pt-2 flex items-center justify-between text-xs text-text-3">
-            <span>
-              {selectedOptionId
-                ? 'Select another choice to inspect distractor rationales'
-                : 'Click an option to test active recall'}
-            </span>
-            {selectedOptionId && (
-              <button
+            return (
+              <motion.button
+                key={opt.id}
                 type="button"
-                onClick={handleReset}
-                className="flex items-center gap-1 text-text-2 hover:text-text-1 font-semibold px-2 py-1 rounded bg-surface-3 border border-border hover:border-accent/40 transition-colors"
+                role="radio"
+                aria-checked={isSelected}
+                onClick={() => handleSelect(opt)}
+                animate={isShaking ? { x: [0, -5, 5, -3, 3, 0] } : { x: 0 }}
+                transition={{ duration: 0.3 }}
+                className={`w-full text-left rounded-md border px-3 py-2.5 text-xs transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt focus-visible:ring-offset-1 focus-visible:ring-offset-base active:scale-[0.99] ${ring}`}
               >
-                <RotateCcw className="size-3" aria-hidden="true" />
-                <span>Reset</span>
-              </button>
-            )}
-          </div>
+                <div className="flex items-start gap-2.5">
+                  <span className="font-mono text-[10px] text-text-3 uppercase font-semibold w-3 mt-0.5 shrink-0">
+                    {opt.id}
+                  </span>
+                  <span className="text-text-1 flex-1">{opt.text}</span>
+                  {showResult && (
+                    <span className="shrink-0 mt-0.5">
+                      {opt.correct ? (
+                        <CheckCircle className="size-3.5 text-emerald" aria-label="Correct" />
+                      ) : (
+                        <XCircle className="size-3.5 text-amber" aria-label="Incorrect" />
+                      )}
+                    </span>
+                  )}
+                </div>
+              </motion.button>
+            );
+          })}
         </div>
+      </div>
+
+      {revealed && (
+        <div className="flex justify-end pt-1">
+          <button
+            type="button"
+            onClick={handleReset}
+            className="text-[11px] text-text-2 hover:text-text-1 underline underline-offset-2 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-cobalt rounded"
+          >
+            Reset
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ReviewTab() {
+  return (
+    <div className="space-y-3">
+      {/* Score header */}
+      <div className="rounded-md border border-border bg-surface-2 p-3">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-xs font-semibold text-text-1">Written response score</span>
+          <span className="font-mono text-sm font-bold text-emerald tabular-nums">0.85 / 1.0</span>
+        </div>
+        <div className="h-1.5 w-full rounded-full bg-surface-3 overflow-hidden">
+          <div className="h-full rounded-full bg-emerald" style={{ width: '85%' }} />
+        </div>
+      </div>
+
+      {/* Student answer */}
+      <div className="rounded-md border border-border bg-surface-2 p-3 space-y-1.5">
+        <p className="text-[10px] font-semibold text-text-3 uppercase tracking-wide">Your answer</p>
+        <p className="text-xs text-text-1 leading-relaxed">
+          A B-Tree index enables O(log n) lookups by keeping keys sorted in a balanced tree.
+          Each node stores pointers to child nodes, so the search descends at most h levels
+          where h is the tree height.
+        </p>
+      </div>
+
+      {/* Canonical answer */}
+      <div className="rounded-md border border-cobalt/30 bg-cobalt/5 p-3 space-y-1.5">
+        <p className="text-[10px] font-semibold text-cobalt uppercase tracking-wide">Model answer</p>
+        <p className="text-xs text-text-1 leading-relaxed">
+          A B-Tree index achieves O(log n) lookup complexity. The tree is kept balanced across
+          insertions and deletions, so height grows logarithmically with n. Missing from your
+          answer: PostgreSQL uses B-Trees for primary key constraints by default.
+        </p>
+      </div>
+
+      {/* Source excerpt */}
+      <div className="rounded-md border border-border bg-surface-2 p-3 space-y-1.5">
+        <p className="text-[10px] font-semibold text-text-3 uppercase tracking-wide">
+          Source excerpt (page 12)
+        </p>
+        <blockquote className="text-xs text-text-2 leading-relaxed border-l-2 border-cobalt pl-2.5">
+          "A B-Tree index stores keys in a balanced tree so lookups, insertions, and deletions
+          all run in O(log n) time. PostgreSQL uses B-Trees for primary key constraints by
+          default."
+        </blockquote>
+      </div>
+    </div>
+  );
+}
+
+export const InteractiveExamPreview: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<TabId>('source');
+
+  return (
+    <div
+      className="w-full max-w-md mx-auto rounded-xl border border-border bg-surface-1 overflow-hidden shadow-lg"
+      aria-label="Interactive product preview"
+    >
+      {/* Tab bar */}
+      <div
+        className="flex border-b border-border bg-surface-2"
+        role="tablist"
+        aria-label="Preview tabs"
+      >
+        {TABS.map((tab) => (
+          <button
+            key={tab.id}
+            type="button"
+            role="tab"
+            aria-selected={activeTab === tab.id}
+            aria-controls={`tab-panel-${tab.id}`}
+            id={`tab-${tab.id}`}
+            onClick={() => setActiveTab(tab.id)}
+            className={`flex-1 py-2.5 px-2 text-xs font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-cobalt border-b-2 ${
+              activeTab === tab.id
+                ? 'border-cobalt text-cobalt bg-surface-1'
+                : 'border-transparent text-text-2 hover:text-text-1 hover:bg-surface-1/50'
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Tab content */}
+      <div className="p-4">
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={activeTab}
+            id={`tab-panel-${activeTab}`}
+            role="tabpanel"
+            aria-labelledby={`tab-${activeTab}`}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {activeTab === 'source' && <SourceTab />}
+            {activeTab === 'session' && <SessionTab />}
+            {activeTab === 'review' && <ReviewTab />}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );

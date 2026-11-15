@@ -69,11 +69,11 @@ export const TaglineRevealSection: React.FC = () => {
   return (
     <section
       ref={sectionRef}
-      className="py-32 px-6 border-y border-border bg-base"
+      className="py-32 px-6 border-y border-white/15 bg-black"
       aria-label="Core active recall principle"
     >
       <div className="max-w-[720px] mx-auto text-center">
-        <h2 className="text-3xl sm:text-5xl font-bold tracking-display leading-tight [text-wrap:balance] space-y-3">
+        <h2 className="text-3xl sm:text-5xl font-heading font-bold tracking-display leading-tight text-white [text-wrap:balance] space-y-3">
           {renderLine(LINE_ONE)}
           {renderLine(LINE_TWO)}
         </h2>

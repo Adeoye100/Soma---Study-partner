@@ -63,16 +63,16 @@ export const TechStackSection: React.FC = () => {
   ];
 
   return (
-    <section id="integrations" className="py-24 border-t border-border bg-muted/10">
+    <section id="integrations" className="py-24 border-t border-white/15 bg-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <p className="text-xs font-mono font-semibold uppercase tracking-wider text-primary mb-2">
+          <p className="text-xs font-mono font-semibold uppercase tracking-wider text-white/50 mb-2">
             INTEGRATIONS
           </p>
-          <h2 className="text-3xl sm:text-4xl font-heading font-bold tracking-tight text-foreground">
+          <h2 className="text-3xl sm:text-4xl font-heading font-bold tracking-display text-white">
             Works with your existing study tools
           </h2>
-          <p className="mt-3 text-base text-muted-foreground leading-relaxed">
+          <p className="mt-3 text-base text-white/60 leading-relaxed">
             Import slides and notes from your university portal, cloud storage, or note-taking apps.
           </p>
         </div>
@@ -83,22 +83,22 @@ export const TechStackSection: React.FC = () => {
             return (
               <div
                 key={item.name}
-                className="rounded-2xl border border-border bg-card p-6 flex flex-col justify-between hover:border-primary/40 hover:shadow-md transition-all duration-200 group"
+                className="rounded-none border border-white/15 bg-black p-6 flex flex-col justify-between hover:border-white/40 transition-all duration-200 group"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <div className="size-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-200">
+                    <div className="size-10 rounded-none border border-white/20 bg-white/5 text-white flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors duration-200">
                       <Icon className="size-5" />
                     </div>
-                    <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded bg-muted text-muted-foreground">
+                    <span className="text-[10px] font-mono font-medium uppercase tracking-wider px-2 py-0.5 rounded-none bg-white/10 text-white/70 border border-white/15">
                       {item.category}
                     </span>
                   </div>
 
-                  <h3 className="font-heading font-semibold text-base text-foreground group-hover:text-primary transition-colors">
+                  <h3 className="font-heading font-semibold text-base text-white transition-colors">
                     {item.name}
                   </h3>
-                  <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
+                  <p className="mt-2 text-xs text-white/60 leading-relaxed">
                     {item.description}
                   </p>
                 </div>

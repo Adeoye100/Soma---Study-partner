@@ -18,11 +18,11 @@ const Header: React.FC<HeaderProps> = ({ user, onLogout, onOpenProfileSettings }
   const fallbackName = (userName || 'A').slice(0, 2).toUpperCase();
 
   return (
-    <header className="bg-background/80 backdrop-blur-md sticky top-0 z-10 border-b border-border shadow-xs transition-colors duration-200">
+    <header className="bg-background/90 backdrop-blur-md sticky top-0 z-10 border-b border-border transition-colors duration-200">
       <div className="container mx-auto px-3 sm:px-4 md:px-8 py-3 sm:py-4 flex justify-between items-center">
         <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-          <BookOpen className="h-6 w-6 sm:h-8 sm:w-8 text-primary animated-book flex-shrink-0" />
-          <h1 className="font-brand text-lg sm:text-xl md:text-2xl font-bold animated-gradient-text truncate">
+          <BookOpen className="h-6 w-6 sm:h-8 sm:w-8 text-foreground flex-shrink-0" />
+          <h1 className="font-heading text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-wider text-foreground truncate">
             Somma
           </h1>
         </div>

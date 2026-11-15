@@ -37,16 +37,16 @@ export const LevelUpSection: React.FC<LevelUpSectionProps> = ({ onScrollToSectio
   ];
 
   return (
-    <section className="py-20 border-t border-border bg-muted/10">
+    <section className="py-20 border-t border-white/15 bg-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mb-12">
-          <p className="text-xs font-mono font-semibold uppercase tracking-wider text-primary mb-2">
+          <p className="text-xs font-mono font-semibold uppercase tracking-wider text-white/50 mb-2">
             HOW SOMMA HELPS
           </p>
-          <h2 className="text-3xl sm:text-4xl font-heading font-bold tracking-tight text-foreground">
+          <h2 className="text-3xl sm:text-4xl font-heading font-bold tracking-display text-white">
             Study active recall, not passive highlighting
           </h2>
-          <p className="mt-3 text-base text-muted-foreground">
+          <p className="mt-3 text-base text-white/60">
             Three ways Somma prepares you for actual exams instead of just rereading your notes.
           </p>
         </div>
@@ -58,27 +58,27 @@ export const LevelUpSection: React.FC<LevelUpSectionProps> = ({ onScrollToSectio
               <div
                 key={card.title}
                 onClick={() => onScrollToSection(card.actionId)}
-                className="group relative rounded-2xl border border-border bg-card p-6 sm:p-8 flex flex-col justify-between hover:border-primary/40 hover:shadow-lg transition-all duration-300 cursor-pointer"
+                className="group relative rounded-none border border-white/15 bg-black p-6 sm:p-8 flex flex-col justify-between hover:border-white/40 transition-all duration-300 cursor-pointer"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="text-[11px] font-mono font-semibold px-2.5 py-1 rounded-md bg-primary/10 text-primary border border-primary/20">
+                    <span className="text-[11px] font-mono font-semibold uppercase tracking-wider px-2.5 py-1 rounded-none bg-white/10 text-white border border-white/20">
                       {card.badge}
                     </span>
-                    <div className="size-9 rounded-xl bg-muted flex items-center justify-center text-muted-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-200">
+                    <div className="size-9 rounded-none border border-white/20 bg-white/5 flex items-center justify-center text-white/70 group-hover:bg-white group-hover:text-black transition-colors duration-200">
                       <Icon className="size-4" />
                     </div>
                   </div>
 
-                  <h3 className="text-xl font-heading font-semibold text-foreground group-hover:text-primary transition-colors">
+                  <h3 className="text-xl font-heading font-semibold text-white transition-colors">
                     {card.title}
                   </h3>
-                  <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                  <p className="mt-3 text-sm text-white/60 leading-relaxed">
                     {card.description}
                   </p>
                 </div>
 
-                <div className="mt-8 pt-4 border-t border-border flex items-center text-xs font-semibold text-primary gap-1 group-hover:translate-x-1 transition-transform">
+                <div className="mt-8 pt-4 border-t border-white/15 flex items-center text-xs font-mono font-semibold uppercase tracking-wider text-white gap-1 group-hover:translate-x-1 transition-transform">
                   <span>{card.actionText}</span>
                   <ArrowRight className="size-3.5" />
                 </div>

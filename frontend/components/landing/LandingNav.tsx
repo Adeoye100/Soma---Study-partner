@@ -1,116 +1,117 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, ArrowRight } from 'lucide-react';
 import ThemeToggle from '../ThemeToggle';
 
 interface LandingNavProps {
   onScrollToSection: (id: string) => void;
 }
 
+const NAV_ITEMS = [
+  { label: 'How it works', id: 'how-it-works' },
+  { label: 'Features', id: 'features' },
+  { label: 'Exam modes', id: 'exam-modes' },
+  { label: 'FAQ', id: 'faq' },
+];
+
 export const LandingNav: React.FC<LandingNavProps> = ({ onScrollToSection }) => {
   const navigate = useNavigate();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  // Close mobile menu on resize to desktop
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1024) {
-        setMobileMenuOpen(false);
-      }
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const handleStartPracticing = () => {
-    setMobileMenuOpen(false);
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth >= 1024) setMobileOpen(false);
+    };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  const handleOpenWorkspace = () => {
+    setMobileOpen(false);
     navigate('/login', { state: { showSignup: true } });
   };
 
   const handleNavClick = (id: string) => {
-    setMobileMenuOpen(false);
+    setMobileOpen(false);
     onScrollToSection(id);
   };
 
-  const navItems = [
-    { label: 'How it works', id: 'how-it-works' },
-    { label: 'Features', id: 'features' },
-    { label: 'Demo', id: 'demo-preview' },
-    { label: 'FAQ', id: 'faq' },
-  ];
-
   return (
     <>
-      {/* Floating Glass Pill Navigation Container */}
-      <header className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full max-w-5xl px-4 flex justify-center pointer-events-none">
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? 'bg-base/90 backdrop-blur-md border-b border-border shadow-sm'
+            : 'bg-transparent backdrop-blur-sm'
+        }`}
+      >
         <nav
-          className="pointer-events-auto w-full rounded-full backdrop-blur-md bg-surface-1/80 border border-border px-6 py-3 flex items-center justify-between gap-6 shadow-xl shadow-black/25 transition-all duration-300"
+          className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-6"
           aria-label="Main navigation"
         >
-          {/* Logo Mark */}
+          {/* Brand */}
           <button
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="flex items-center gap-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-full px-1 py-0.5 text-text-1 group"
+            className="font-heading font-bold text-lg text-text-1 tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt rounded"
           >
-            <div className="flex items-center justify-center size-7 rounded-full bg-accent/20 text-accent group-hover:bg-accent group-hover:text-white transition-colors duration-200">
-              <Sparkles className="size-3.5" aria-hidden="true" />
-            </div>
-            <span className="font-sans font-bold text-base tracking-tight text-text-1">
-              Soma
-            </span>
+            Soma
           </button>
 
-          {/* Desktop Nav Items */}
-          <div className="hidden md:flex items-center gap-6 text-sm font-medium text-text-2">
-            {navItems.map((item) => (
+          {/* Desktop nav */}
+          <div className="hidden md:flex items-center gap-1">
+            {NAV_ITEMS.map((item) => (
               <button
                 key={item.id}
                 type="button"
                 onClick={() => handleNavClick(item.id)}
-                className="hover:text-text-1 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-full px-2 py-1"
+                className="px-3 py-2 rounded text-sm text-text-2 hover:text-text-1 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt"
               >
                 {item.label}
               </button>
             ))}
           </div>
 
-          {/* Right Action Cluster */}
-          <div className="flex items-center gap-3">
+          {/* Right cluster */}
+          <div className="flex items-center gap-2">
             <ThemeToggle />
-
             <button
               type="button"
-              onClick={handleStartPracticing}
-              className="hidden sm:inline-flex items-center gap-1.5 bg-accent hover:opacity-90 active:scale-[0.98] text-white rounded-full px-4 py-2 text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent shadow-sm"
+              onClick={handleOpenWorkspace}
+              className="hidden sm:inline-flex items-center px-4 py-2 rounded-md bg-cobalt text-white text-sm font-semibold transition-all duration-200 hover:bg-cobalt-mid active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt focus-visible:ring-offset-2 focus-visible:ring-offset-base"
             >
-              <span>Start practicing</span>
-              <ArrowRight className="size-3.5" aria-hidden="true" />
+              Open workspace
             </button>
 
-            {/* Mobile Hamburger Morph Button */}
+            {/* Hamburger */}
             <button
               type="button"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden flex items-center justify-center size-9 rounded-full border border-border text-text-2 hover:text-text-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-              aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-              aria-expanded={mobileMenuOpen}
+              onClick={() => setMobileOpen((v) => !v)}
+              className="md:hidden flex items-center justify-center size-9 rounded text-text-2 hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt"
+              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileOpen}
             >
               <div className="relative size-4">
                 <span
-                  className={`absolute left-0 block h-0.5 w-4 bg-current transition-all duration-300 ease-spring ${
-                    mobileMenuOpen ? 'top-2 rotate-45 translate-y-[0px]' : 'top-1'
+                  className={`absolute left-0 block h-0.5 w-4 bg-current transition-all duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                    mobileOpen ? 'top-2 rotate-45' : 'top-1'
                   }`}
                 />
                 <span
-                  className={`absolute left-0 block h-0.5 w-4 bg-current transition-all duration-300 ease-spring ${
-                    mobileMenuOpen ? 'opacity-0' : 'top-2'
+                  className={`absolute left-0 block h-0.5 w-4 bg-current transition-all duration-200 ${
+                    mobileOpen ? 'opacity-0 scale-x-0' : 'top-2 opacity-100'
                   }`}
                 />
                 <span
-                  className={`absolute left-0 block h-0.5 w-4 bg-current transition-all duration-300 ease-spring ${
-                    mobileMenuOpen ? 'top-2 -rotate-45 -translate-y-[0px]' : 'top-3'
+                  className={`absolute left-0 block h-0.5 w-4 bg-current transition-all duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                    mobileOpen ? 'top-2 -rotate-45' : 'top-3'
                   }`}
                 />
               </div>
@@ -119,55 +120,55 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onScrollToSection }) => 
         </nav>
       </header>
 
-      {/* Mobile Full-Screen Staggered Overlay */}
+      {/* Mobile overlay */}
       <AnimatePresence>
-        {mobileMenuOpen && (
+        {mobileOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 backdrop-blur-3xl bg-base/90 z-40 flex flex-col justify-center items-center px-6 py-12 md:hidden"
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-40 bg-base/95 backdrop-blur-xl flex flex-col pt-20 px-6 md:hidden"
           >
-            <div className="flex flex-col items-center gap-6 w-full max-w-sm text-center">
-              {navItems.map((item, index) => (
+            <nav className="flex flex-col gap-1" aria-label="Mobile navigation">
+              {NAV_ITEMS.map((item, i) => (
                 <motion.button
                   key={item.id}
-                  initial={{ opacity: 0, y: 32 }}
+                  initial={{ opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 16 }}
+                  exit={{ opacity: 0 }}
                   transition={{
-                    duration: 0.4,
-                    delay: index * 0.06,
-                    ease: [0.32, 0.72, 0, 1],
+                    duration: 0.35,
+                    delay: i * 0.05,
+                    ease: [0.22, 1, 0.36, 1],
                   }}
+                  type="button"
                   onClick={() => handleNavClick(item.id)}
-                  className="text-2xl font-bold text-text-1 hover:text-accent transition-colors py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-lg"
+                  className="text-left text-2xl font-heading font-bold text-text-1 py-3 border-b border-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt rounded"
                 >
                   {item.label}
                 </motion.button>
               ))}
-
               <motion.div
-                initial={{ opacity: 0, y: 32 }}
+                initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 16 }}
+                exit={{ opacity: 0 }}
                 transition={{
-                  duration: 0.4,
-                  delay: navItems.length * 0.06,
-                  ease: [0.32, 0.72, 0, 1],
+                  duration: 0.35,
+                  delay: NAV_ITEMS.length * 0.05,
+                  ease: [0.22, 1, 0.36, 1],
                 }}
-                className="w-full pt-6 border-t border-border flex flex-col gap-3"
+                className="pt-6"
               >
                 <button
                   type="button"
-                  onClick={handleStartPracticing}
-                  className="w-full bg-accent hover:opacity-90 active:scale-[0.98] text-white rounded-full py-3.5 text-base font-semibold transition-all shadow-lg"
+                  onClick={handleOpenWorkspace}
+                  className="w-full py-3.5 rounded-md bg-cobalt text-white font-semibold text-base active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt focus-visible:ring-offset-2 focus-visible:ring-offset-base"
                 >
-                  Start practicing →
+                  Open workspace
                 </button>
               </motion.div>
-            </div>
+            </nav>
           </motion.div>
         )}
       </AnimatePresence>

@@ -1,104 +1,98 @@
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronDown, HelpCircle } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
+import { useAnimeEntrance } from './useAnimeEntrance';
 
-interface FaqItem {
-  question: string;
-  answer: string;
-}
+// AnimatePresence stays for the accordion height animation — that's
+// triggered by user action, not scroll, so Framer Motion is appropriate here.
 
-const FAQS: FaqItem[] = [
+const ease = [0.22, 1, 0.36, 1] as const;
+
+const FAQS = [
   {
-    question: 'How does Somma make sure questions match my class materials?',
-    answer:
-      'Somma builds questions directly from the files you upload. It extracts the definitions, formulas, and diagrams from your lecture slides. If a concept is not in your coursework, Somma will not test you on it.',
+    q: 'What file types can I upload?',
+    a: 'You can upload PDF documents, PNG and JPEG images (including photos of slides or handwritten pages), plain text files, and Markdown files. If you upload the same file twice, Soma recognizes it automatically and avoids creating duplicates.',
   },
   {
-    question: 'What file formats can I upload?',
-    answer:
-      'You can upload PDF slides, PowerPoint PPTX decks, Word documents, text notes, or exported handwritten PDF notes.',
+    q: 'How does Soma grade written answers?',
+    a: 'When Soma generates a written question from your notes, it also creates a grading rubric based on the source text. When you submit your answer, it compares your response against that rubric, awards full or partial credit, and explains which key concepts you hit or missed.',
   },
   {
-    question: 'Is my coursework private?',
-    answer:
-      'Yes. Your files and quiz history are saved only inside your personal account. We do not sell your data or share your notes publicly.',
+    q: 'What happens if my internet disconnects during a timed test?',
+    a: 'Your session state and draft answers sync continuously over a live connection. If your page refreshes or your Wi-Fi drops briefly, you can rejoin the active session without losing your recorded answers. If time expires while you are away, Soma grades the answers you already completed.',
   },
   {
-    question: 'Is there a free plan, and do I need a credit card?',
-    answer:
-      'You can sign up and start generating mock exams without entering a credit card. Core features, timed tests, and answer explanations are available for free.',
+    q: 'Does Soma invent facts outside my course material?',
+    a: 'Soma builds its topic outlines, questions, and review explanations from the chunks of text extracted from your uploaded files. Every graded question in Review Mode includes the source excerpt from your material so you can verify it yourself.',
   },
   {
-    question: 'How fast does Somma generate an exam?',
-    answer:
-      'A typical 40 to 60 slide lecture deck turns into a timed 15 to 25 question mock exam with full explanations in about thirty seconds.',
-  },
-  {
-    question: 'Can I review past tests and track my progress?',
-    answer:
-      'Yes. Every completed practice exam is saved in your history so you can see where you improved and which topics to review before test day.',
+    q: 'How does the study plan decide what I should review next?',
+    a: 'After each exam, Soma looks at your score per topic, the difficulty of the questions you missed, and how long ago you practiced that material. Topics with low accuracy appear at the top of your plan for immediate drills, while mastered topics are scheduled for spaced recall later on.',
   },
 ];
 
 export const FaqSection: React.FC = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
+  const sectionRef = useAnimeEntrance<HTMLDivElement>('[data-anime]', {
+    translateY: 20,
+    duration: 500,
+    stagger: 70,
+  });
+
+  const toggle = (i: number) => setOpenIndex((prev) => (prev === i ? null : i));
+
   return (
-    <section id="faq" className="py-24 border-t border-border bg-muted/10">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <p className="text-xs font-mono font-semibold uppercase tracking-wider text-primary mb-2 flex items-center justify-center gap-1.5">
-            <HelpCircle className="size-3.5" />
-            <span>COMMON QUESTIONS</span>
-          </p>
-          <h2 className="text-3xl sm:text-5xl font-heading font-bold tracking-tight text-foreground [text-wrap:balance]">
-            Questions before you start
+    <section id="faq" className="py-24 sm:py-32 border-t border-border">
+      <div ref={sectionRef} className="max-w-2xl mx-auto px-4 sm:px-6">
+        <div data-anime className="mb-12">
+          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-text-1">
+            Common questions before you start.
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-muted-foreground [text-wrap:pretty]">
-            Everything you need to know about question accuracy, supported files, and privacy.
-          </p>
         </div>
 
-        <div className="space-y-4">
-          {FAQS.map((faq, idx) => {
-            const isOpen = openIndex === idx;
-            return (
-              <div
-                key={faq.question}
-                className="rounded-2xl border border-border bg-card overflow-hidden shadow-xs hover:border-primary/40 transition-colors"
+        <div className="space-y-3" role="list">
+          {FAQS.map((item, i) => (
+            <div
+              key={item.q}
+              data-anime
+              role="listitem"
+              className="rounded-xl border border-border bg-surface-1/80 backdrop-blur-sm overflow-hidden"
+            >
+              <button
+                type="button"
+                id={`faq-trigger-${i}`}
+                aria-expanded={openIndex === i}
+                aria-controls={`faq-panel-${i}`}
+                onClick={() => toggle(i)}
+                className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left text-sm font-semibold text-text-1 hover:bg-surface-2/50 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt focus-visible:ring-inset"
               >
-                <button
-                  type="button"
-                  onClick={() => setOpenIndex((prev) => (prev === idx ? null : idx))}
-                  className="w-full px-6 py-5 text-left flex items-center justify-between gap-4 font-heading font-semibold text-base sm:text-lg text-foreground hover:bg-muted/20 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                  aria-expanded={isOpen}
-                >
-                  <span className="[text-wrap:balance]">{faq.question}</span>
-                  <ChevronDown
-                    className={`size-4 shrink-0 text-muted-foreground transition-transform duration-300 ${
-                      isOpen ? 'rotate-180 text-primary' : ''
-                    }`}
-                    aria-hidden="true"
-                  />
-                </button>
+                <span className="leading-snug">{item.q}</span>
+                <ChevronDown
+                  className={`size-4 shrink-0 text-text-2 transition-transform duration-250 ${openIndex === i ? 'rotate-180' : ''}`}
+                  aria-hidden="true"
+                />
+              </button>
 
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
-                    >
-                      <div className="px-6 pb-6 text-sm sm:text-base text-muted-foreground leading-relaxed border-t border-border pt-4 [text-wrap:pretty]">
-                        {faq.answer}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            );
-          })}
+              <AnimatePresence initial={false}>
+                {openIndex === i && (
+                  <motion.div
+                    id={`faq-panel-${i}`}
+                    role="region"
+                    aria-labelledby={`faq-trigger-${i}`}
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.25, ease }}
+                  >
+                    <p className="px-5 pb-5 pt-0 text-sm text-text-2 leading-relaxed border-t border-border">
+                      <span className="block pt-4">{item.a}</span>
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          ))}
         </div>
       </div>
     </section>

@@ -46,33 +46,33 @@ const COURSES = [
 
 export const SocialProofSection: React.FC = () => {
   return (
-    <section className="py-24 sm:py-32 border-t border-border bg-base overflow-hidden">
+    <section className="py-24 sm:py-32 border-t border-white/15 bg-black overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* 7.3 — Stats Strip */}
+        {/* Stats Strip */}
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <div className="inline-flex flex-wrap items-center justify-center gap-2 sm:gap-4 px-6 py-3 rounded-full border border-border bg-surface-1 text-sm text-text-2 font-mono">
+          <div className="inline-flex flex-wrap items-center justify-center gap-2 sm:gap-4 px-6 py-3 rounded-none border border-white/20 bg-white/5 text-xs sm:text-sm text-white/70 font-mono">
             <span>14,218 questions generated</span>
-            <span className="text-text-3">·</span>
+            <span className="text-white/30">/</span>
             <span>89.4% avg retention</span>
-            <span className="text-text-3">·</span>
+            <span className="text-white/30">/</span>
             <span>340+ courses</span>
-            <span className="text-text-3">·</span>
-            <span className="text-accent font-semibold">Free to start</span>
+            <span className="text-white/30">/</span>
+            <span className="text-white font-semibold uppercase tracking-wider">Free to start</span>
           </div>
         </div>
 
-        {/* 7.1 — Course Marquee */}
+        {/* Course Marquee */}
         <div className="mb-20">
-          <p className="text-xs font-mono font-semibold uppercase tracking-wider text-text-3 text-center mb-6">
+          <p className="text-xs font-mono font-semibold uppercase tracking-wider text-white/40 text-center mb-6">
             Course materials tested across disciplines
           </p>
 
           <div className="relative w-full overflow-hidden mask-gradient">
-            <div className="flex gap-3 animate-[marquee_35s_linear_infinite] whitespace-nowrap w-max hover:[animation-play-state:paused]">
+            <div className="flex gap-2.5 animate-[marquee_35s_linear_infinite] whitespace-nowrap w-max hover:[animation-play-state:paused]">
               {[...COURSES, ...COURSES].map((course, idx) => (
                 <span
                   key={`${course}-${idx}`}
-                  className="rounded-full bg-surface-2 border border-border text-sm px-4 py-1.5 text-text-2 cursor-default hover:text-text-1 hover:border-accent/40 transition-colors"
+                  className="rounded-none bg-white/5 border border-white/15 text-xs font-mono px-3.5 py-1.5 text-white/70 cursor-default hover:text-white hover:border-white/40 transition-colors"
                 >
                   {course}
                 </span>
@@ -81,12 +81,12 @@ export const SocialProofSection: React.FC = () => {
           </div>
         </div>
 
-        {/* 7.2 — Testimonials Header */}
+        {/* Testimonials Header */}
         <div className="max-w-2xl mb-12 text-left">
-          <div className="inline-flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent-mute text-accent text-xs font-semibold px-3 py-1 mb-3">
+          <div className="inline-flex items-center gap-1.5 rounded-none border border-white/20 bg-white/5 text-white/70 text-xs font-mono font-semibold uppercase tracking-wider px-3 py-1 mb-3">
             <span>Student Outcomes</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-bold tracking-display text-text-1 [text-wrap:balance]">
+          <h2 className="text-3xl sm:text-5xl font-heading font-bold tracking-display text-white [text-wrap:balance]">
             Tested on real coursework
           </h2>
         </div>
@@ -96,16 +96,16 @@ export const SocialProofSection: React.FC = () => {
           {TESTIMONIALS.map((t) => (
             <figure
               key={t.name}
-              className="rounded-2xl border border-border bg-surface-1 p-6 sm:p-8 flex flex-col justify-between gap-6 transition-all duration-300 ease-spring hover:scale-[1.02] hover:border-accent/40 active:scale-[0.98] shadow-lg shadow-black/20"
+              className="rounded-none border border-white/15 bg-black p-6 sm:p-8 flex flex-col justify-between gap-6 transition-all duration-300 ease-spring hover:border-white/40"
             >
-              <blockquote className="text-sm sm:text-base text-text-1 leading-relaxed [text-wrap:pretty]">
+              <blockquote className="text-sm sm:text-base text-white/80 leading-relaxed [text-wrap:pretty]">
                 "{t.quote}"
               </blockquote>
 
-              <figcaption className="pt-4 border-t border-border">
-                <p className="font-bold text-base text-text-1">{t.name}</p>
-                <p className="text-xs text-text-2 mt-1 flex items-center gap-1.5">
-                  <GraduationCap className="size-3.5 text-accent shrink-0" aria-hidden="true" />
+              <figcaption className="pt-4 border-t border-white/15">
+                <p className="font-heading font-bold text-base text-white">{t.name}</p>
+                <p className="text-xs text-white/50 mt-1 flex items-center gap-1.5">
+                  <GraduationCap className="size-3.5 text-white shrink-0" aria-hidden="true" />
                   <span>{t.role}</span>
                 </p>
               </figcaption>

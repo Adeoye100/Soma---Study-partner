@@ -69,11 +69,7 @@ const StyledWrapper = styled.div`
     height: 350px;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    background: linear-gradient(
-      to right,
-      #a855f7, /* purple-600 */
-      #f59e0b /* amber-500 */
-    );
+    background: rgba(255, 255, 255, 0.15);
     opacity: 0;
     filter: blur(80px);
     transition: opacity 0.5s ease-in-out;
@@ -84,10 +80,10 @@ const StyledWrapper = styled.div`
     z-index: 1;
     height: 100%;
     width: 100%;
-    background: rgba(30, 41, 59, 0.3); /* dark:bg-slate-800 with opacity */
+    background: rgba(10, 10, 12, 0.85);
     backdrop-filter: blur(32px);
-    border-radius: 1.125rem; /* 18px */
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0;
+    border: 1px solid rgba(255, 255, 255, 0.15);
     overflow: hidden;
     transition: background-color 0.3s ease, border-color 0.3s ease;
   }

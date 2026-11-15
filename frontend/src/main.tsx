@@ -1,7 +1,6 @@
 import { injectSelfXSSWarning } from './security/consoleWarning';
 injectSelfXSSWarning();
 
-import '@fontsource-variable/geist';
 import '@fontsource-variable/geist-mono';
 
 import React from 'react';

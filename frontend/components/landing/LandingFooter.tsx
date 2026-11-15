@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { BookOpen, ArrowRight, X, Sparkles, CheckCircle2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import ThemeToggle from '../ThemeToggle';
+import { X } from 'lucide-react';
+import { useAnimeEntrance } from './useAnimeEntrance';
 
 interface LandingFooterProps {
   onScrollToSection: (id: string) => void;
@@ -13,226 +12,168 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onScrollToSection 
   const navigate = useNavigate();
   const [legalModal, setLegalModal] = useState<'privacy' | 'terms' | null>(null);
 
+  const ctaRef = useAnimeEntrance<HTMLDivElement>('[data-anime]', {
+    translateY: 24,
+    duration: 600,
+    stagger: 80,
+  });
+
   useEffect(() => {
     if (!legalModal) return;
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setLegalModal(null);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setLegalModal(null);
     };
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
   }, [legalModal]);
 
-  const handleSignUp = () => {
-    navigate('/login', { state: { showSignup: true } });
-  };
-
-  const handleLogin = () => {
-    navigate('/login');
-  };
+  const handleStart = () => navigate('/login', { state: { showSignup: true } });
 
   return (
     <>
-      {/* MongoDB START TODAY Mega CTA Banner */}
-      <section className="py-24 border-t border-border bg-background relative overflow-hidden">
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.3]"
-          aria-hidden="true"
-          style={{
-            backgroundImage:
-              'radial-gradient(circle at 1px 1px, hsl(var(--foreground) / 0.08) 1px, transparent 0)',
-            backgroundSize: '28px 28px',
-          }}
-        />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="rounded-3xl border border-border/80 bg-card p-8 sm:p-14 lg:p-16 shadow-xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
-
-            <div className="max-w-3xl mx-auto text-center space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-primary/10 text-primary border border-primary/20">
-                <Sparkles className="size-3.5" />
-                <span>START STUDYING TODAY</span>
-              </div>
-
-              <h2 className="text-3xl sm:text-5xl font-heading font-bold tracking-tight text-foreground [text-wrap:balance]">
-                Ready for your next exam? Generate your first practice test now.
-              </h2>
-
-              <p className="text-base sm:text-xl text-muted-foreground leading-relaxed [text-wrap:pretty]">
-                Turn tonight's lecture deck into a timed drill before the coffee cools.
-              </p>
-
-              <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3.5">
-                <Button
-                  size="lg"
-                  onClick={handleSignUp}
-                  className="w-full sm:w-auto px-8 py-3.5 h-auto text-base font-semibold gap-2 rounded-xl shadow-md shadow-primary/15"
-                >
-                  <span>Start practicing free</span>
-                  <ArrowRight className="size-4" aria-hidden="true" />
-                </Button>
-
-                <Button
-                  variant="outline"
-                  size="lg"
-                  onClick={handleLogin}
-                  className="w-full sm:w-auto px-6 py-3.5 h-auto text-base font-semibold rounded-xl"
-                >
-                  Sign In
-                </Button>
-              </div>
-
-              <div className="pt-2 flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-muted-foreground font-medium">
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="size-3.5 text-emerald-500" />
-                  No credit card required
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="size-3.5 text-emerald-500" />
-                  Fast file upload
-                </span>
-                <span className="flex items-center gap-1.5">
-                  <CheckCircle2 className="size-3.5 text-emerald-500" />
-                  Works on desktop, tablet, or phone
-                </span>
-              </div>
+      {/* Bottom CTA */}
+      <section className="py-24 sm:py-32 border-t border-border">
+        <div ref={ctaRef} className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="max-w-xl mx-auto text-center space-y-5">
+            <h2 data-anime className="text-3xl sm:text-4xl font-heading font-bold text-text-1">
+              Ready to test yourself on your own notes?
+            </h2>
+            <p data-anime className="text-base text-text-2 leading-relaxed">
+              Upload your first document and generate a practice quiz in under a minute.
+            </p>
+            <div data-anime className="flex justify-center pt-2">
+              <button
+                type="button"
+                onClick={handleStart}
+                className="inline-flex items-center px-6 py-3 rounded-md bg-cobalt text-white text-sm font-semibold transition-all duration-200 hover:bg-cobalt-mid active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt focus-visible:ring-offset-2 focus-visible:ring-offset-base"
+              >
+                Start studying with Soma
+              </button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* MongoDB Multi-Column Footer */}
-      <footer className="border-t border-border pt-16 pb-12 bg-card text-muted-foreground text-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12 pb-12 border-b border-border">
-            {/* Brand Column */}
-            <div className="col-span-2 space-y-4">
-              <div className="flex items-center gap-2.5">
-                <div className="flex items-center justify-center size-8 rounded-lg bg-primary/10 text-primary">
-                  <BookOpen className="size-4" aria-hidden="true" />
-                </div>
-                <span className="font-brand font-bold text-xl text-foreground">Somma</span>
-              </div>
-              <p className="text-xs text-muted-foreground leading-relaxed max-w-sm">
-                The practice exam platform built for hard courses. Convert lecture decks into timed mock tests with slide citations.
+      {/* Footer */}
+      <footer className="border-t border-border py-12">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 pb-10 border-b border-border">
+            {/* Brand */}
+            <div className="col-span-2 sm:col-span-1 space-y-3">
+              <p className="font-heading font-bold text-base text-text-1">Soma</p>
+              <p className="text-xs text-text-2 leading-relaxed max-w-[200px]">
+                Soma Study Partner. Built for focused revision and exam preparation.
               </p>
-              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-xs font-mono">
-                <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span>All systems operational</span>
-              </div>
             </div>
 
-            {/* Column 1: Platform */}
-            <div className="space-y-3">
-              <p className="font-heading font-semibold text-foreground text-xs uppercase tracking-wider font-mono">
-                Platform
-              </p>
-              <ul className="space-y-2 text-xs">
+            {/* Product */}
+            <div className="space-y-2.5">
+              <p className="text-xs font-semibold text-text-1">Product</p>
+              <ul className="space-y-2 text-xs text-text-2">
                 <li>
-                  <button type="button" onClick={() => onScrollToSection('platform-workloads')} className="hover:text-foreground transition-colors">
-                    Slide Grounding
+                  <button
+                    type="button"
+                    onClick={() => onScrollToSection('how-it-works')}
+                    className="hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-cobalt rounded"
+                  >
+                    How it works
                   </button>
                 </li>
                 <li>
-                  <button type="button" onClick={() => onScrollToSection('platform-workloads')} className="hover:text-foreground transition-colors">
-                    Focus Monitor
+                  <button
+                    type="button"
+                    onClick={() => onScrollToSection('features')}
+                    className="hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-cobalt rounded"
+                  >
+                    Features
                   </button>
                 </li>
                 <li>
-                  <button type="button" onClick={() => onScrollToSection('features')} className="hover:text-foreground transition-colors">
-                    Wrong-Answer Explanations
+                  <button
+                    type="button"
+                    onClick={() => onScrollToSection('exam-modes')}
+                    className="hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-cobalt rounded"
+                  >
+                    Exam modes
                   </button>
                 </li>
                 <li>
-                  <button type="button" onClick={() => onScrollToSection('features')} className="hover:text-foreground transition-colors">
-                    File Imports
-                  </button>
-                </li>
-              </ul>
-            </div>
-
-            {/* Column 2: Resources */}
-            <div className="space-y-3">
-              <p className="font-heading font-semibold text-foreground text-xs uppercase tracking-wider font-mono">
-                Resources
-              </p>
-              <ul className="space-y-2 text-xs">
-                <li>
-                  <button type="button" onClick={() => onScrollToSection('how-it-works')} className="hover:text-foreground transition-colors">
-                    How It Works
-                  </button>
-                </li>
-                <li>
-                  <button type="button" onClick={() => onScrollToSection('demo-preview')} className="hover:text-foreground transition-colors">
-                    Sample Question
-                  </button>
-                </li>
-                <li>
-                  <button type="button" onClick={() => onScrollToSection('integrations')} className="hover:text-foreground transition-colors">
-                    Integrations
-                  </button>
-                </li>
-                <li>
-                  <button type="button" onClick={() => onScrollToSection('faq')} className="hover:text-foreground transition-colors">
+                  <button
+                    type="button"
+                    onClick={() => onScrollToSection('faq')}
+                    className="hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-cobalt rounded"
+                  >
                     FAQ
                   </button>
                 </li>
               </ul>
             </div>
 
-            {/* Column 3: Legal & Account */}
-            <div className="space-y-3">
-              <p className="font-heading font-semibold text-foreground text-xs uppercase tracking-wider font-mono">
-                Account & Legal
-              </p>
-              <ul className="space-y-2 text-xs">
+            {/* Account */}
+            <div className="space-y-2.5">
+              <p className="text-xs font-semibold text-text-1">Account</p>
+              <ul className="space-y-2 text-xs text-text-2">
                 <li>
-                  <button type="button" onClick={handleLogin} className="hover:text-foreground transition-colors">
-                    Sign In
+                  <button
+                    type="button"
+                    onClick={() => navigate('/login')}
+                    className="hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-cobalt rounded"
+                  >
+                    Sign in
                   </button>
                 </li>
                 <li>
-                  <button type="button" onClick={handleSignUp} className="hover:text-foreground transition-colors">
-                    Start Free
+                  <button
+                    type="button"
+                    onClick={handleStart}
+                    className="hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-cobalt rounded"
+                  >
+                    Create account
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            {/* Legal */}
+            <div className="space-y-2.5">
+              <p className="text-xs font-semibold text-text-1">Legal</p>
+              <ul className="space-y-2 text-xs text-text-2">
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => setLegalModal('privacy')}
+                    className="hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-cobalt rounded"
+                  >
+                    Privacy policy
                   </button>
                 </li>
                 <li>
-                  <button type="button" onClick={() => setLegalModal('privacy')} className="hover:text-foreground transition-colors">
-                    Privacy Policy
-                  </button>
-                </li>
-                <li>
-                  <button type="button" onClick={() => setLegalModal('terms')} className="hover:text-foreground transition-colors">
-                    Terms of Service
+                  <button
+                    type="button"
+                    onClick={() => setLegalModal('terms')}
+                    className="hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-cobalt rounded"
+                  >
+                    Terms of service
                   </button>
                 </li>
               </ul>
             </div>
           </div>
 
-          {/* Bottom Bar */}
-          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
-            <p>© 2026 Somma Technologies, Inc. All rights reserved. Built for hard courses.</p>
-            <div className="flex items-center gap-4">
-              <button type="button" onClick={() => setLegalModal('privacy')} className="hover:text-foreground transition-colors">
-                Privacy
-              </button>
-              <button type="button" onClick={() => setLegalModal('terms')} className="hover:text-foreground transition-colors">
-                Terms
-              </button>
-              <ThemeToggle />
-            </div>
+          <div className="pt-8 text-xs text-text-3">
+            <p>Copyright 2026 Soma Study Partner. All rights reserved.</p>
           </div>
         </div>
       </footer>
 
-      {/* Legal Modal */}
+      {/* Legal modal */}
       <AnimatePresence>
         {legalModal && (
           <div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-md"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-base/80 backdrop-blur-md"
             role="dialog"
             aria-modal="true"
-            aria-labelledby="footer-legal-title"
+            aria-labelledby="legal-modal-title"
             onClick={() => setLegalModal(null)}
           >
             <motion.div
@@ -240,31 +181,37 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onScrollToSection 
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.96 }}
               transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="w-full max-w-lg rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-2xl space-y-4 max-h-[85vh] overflow-y-auto"
+              className="w-full max-w-md rounded-xl border border-border bg-surface-1 p-6 space-y-4 max-h-[80vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between gap-3">
-                <h3 id="footer-legal-title" className="text-lg font-heading font-semibold text-foreground">
-                  {legalModal === 'privacy' ? 'Privacy notice' : 'Terms of service'}
+                <h3
+                  id="legal-modal-title"
+                  className="text-base font-heading font-bold text-text-1"
+                >
+                  {legalModal === 'privacy' ? 'Privacy policy' : 'Terms of service'}
                 </h3>
                 <button
                   type="button"
                   onClick={() => setLegalModal(null)}
-                  className="rounded-lg p-1 text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                  aria-label="Close legal dialog"
+                  className="rounded p-1 text-text-2 hover:text-text-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt"
+                  aria-label="Close"
                 >
-                  <X className="size-5" aria-hidden="true" />
+                  <X className="size-4" aria-hidden="true" />
                 </button>
               </div>
 
-              <div className="text-sm text-muted-foreground space-y-3 leading-relaxed [text-wrap:pretty]">
+              <div className="text-sm text-text-2 space-y-3 leading-relaxed">
                 {legalModal === 'privacy' ? (
                   <>
                     <p>
-                      Your academic files belong to you. Uploaded presentations, syllabi, and notes are processed only to build your mock exams and rationales.
+                      Your academic files belong to you. Uploaded presentations, syllabi, and
+                      notes are processed only to build your practice exams and review
+                      explanations.
                     </p>
                     <p>
-                      We do not sell or distribute your coursework or study history. Sessions and mastery stats stay private to your account.
+                      We do not sell or distribute your coursework or study history. Sessions
+                      and mastery stats stay private to your account.
                     </p>
                     <p>
                       You can delete uploaded documents or your account at any time.
@@ -273,22 +220,29 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onScrollToSection 
                 ) : (
                   <>
                     <p>
-                      By using Somma you agree to use the platform for personal study and educational practice.
+                      By using Soma you agree to use the platform for personal study and
+                      educational practice.
                     </p>
                     <p>
-                      You confirm you have the right to study the documents you upload. Somma supports retention through retrieval practice.
+                      You confirm you have the right to study the documents you upload. Soma
+                      supports retention through retrieval practice.
                     </p>
                     <p>
-                      Attempts to disrupt service, scrape content, or automate unauthorized requests are not allowed.
+                      Attempts to disrupt service, scrape content, or automate unauthorized
+                      requests are not permitted.
                     </p>
                   </>
                 )}
               </div>
 
-              <div className="pt-2 flex justify-end">
-                <Button size="sm" onClick={() => setLegalModal(null)} className="text-sm font-semibold px-4 rounded-lg">
+              <div className="flex justify-end pt-1">
+                <button
+                  type="button"
+                  onClick={() => setLegalModal(null)}
+                  className="px-4 py-2 rounded-md bg-cobalt text-white text-sm font-semibold hover:bg-cobalt-mid transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt"
+                >
                   Close
-                </Button>
+                </button>
               </div>
             </motion.div>
           </div>

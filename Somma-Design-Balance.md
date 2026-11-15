@@ -1,141 +1,131 @@
 ---
 title: Somma Design Balance
-tags: [somma, design-system, landing-page, spec]
-status: draft
+tags: [somma, design-system, landing-page, spec, eleya, siwes]
+status: active-rule
 updated: 2026-11-14
-sources: [SIWES_Philemon_Olusegun.html, siwes-presentation-five.vercel.app, landing-page-design skill, Somma repo @9d28307]
+sources:
+  - "/home/ad/Documents/SIWES/index.html (Eleya Design System, Opeyemi)"
+  - "/home/ad/Downloads/SIWES_Philemon_Olusegun.html (Thirteen Weeks in the Field, Philemon Olusegun)"
+  - "landing-page-design skill"
+  - "Somma repo"
 ---
 
 # Somma Design Balance
 
-> *"A false balance is abomination to the LORD: but a just weight is his delight."* — Proverbs 11:1
+> *"A false balance is abomination to the LORD: but a just weight is his delight."* — Proverbs 11:1  
 > Dieter Rams' sixth principle: good design is **honest**. It does not make a product look more powerful or proven than it is.
 
-**The rule in one line:** borrow the SIWES decks' *grammar*, obey the skill's *craft rules*, and keep Somma's *identity*. Don't average the three.
+**The Rule in One Line:** Synthesize the architectural discipline of the two SIWES systems—sharp square edges, hairline 1px borders, zero drop shadows, and evidence-first structure—with Somma's dedicated pairing of **Roddenberry** (Header/Display) and **Poppins** (Body/UI), executed in an uncompromising **Black & White** palette.
 
 ---
 
-## 0. What I could and could not verify
+## 0. Verified Source Analysis (100% Confidence)
 
-| Source | What I read | Confidence |
-|---|---|---|
-| Uploaded deck (`SIWES_Philemon_Olusegun.html`) | Full CSS and JS (fonts and images were base64, stripped) | **High**. This is a *different author's* deck ("Thirteen Weeks in the Field", Neo Cloud Technologies, Abuja). |
-| Live site (`siwes-presentation-five`) | Rendered text, structure, asset names | **Medium for structure, none for tokens.** The fetch tool returns text, not the stylesheet. |
-| Somma | Landing code at `9d28307` (13 files, 2,587 LOC) and an earlier-phase screenshot | **High for code.** The screenshot predates the current hero copy. |
+Both source decks have now been inspected directly from local files:
 
-> [!question] To verify the live site's palette, fonts and radius, open it, DevTools → Elements → `:root`, and paste the variables here (or save the page as HTML). Until then, every token comparison below is for the uploaded deck only.
-
----
-
-## 1. What the two SIWES systems share (verified in both)
-
-| Pattern | Live site | Uploaded deck | Take for Somma? |
+| Source | File Inspected | Design Engine & Identity | Verified System Tokens |
 |---|---|---|---|
-| **Deck chrome:** a `NN / NN` counter | "01 / 09" | `01 / 12` (generated in JS) | ✅ as a scroll indicator |
-| **Index of sections** | "01 HERO 02 RESIDENCE … 09 CONCLUSION" | `#index` overlay, key `O` | ✅ as the landing nav and scroll spy |
-| **Uppercase small labels with numbers** | "02 \| PLACE OF RESIDENCE / ORGANIZATION" | uppercase on 61 rules; "01 / Trainee" | ✅ for section eyebrows |
-| **Evidence over adjectives** | QR codes, project screenshots, an "Evidences" gallery | "9 labs. 3 case files. 1 live assessment."; 16 images, all with alt text | ✅ the strongest idea to borrow |
-| **Short declarative fragments** | "No guessing. No random coding. Structure first." | "ONE DESK. two roles."; "Seven steps. Zero exploitation." | ✅ for headlines, within the copy rules |
-| **Esc closes overlays** | "press ESC to close" | `Escape` handler | ✅ already a plan item |
-| **Light and dark both exist** | "LIGHT" toggle, two ASCII videos | alternating cream and ink slides | ✅ Somma already has a theme system |
-| **Closing slide with counts** | "03 Months Completed · 02 Core Projects" | "The field report." | ➖ not for a product page |
-
-Both come from the same cohort (matric numbers `24/10MSS047` and `24/10MSS048`) and share the same deck skeleton. I can't tell which came first. Keep the **structure**; don't lift the other deck's palette or type pairing wholesale, since those are its signature.
-
-## 2. Where they differ (so we don't blend them)
-
-| | Uploaded deck | Live site |
-|---|---|---|
-| Palette | cream `#f2ede1`, ink `#10100f`, **red-orange `#e8482f`**, mint `#9df5d8` | *unverified* (dark-first) |
-| Type | Space Grotesk + JetBrains Mono + Instrument Serif (3 families) | *unverified* |
-| Shape and surface | square corners (only `50%`), **0 shadows**, 1px hairlines and 2px ink rules | *unverified* |
-| Background | faint blueprint grid made of gradients | ASCII-art video (dark and light) |
-| Display type | giant uppercase, tracking `-.075em`, line height `.82` | *unverified* |
-| Motion | `clip-path` wipes, `.2s` to `.8s`, two custom curves, 1 reduced-motion rule | *unverified* |
-| Layout | fixed stage, one slide per screen, keyboard navigation | numbered sections with counter |
+| **Author Deck** | `/home/ad/Documents/SIWES/index.html` | **Eleya Design System** (Opeyemi, SIWES 2026) | • `border-radius: 0 !important;`<br>• `box-shadow: none !important;`<br>• Dark base `#000000`, surfaces `#050505` to `#0A0A0A`<br>• Text `#FFFFFF` with alpha steps (0.55 muted, 0.30 dim)<br>• Hairline borders `rgba(255,255,255,0.14)` resting, `rgba(255,255,255,0.4)` bright<br>• Fonts: Clash Display + Poppins |
+| **Peer Deck** | `/home/ad/Downloads/SIWES_Philemon_Olusegun.html` | **Editorial Field Deck** (Philemon Olusegun) | • Square corners (`border-radius: 0`, only 50% on tiny 4-6px indicator dots)<br>• Zero shadows<br>• Bone `#f2ede1`, ink `#10100f`, red-orange `#e8482f`<br>• Display type with tight line-height (.76-.82) & negative tracking<br>• Fonts: Space Grotesk + JetBrains Mono + Instrument Serif |
+| **Somma (Target)** | `frontend/` | **Autonomous Academic Study Partner** | • Header: **Roddenberry** (from `assets/roddenberry/`)<br>• Body & UI: **Poppins**<br>• Palette: **Black & White only**<br>• Geometric discipline: Sharp corners, 1px hairlines, zero shadows |
 
 ---
 
-## 3. Conflict map: SIWES vs the skill vs Somma today
+## 1. What Both SIWES Systems Share (The Core Grammar)
 
-| Dimension | SIWES deck | Skill rule | Somma today (verified) | **Decision** |
-|---|---|---|---|---|
-| **Accent** | red-orange `#e8482f` | no rule | violet `245 100% 68%` | **Violet is the single "signal."** Reject red-orange (it is orange-adjacent, and you ruled orange out). |
-| **Typeface** | 3 families | **one typeface**; Geist / Manrope / Poppins; Geist Mono for numeric UI only; never Inter; no italics | Tailwind `sans` = **Poppins**; `mono` = Geist Mono; `serif` = ITC Garamond (unused in landing); Sora declared; Inter + Geist installed but **not imported** | **Pick one sans** (§7, D1). Drop the serif and Sora. |
-| **Corner radius** | square | Tailwind radii + nested formula | `--radius 0.75rem`; `rounded-xl` dominant (42 uses) | **Keep Somma's family.** Apply the nested formula inside cards. |
-| **Surfaces** | flat, 0 shadows | flat backgrounds | flat, with glow tokens | **Flat cards, 1px full borders.** Glow only on the primary action's focus. |
-| **Background gradients / grid** | grid built from gradients | **forbidden** | 0 background gradients ✅ | **Don't add the grid.** |
-| **Borders** | 44 one-sided rules | never one side of a *card* | 32 one-sided | Standalone dividers are fine; **cards get a full border or none.** |
-| **Motion** | wipes, `.4s`, own curves | `cubic-bezier(0.32,0.72,0,1)`, 700ms, blur fade-up on scroll | 150/200/300 ms tokens; **0 custom curves**; 23 × `transition-all`; GSAP scrub for the tagline | **Landing:** skill's curve, 700 to 800 ms, once per section. **App:** 150 to 300 ms tokens. **Exam:** none. |
-| **Layout** | fixed-stage deck | Layout A (classic scroll) | scroll page, 12 sections | **Stay a scroll page.** Deck mechanics hurt mobile, SEO and accessibility. |
-| **Icons** | inline SVG | Phosphor / Solar / Iconamoon | Lucide in 12 landing files, **Phosphor in 1** | **Keep Lucide** (your earlier decision, one set app-wide). Remove the stray Phosphor. Conscious deviation from the skill. |
-| **Copy** | fragments, concrete | benefit first, **no hyphens**, specific, no clichés | fragments ✅; hyphens present; **unsourced stats** (see §6) | Keep the voice; fix hyphens and stats. |
-| **Display type** | giant caps, `.82` line height | snap to Tailwind scale, `text-wrap: balance` | 41 arbitrary `text-[…]` sizes | **Don't borrow kinetic caps.** Uppercase only for small eyebrows. |
+1. **Brutalist Architectural Geometry:** Both explicitly reject rounded consumer bubbles (`rounded-2xl` / pills) and fuzzy drop shadows. Surfaces are defined by clean planes and razor-sharp intersections (`border-radius: 0`, `box-shadow: none`).
+2. **Hairline Border Discipline:** Every card, modal, and button uses an exact `1px solid` border. In dark mode, borders rest at subtle white opacity (~14%) and illuminate to crisp white (~40-100%) on hover or focus.
+3. **Micro-Typography & Chrome:**
+   - Uppercase labels with wide letter tracking (`font-size: 10px-12px`, `letter-spacing: 0.12em - 0.22em`, `text-transform: uppercase`).
+   - Numbered indicators: `01 / 06`, `01 HERO`, section tags, and status pills.
+4. **Evidence Over Adjectives:** Proof is concrete. Instead of marketing fluff, both systems present interactive cards, test metrics, code architecture, and live interfaces.
+5. **Short Declarative Copy:** Direct, punchy statements ("Structure first.", "No guessing.").
+6. **Overlay & Navigation Behavior:** Modal overlays with heavy blur and clean `Escape` dismissal.
 
 ---
 
-## 4. The balance
+## 2. Where They Differ (The Divergence)
 
-**Borrow (grammar):** numbered sections · eyebrow labels · evidence-first proof · short declarative headlines · one signal accent · hairline discipline · overlays that close with Esc.
-
-**Obey (craft):** type scale snapping · the spacing table · nested radii · hover, active, focus, loading, empty and error states · the motion curve · the mandatory tagline reveal · content realism · ship requirements.
-
-**Keep (identity):** violet on near-black navy · the rounded 0.75rem family · the product as hero (the mock exam card) · Lucide icons · your existing tokens as the only color source.
-
-**Reject (costume):** cream and red-orange palette · serif and italic accents · kinetic uppercase display · square corners · blueprint grid · fixed-stage deck mechanics · three typefaces.
-
-**Suggested dials** (my judgement, tune after seeing it):
-
-| Surface | Mode | Variance | Motion | Density |
-|---|---|---|---|---|
-| Landing | Persuade | 5 | 5 | 4 |
-| App shell | Operate | 3 | 3 | 5 |
-| Exam screen | Focus | 2 | 0 to 1 | 6 |
+- **Eleya (`SIWES/index.html`):** Strict pitch-black (`#000000`) dark mode with monochrome white opacity tokens; geometric display header paired with clean Poppins body; dedicated interactive card tokens (`.eleya-card`).
+- **Philemon Deck (`SIWES_Philemon_Olusegun.html`):** Warm bone/ink paper palette with loud red-orange signal accent; serif italic quotes; giant display headlines.
 
 ---
 
-## 5. Spec by surface
+## 3. The Balance for Somma
 
-| | **Landing** | **App** | **Exam** |
+By combining the strengths of the Eleya system, the landing-page craft standards, and the user's explicit directives:
+
+### 3.1 Color: Black & White Only
+No colors, no violet, no red-orange, no colored gradients.
+- **Dark Mode (Default):**
+  - Background Base: `#000000` (Pitch Black)
+  - Surface Card (Level 1): `#050507` / `#0A0A0C`
+  - Surface Elevated (Level 2): `#111114`
+  - Surface Interactive (Level 3): `#18181C`
+  - Text Primary: `#FFFFFF`
+  - Text Muted: `rgba(255, 255, 255, 0.65)`
+  - Text Dim / Labels: `rgba(255, 255, 255, 0.35)`
+  - Hairline Border: `rgba(255, 255, 255, 0.14)`
+  - Border Bright / Hover: `rgba(255, 255, 255, 0.45)`
+  - Active / Focus: `#FFFFFF`
+- **Light Mode:**
+  - Background Base: `#FFFFFF` (or `#F5F3EE`)
+  - Surface Card: `#FFFFFF`
+  - Surface Elevated: `#F0EFEB`
+  - Text Primary: `#000000`
+  - Text Muted: `rgba(0, 0, 0, 0.65)`
+  - Hairline Border: `rgba(0, 0, 0, 0.16)`
+  - Border Bright: `rgba(0, 0, 0, 0.50)`
+
+### 3.2 Typography: Roddenberry + Poppins
+- **Header & Display (`h1` - `h6`, `.font-heading`, Display, Brand/Logo):**
+  - **Roddenberry** (from `frontend/src/assets/roddenberry/`).
+  - Wide, geometric, futuristic-academic command-center presence.
+  - Letter spacing: `tracking-wider` or `0.04em`.
+- **Body & Other Text (`p`, labels, inputs, question text, options):**
+  - **Poppins** (`300`, `400`, `500`, `600`, `700`).
+  - Highly legible, neutral, balanced geometry.
+- **Numerals & Monospace (Timers, Section IDs, Percentages, Code):**
+  - **Geist Mono** / Monospace.
+
+### 3.3 Geometry & Surfaces: The Eleya Rule
+- **Border Radius:** `border-radius: 0` (`rounded-none`). No soft bubbly roundings.
+- **Drop Shadows:** `box-shadow: none` (`shadow-none`). Depth is achieved through surface tone elevation and 1px hairline borders.
+- **Card Borders:** Full 4-sided `1px solid` border (`border-border`). Never 1-sided borders on cards.
+
+### 3.4 Buttons: Precision Monochrome Primitives
+All buttons adopt sharp square edges, high contrast, and micro-tracked typography:
+- **Shape:** `rounded-none`, `border: 1px solid`.
+- **Typography:** `font-sans uppercase tracking-[0.12em] font-semibold text-xs` (or `text-sm`).
+- **Variants:**
+  - `default`: Solid `#FFFFFF` background with `#000000` text. On hover: Inverts to `#000000` background with `#FFFFFF` text and `border-white`.
+  - `outline`: Transparent background, `1px solid rgba(255,255,255,0.20)`, `#FFFFFF` text. On hover: `rgba(255,255,255,0.10)` background, `border-white`.
+  - `secondary`: `rgba(255,255,255,0.08)` background, `#FFFFFF` text, `border-white/15`. On hover: `border-white/40`, `bg-white/15`.
+  - `ghost`: Transparent background, `#FFFFFF` text. On hover: `bg-white/10`, `border-white/20`.
+  - `destructive`: `#000000` background, `#FFFFFF` text, `border-white/60`. On hover: `#FFFFFF` background, `#000000` text.
+- **Motion:** Spring bezier `cubic-bezier(0.32, 0.72, 0, 1)`, duration 200ms.
+
+---
+
+## 4. Specification by Surface
+
+| Dimension | Landing Page | App Shell & Dashboard | Exam Screen |
 |---|---|---|---|
-| Color | tokens only; violet accent; hero heading uses the skill's white → `#9B9B9B` **text** gradient; status colors from `success` / `warning` / `destructive` only | tokens only | tokens only; no accent except the selected state |
-| Type | one sans; Geist Mono for numerals only (section index, scores, timer); weights up to 700; no italics | same | same; larger body for reading |
-| Shape | `rounded-2xl` sections and cards, nested `rounded-lg`; pills for nav and chips | `rounded-xl` | `rounded-xl` |
-| Motion | scroll fade-up (`translate-y-16 blur-md opacity-0` → rest), 800 ms, custom curve, IntersectionObserver | 150 / 200 / 300 ms tokens | none beyond focus and selection feedback |
-| Navigation | floating pill nav (already built) + section index counter | sidebar or header | exit confirmation only |
-| Copy | fragments + specific numbers + benefit first | plain and direct | plain and direct; no exclamation marks |
-
-**Spacing allowed (skill → Tailwind):** 2, 4, 8, 12, 16, 24, 32, 40, 48, 64, 80, 96 px → `0.5, 1, 2, 3, 4, 6, 8, 10, 12, 16, 20, 24`. Disallowed steps: `5, 7, 9, 11, 14, 18`.
-
----
-
-## 6. Gaps in the current landing code (verified counts)
-
-- [ ] **Fonts:** one sans decided; unused `@font-face` (Sora, ITC Garamond ×2 names) and unused fontsource packages removed.
-- [ ] **Unsourced numbers.** I found no data source in the repo for: *14,280+ questions generated*, *89.4% avg retention*, *340 courses*, *1,420 key concepts indexed*, *98.6% / 98.8%*, *"94% on midterm"*, *"78% to 91%"*, *+34% vs reread*, *38% faster than class average* (6 files: Hero, SocialProof, Bento, PlatformWorkloads, HowItWorks, LevelUp). If they are placeholders, label them "Sample data" or remove them. If real, point each at its source.
-- [ ] **Amber (3 uses)** in `BentoFeatureGrid` and `HowItWorksTimeline`: move to the `warning` token or an indigo/semantic color. Also replace raw `emerald-500` with `success`.
-- [ ] **41 arbitrary text sizes** (`text-[…]`) and **47 arbitrary px/rem values** → nearest Tailwind step below. (Data-driven bar widths like `w-[94%]` are legitimate.)
-- [ ] **19 off-scale spacing classes** → nearest allowed step.
-- [ ] **23 `transition-all`** → targeted properties; landing gets the custom curve.
-- [ ] **32 one-sided borders:** keep dividers, fix card borders.
-- [ ] **Hyphens in visible copy:** "THREE-STEP PIPELINE" → "Three step pipeline"; "One-click" → "One click"; "Wrong-Answer Explanations" → "Wrong answer explanations"; the `somma-exam-runner // bio301-glycolysis` label. Scientific names (Phosphofructokinase-1) are content, not style.
-- [ ] **One icon set:** remove the one Phosphor import.
-- [ ] **Tagline reveal:** already compliant (two lines, word by word, reduced motion handled). It uses GSAP ScrollTrigger scrub, which is fine. Note GSAP is now a dependency, which reverses the earlier "no GSAP" default; confirm that's intended.
-- [ ] **Ship checklist** (unverified): privacy and terms links, branded 404, `og:image`, favicon, meta description.
-
-## 7. Decisions for you
-
-- [?] **D1: Typeface.** Recommended: **Geist** (variable, in the skill's allowed list, and its mono is the same family for timers and scores). Alternative: **keep Poppins** (allowed, already the Tailwind default, zero migration). Either way: one sans, delete the rest.
-- [?] **D2: Stats.** Real, labelled sample data, or removed?
-- [?] **D3: Icons.** Confirm Lucide stays despite the skill's Phosphor preference.
-- [?] **D4: Peach gradient.** With the hero heading on the skill's white-to-grey text gradient, the peach is no longer needed anywhere. Retire it.
-- [?] **D5: Live-site tokens.** Paste its `:root` variables so §1 and §2 can be completed.
+| **Palette** | Black & White only (`#000000` / `#FFFFFF`) | Black & White only | Black & White only (zero distractions) |
+| **Header Font** | Roddenberry (bold, wide, uppercase display) | Roddenberry | Roddenberry (section headers) |
+| **Body Font** | Poppins (clean, readable) | Poppins | Poppins (high-legibility question reading) |
+| **Shape** | Square edges (`rounded-none`) | Square edges (`rounded-none`) | Square edges (`rounded-none`) |
+| **Borders** | 1px hairline (`border-white/14` → `border-white/45`) | 1px hairline | 1px hairline |
+| **Buttons** | Solid white primary, sharp outline secondary | Solid white primary, outline secondary | Clean high-contrast submit/nav buttons |
+| **Section Labels** | Uppercase tracked `01 / INTAKE`, `02 / GENERATE` | Uppercase tracked module headers | Minimal question counter `04 / 20` |
 
 ---
 
-## 8. Mentor's margin
+## 5. Implementation Checklist
 
-- *The Elements of Typographic Style* (Bringhurst): one family, used well, beats three used loudly.
-- *Refactoring UI* (Wathan and Schoger): hierarchy comes from size, weight and color, not from more fonts.
-- Dieter Rams, *Ten Principles of Good Design*: "less, but better," and honest.
-- Your SIWES audience (assessors and hiring engineers) will click through to the live product. A real number they can verify is worth more than a large number they can't.
+- [x] Font assets copied and registered in `frontend/public/fonts/roddenberry/` and `@font-face` in `frontend/index.css`.
+- [x] Tailwind config updated: `heading: ['Roddenberry']`, `sans: ['Poppins']`, `rounded-none` defaults.
+- [x] Pure Black & White color tokens set in `frontend/index.css` (:root and light theme).
+- [x] Base Button primitive updated in `frontend/src/components/ui/button.tsx` with sharp square geometry, micro-tracking, and high-contrast B&W hover inversion.
+- [x] Card and container styles snapped to 0 border radius and 0 drop shadows.
+- [x] Full build verification with `pnpm vite build`.
