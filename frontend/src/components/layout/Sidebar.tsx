@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { useDashboardStore } from '../../store/dashboardStore';
 import type { PageView } from '../../types/admin';
+import { getUserAvatarUrl } from '../../../utils/avatar';
 
 interface NavItem {
   id: PageView;
@@ -44,7 +45,7 @@ export function Sidebar() {
           className="flex items-center gap-3"
           animate={{ justifyContent: sidebarCollapsed ? 'center' : 'flex-start' }}
         >
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center flex-shrink-0">
+          <div className="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-700/60 flex items-center justify-center flex-shrink-0">
             <BookMarked className="w-5 h-5 text-white" />
           </div>
           {!sidebarCollapsed && (
@@ -53,7 +54,7 @@ export function Sidebar() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -10 }}
             >
-              <h1 className="font-bold text-lg text-white">Somma</h1>
+              <h1 className="font-display font-['Preospe'] font-bold text-lg text-white">Somma</h1>
               <p className="text-xs text-muted-foreground">EDTECH ADMIN</p>
             </motion.div>
           )}
@@ -78,10 +79,10 @@ export function Sidebar() {
               )}
               <motion.button
                 onClick={() => setCurrentPage(item.id)}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 mb-1 ${
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 mb-1 border ${
                   isActive 
-                    ? 'bg-primary/10 text-primary border border-primary/20' 
-                    : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent'
+                    ? 'bg-zinc-800 text-white border-zinc-600' 
+                    : 'text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent border-transparent'
                 }`}
                 whileHover={{ x: 2 }}
                 whileTap={{ scale: 0.98 }}
@@ -91,7 +92,7 @@ export function Sidebar() {
                   <motion.span
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className={`text-sm font-medium ${isActive ? 'text-primary' : ''}`}
+                    className={`text-sm font-medium ${isActive ? 'text-white' : ''}`}
                   >
                     {item.label}
                   </motion.span>
@@ -105,13 +106,13 @@ export function Sidebar() {
       {/* Admin Profile */}
       <div className="p-3 border-t border-sidebar-border">
         <motion.button
-          className={`w-full flex items-center gap-3 p-2 rounded-xl hover:bg-sidebar-accent transition-colors ${sidebarCollapsed ? 'justify-center' : ''}`}
+          className={`w-full flex items-center gap-3 p-2 rounded-xl hover:bg-sidebar-accent transition-colors border border-sidebar-border/50 ${sidebarCollapsed ? 'justify-center' : ''}`}
           whileHover={{ scale: 1.02 }}
         >
           <img
-            src="https://api.dicebear.com/7.x/avataaars/svg?seed=admin"
+            src={getUserAvatarUrl('admin')}
             alt="Admin"
-            className="w-9 h-9 rounded-full bg-primary/20"
+            className="w-9 h-9 rounded-full bg-zinc-800 border border-zinc-700"
           />
           {!sidebarCollapsed && (
             <div className="text-left">
@@ -125,7 +126,7 @@ export function Sidebar() {
       {/* Collapse Toggle */}
       <button
         onClick={toggleSidebar}
-        className="absolute -right-3 top-20 w-6 h-6 bg-primary rounded-full flex items-center justify-center shadow-lg hover:bg-primary/90 transition-colors"
+        className="absolute -right-3 top-20 w-6 h-6 bg-zinc-900 border border-zinc-600 rounded-full flex items-center justify-center shadow-lg hover:bg-zinc-800 transition-colors"
       >
         {sidebarCollapsed ? (
           <ChevronRight className="w-3 h-3 text-white" />

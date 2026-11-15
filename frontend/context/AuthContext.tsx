@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Session, User } from '@supabase/supabase-js';
+import { useAuth as useClerkAuth, useUser as useClerkUser } from '@clerk/react';
 import { supabase } from '@/services/supabase';
 
 interface AuthContextValue {
@@ -19,9 +20,12 @@ interface AuthProviderProps {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [session, setSession] = useState<Session | null>(null);
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { isLoaded: clerkLoaded, isSignedIn: clerkSignedIn } = useClerkAuth();
+  const { user: clerkUser } = useClerkUser();
+
+  const [supabaseSession, setSupabaseSession] = useState<Session | null>(null);
+  const [supabaseUser, setSupabaseUser] = useState<User | null>(null);
+  const [supabaseLoading, setSupabaseLoading] = useState(true);
 
   useEffect(() => {
     let isMounted = true;
@@ -34,21 +38,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         
         if (error) {
           console.error('[AuthContext] Session hydration error:', error);
-          setSession(null);
-          setUser(null);
+          setSupabaseSession(null);
+          setSupabaseUser(null);
         } else {
-          setSession(session);
-          setUser(session?.user ?? null);
+          setSupabaseSession(session);
+          setSupabaseUser(session?.user ?? null);
         }
       } catch (err) {
         console.error('[AuthContext] Unexpected error during hydration:', err);
         if (isMounted) {
-          setSession(null);
-          setUser(null);
+          setSupabaseSession(null);
+          setSupabaseUser(null);
         }
       } finally {
         if (isMounted) {
-          setLoading(false);
+          setSupabaseLoading(false);
         }
       }
     };
@@ -60,9 +64,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         console.log('[AuthContext] auth event:', event, 'session:', !!nextSession);
         
         if (isMounted) {
-          setSession(nextSession);
-          setUser(nextSession?.user ?? null);
-          setLoading(false);
+          setSupabaseSession(nextSession);
+          setSupabaseUser(nextSession?.user ?? null);
+          setSupabaseLoading(false);
         }
       }
     );
@@ -73,8 +77,36 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     };
   }, []);
 
+  const mappedClerkUser: User | null = (clerkSignedIn && clerkUser)
+    ? ({
+        id: clerkUser.id,
+        email: clerkUser.primaryEmailAddress?.emailAddress || clerkUser.username || 'user@somma.app',
+        user_metadata: {
+          full_name: clerkUser.fullName || clerkUser.firstName || 'Learner',
+          avatar_url: clerkUser.imageUrl || '',
+        },
+        app_metadata: { provider: 'clerk' },
+        aud: 'authenticated',
+        created_at: clerkUser.createdAt ? new Date(clerkUser.createdAt).toISOString() : new Date().toISOString(),
+      } as unknown as User)
+    : null;
+
+  const mappedClerkSession: Session | null = (clerkSignedIn && mappedClerkUser)
+    ? ({
+        access_token: 'clerk_active_session',
+        refresh_token: '',
+        expires_in: 3600,
+        token_type: 'bearer',
+        user: mappedClerkUser,
+      } as unknown as Session)
+    : null;
+
+  const effectiveUser = mappedClerkUser || supabaseUser;
+  const effectiveSession = mappedClerkSession || supabaseSession;
+  const effectiveLoading = !clerkLoaded || (supabaseLoading && !clerkSignedIn);
+
   return (
-    <AuthContext.Provider value={{ session, user, loading }}>
+    <AuthContext.Provider value={{ session: effectiveSession, user: effectiveUser, loading: effectiveLoading }}>
       {children}
     </AuthContext.Provider>
   );

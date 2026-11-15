@@ -188,64 +188,64 @@
 
   :root {
     /* ==========================================================================
-       Elaya Design System — Dark mode defaults (Deep Slate Ink)
+       Elaya Design System — Pure Monochromatic Tokens (White, Black & Grey Only)
        ========================================================================== */
 
     /* Surfaces */
-    --color-base:        #0E1015;
-    --color-surface-1:   #161922;
-    --color-surface-2:   #1C2130;
-    --color-surface-3:   #262A36;
-    --color-border:      #262A36;
-    --color-border-mute: rgba(255, 255, 255, 0.08);
+    --color-base:        #09090b;
+    --color-surface-1:   #121215;
+    --color-surface-2:   #18181b;
+    --color-surface-3:   #27272a;
+    --color-border:      #27272a;
+    --color-border-mute: rgba(255, 255, 255, 0.12);
 
     /* Text */
-    --color-text-1:      #F3F4F6;
-    --color-text-2:      #9CA3AF;
-    --color-text-3:      rgba(243, 244, 246, 0.35);
+    --color-text-1:      #f4f4f5;
+    --color-text-2:      #a1a1aa;
+    --color-text-3:      rgba(244, 244, 245, 0.4);
 
-    /* Accent palette */
-    --color-cobalt:      #1E40AF;   /* Academic Cobalt — primary CTA */
-    --color-cobalt-mid:  #3B5FD4;   /* Hover / lighter cobalt */
-    --color-cobalt-mute: rgba(30, 64, 175, 0.15);
-    --color-emerald:     #10B981;   /* Mastery / passing scores */
-    --color-emerald-mute: rgba(16, 185, 129, 0.12);
-    --color-amber:       #D97706;   /* Weak-topic flags */
-    --color-amber-mute:  rgba(217, 119, 6, 0.12);
+    /* Strictly Monochromatic Tokens — No accent colors */
+    --color-cobalt:      #ffffff;
+    --color-cobalt-mid:  #e4e4e7;
+    --color-cobalt-mute: rgba(255, 255, 255, 0.1);
+    --color-emerald:     #ffffff;
+    --color-emerald-mute: rgba(255, 255, 255, 0.08);
+    --color-amber:       #a1a1aa;
+    --color-amber-mute:  rgba(255, 255, 255, 0.08);
 
-    /* Shadcn-compatible HSL tokens */
-    --background: 222 18% 7%;
-    --foreground: 220 14% 96%;
-    --card: 222 18% 10%;
-    --card-foreground: 220 14% 96%;
-    --popover: 222 18% 10%;
-    --popover-foreground: 220 14% 96%;
-    --primary: 221 83% 53%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 222 18% 14%;
-    --secondary-foreground: 220 14% 96%;
-    --muted: 222 18% 14%;
-    --muted-foreground: 220 9% 62%;
-    --accent: 221 83% 53%;
+    /* Shadcn-compatible Monochromatic HSL tokens */
+    --background: 0 0% 4%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 7%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 5%;
+    --secondary: 0 0% 14%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14%;
+    --muted-foreground: 0 0% 64%;
+    --accent: 0 0% 18%;
     --accent-foreground: 0 0% 100%;
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 0 0% 100%;
-    --success: 160 84% 39%;
-    --success-foreground: 0 0% 100%;
-    --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 0%;
-    --border: 222 15% 20%;
-    --input: 222 15% 20%;
-    --ring: 221 83% 53%;
+    --destructive: 0 0% 75%;
+    --destructive-foreground: 0 0% 5%;
+    --success: 0 0% 85%;
+    --success-foreground: 0 0% 5%;
+    --warning: 0 0% 70%;
+    --warning-foreground: 0 0% 5%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 0 0% 80%;
     --radius: 0.375rem;
-    --sidebar-background: 222 18% 8%;
-    --sidebar-foreground: 220 14% 96%;
-    --sidebar-primary: 221 83% 53%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 222 18% 14%;
-    --sidebar-accent-foreground: 220 14% 96%;
-    --sidebar-border: 222 15% 20%;
-    --sidebar-ring: 221 83% 53%;
+    --sidebar-background: 0 0% 5%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 0 0% 98%;
+    --sidebar-primary-foreground: 0 0% 5%;
+    --sidebar-accent: 0 0% 14%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 0 0% 18%;
+    --sidebar-ring: 0 0% 80%;
 
     /* Motion tokens */
     --duration-stagger: 40ms;
@@ -280,60 +280,60 @@
 
   .light,
   [data-theme="light"] {
-    /* Surfaces — Warm Alabaster */
-    --color-base:        #FAF8F5;
-    --color-surface-1:   #F2EFE9;
-    --color-surface-2:   #ECEAE4;
-    --color-surface-3:   #E4DFD7;
-    --color-border:      #E4DFD7;
-    --color-border-mute: rgba(20, 21, 24, 0.08);
+    /* Surfaces — Crisp Monochrome Light */
+    --color-base:        #fafafa;
+    --color-surface-1:   #f4f4f5;
+    --color-surface-2:   #e4e4e7;
+    --color-surface-3:   #d4d4d8;
+    --color-border:      #d4d4d8;
+    --color-border-mute: rgba(0, 0, 0, 0.12);
 
     /* Text */
-    --color-text-1:      #141518;
-    --color-text-2:      #5A5E66;
-    --color-text-3:      rgba(20, 21, 24, 0.35);
+    --color-text-1:      #09090b;
+    --color-text-2:      #52525b;
+    --color-text-3:      rgba(9, 9, 11, 0.4);
 
-    /* Accent palette same as dark */
-    --color-cobalt:      #1E40AF;
-    --color-cobalt-mid:  #2D52C7;
-    --color-cobalt-mute: rgba(30, 64, 175, 0.08);
-    --color-emerald:     #059669;
-    --color-emerald-mute: rgba(5, 150, 105, 0.08);
-    --color-amber:       #B45309;
-    --color-amber-mute:  rgba(180, 83, 9, 0.08);
+    /* Strictly Monochromatic Tokens */
+    --color-cobalt:      #09090b;
+    --color-cobalt-mid:  #27272a;
+    --color-cobalt-mute: rgba(0, 0, 0, 0.08);
+    --color-emerald:     #09090b;
+    --color-emerald-mute: rgba(0, 0, 0, 0.06);
+    --color-amber:       #52525b;
+    --color-amber-mute:  rgba(0, 0, 0, 0.06);
 
-    /* Shadcn-compatible HSL tokens */
-    --background: 36 29% 97%;
-    --foreground: 220 11% 10%;
-    --card: 36 24% 95%;
-    --card-foreground: 220 11% 10%;
-    --popover: 36 24% 95%;
-    --popover-foreground: 220 11% 10%;
-    --primary: 221 83% 40%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 36 18% 92%;
-    --secondary-foreground: 220 11% 10%;
-    --muted: 36 18% 92%;
-    --muted-foreground: 220 7% 40%;
-    --accent: 221 83% 40%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 0 0% 100%;
-    --success: 160 84% 39%;
-    --success-foreground: 0 0% 100%;
-    --warning: 32 95% 44%;
-    --warning-foreground: 0 0% 100%;
-    --border: 36 18% 87%;
-    --input: 36 18% 87%;
-    --ring: 221 83% 40%;
-    --sidebar-background: 36 29% 96%;
-    --sidebar-foreground: 220 11% 10%;
-    --sidebar-primary: 221 83% 40%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 36 18% 92%;
-    --sidebar-accent-foreground: 220 11% 10%;
-    --sidebar-border: 36 18% 87%;
-    --sidebar-ring: 221 83% 40%;
+    /* Shadcn-compatible Monochromatic HSL tokens */
+    --background: 0 0% 98%;
+    --foreground: 0 0% 5%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 5%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 5%;
+    --primary: 0 0% 5%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 93%;
+    --secondary-foreground: 0 0% 5%;
+    --muted: 0 0% 93%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 0 0% 90%;
+    --accent-foreground: 0 0% 5%;
+    --destructive: 0 0% 25%;
+    --destructive-foreground: 0 0% 98%;
+    --success: 0 0% 30%;
+    --success-foreground: 0 0% 98%;
+    --warning: 0 0% 40%;
+    --warning-foreground: 0 0% 98%;
+    --border: 0 0% 86%;
+    --input: 0 0% 86%;
+    --ring: 0 0% 20%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 0 0% 5%;
+    --sidebar-primary: 0 0% 5%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 0 0% 92%;
+    --sidebar-accent-foreground: 0 0% 5%;
+    --sidebar-border: 0 0% 86%;
+    --sidebar-ring: 0 0% 20%;
   }
 }
 
@@ -408,7 +408,7 @@
 
 @layer utilities {
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-400;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-zinc-300 to-zinc-500;
   }
   
   .card-surface {
@@ -416,25 +416,39 @@
   }
   
   .glow-primary {
-    box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
   }
   
   .glow-success {
-    box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.12);
   }
   
   .glow-warning {
-    box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+    box-shadow: 0 0 20px rgba(200, 200, 200, 0.12);
   }
   
   .glow-danger {
-    box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+    box-shadow: 0 0 20px rgba(180, 180, 180, 0.12);
   }
 }
 
-/* Animated gradient text */
+/* Explicit borders and monochromatic discipline for all buttons & cards */
+button,
+[role="button"],
+.btn {
+  border-width: 1px;
+}
+
+.card,
+[class*="rounded-xl"],
+[class*="rounded-2xl"],
+[class*="rounded-lg"] {
+  border-color: var(--color-border);
+}
+
+/* Animated monochromatic text */
 .animated-gradient-text {
-  background: linear-gradient(to right, #8b5cf6, #fdba74);
+  background: linear-gradient(to right, #ffffff, #a1a1aa, #71717a, #ffffff);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;

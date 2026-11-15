@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Show, UserButton } from '@clerk/react';
 import ThemeToggle from '../ThemeToggle';
+import { useMagneticHover } from '../../utils/animeMotion';
 
 interface LandingNavProps {
   onScrollToSection: (id: string) => void;
@@ -18,6 +20,7 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onScrollToSection }) => 
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const ctaBtnRef = useMagneticHover<HTMLButtonElement>({ strength: 5 });
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -60,9 +63,9 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onScrollToSection }) => 
           <button
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="font-heading font-bold text-lg text-text-1 tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt rounded"
+            className="font-display font-['Preospe'] font-bold text-xl text-text-1 tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded border border-transparent px-1"
           >
-            Soma
+            Somma
           </button>
 
           {/* Desktop nav */}
@@ -72,7 +75,7 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onScrollToSection }) => 
                 key={item.id}
                 type="button"
                 onClick={() => handleNavClick(item.id)}
-                className="px-3 py-2 rounded text-sm text-text-2 hover:text-text-1 transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt"
+                className="px-3 py-1.5 rounded-md text-sm text-text-2 hover:text-text-1 hover:bg-surface-2/60 border border-transparent hover:border-border transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
               >
                 {item.label}
               </button>
@@ -82,19 +85,32 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onScrollToSection }) => 
           {/* Right cluster */}
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            <button
-              type="button"
-              onClick={handleOpenWorkspace}
-              className="hidden sm:inline-flex items-center px-4 py-2 rounded-md bg-cobalt text-white text-sm font-semibold transition-all duration-200 hover:bg-cobalt-mid active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt focus-visible:ring-offset-2 focus-visible:ring-offset-base"
-            >
-              Open workspace
-            </button>
+            <Show when="signed-in">
+              <button
+                type="button"
+                onClick={() => navigate('/dashboard')}
+                className="hidden sm:inline-flex items-center px-3.5 py-1.5 rounded-md border border-white bg-white text-black text-sm font-semibold transition-all duration-200 hover:bg-zinc-200 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+              >
+                Dashboard
+              </button>
+              <UserButton />
+            </Show>
+            <Show when="signed-out">
+              <button
+                ref={ctaBtnRef}
+                type="button"
+                onClick={handleOpenWorkspace}
+                className="hidden sm:inline-flex items-center px-4 py-2 rounded-md border border-white bg-white text-black text-sm font-semibold transition-all duration-200 hover:bg-zinc-200 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-base"
+              >
+                Open workspace
+              </button>
+            </Show>
 
             {/* Hamburger */}
             <button
               type="button"
               onClick={() => setMobileOpen((v) => !v)}
-              className="md:hidden flex items-center justify-center size-9 rounded text-text-2 hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt"
+              className="md:hidden flex items-center justify-center size-9 rounded-md border border-border bg-surface-1 text-text-2 hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
               aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={mobileOpen}
             >
@@ -144,7 +160,7 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onScrollToSection }) => 
                   }}
                   type="button"
                   onClick={() => handleNavClick(item.id)}
-                  className="text-left text-2xl font-heading font-bold text-text-1 py-3 border-b border-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt rounded"
+                  className="text-left text-2xl font-heading font-bold text-text-1 py-3 border-b border-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded"
                 >
                   {item.label}
                 </motion.button>
@@ -158,15 +174,33 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onScrollToSection }) => 
                   delay: NAV_ITEMS.length * 0.05,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="pt-6"
+                className="pt-6 flex flex-col gap-3"
               >
-                <button
-                  type="button"
-                  onClick={handleOpenWorkspace}
-                  className="w-full py-3.5 rounded-md bg-cobalt text-white font-semibold text-base active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt focus-visible:ring-offset-2 focus-visible:ring-offset-base"
-                >
-                  Open workspace
-                </button>
+                <Show when="signed-in">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMobileOpen(false);
+                      navigate('/dashboard');
+                    }}
+                    className="w-full py-3.5 rounded-md border border-white bg-white text-black font-semibold text-base active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-base"
+                  >
+                    Go to Dashboard
+                  </button>
+                  <div className="flex items-center justify-between px-2 py-1">
+                    <span className="text-sm text-text-2">Clerk Account</span>
+                    <UserButton />
+                  </div>
+                </Show>
+                <Show when="signed-out">
+                  <button
+                    type="button"
+                    onClick={handleOpenWorkspace}
+                    className="w-full py-3.5 rounded-md border border-white bg-white text-black font-semibold text-base active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-base"
+                  >
+                    Open workspace
+                  </button>
+                </Show>
               </motion.div>
             </nav>
           </motion.div>

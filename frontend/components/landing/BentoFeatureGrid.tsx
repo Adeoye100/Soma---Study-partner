@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { BookOpen, PenLine, Clock, BarChart2 } from 'lucide-react';
 import { useAnimeEntrance } from './useAnimeEntrance';
-
-const ease = [0.22, 1, 0.36, 1] as const;
+import { useTactile3DTilt } from '../../utils/animeMotion';
 
 interface CardProps {
   children: React.ReactNode;
@@ -11,10 +10,13 @@ interface CardProps {
 }
 
 function BentoCard({ children, className = '' }: Omit<CardProps, 'delay'>) {
+  const cardRef = useTactile3DTilt<HTMLDivElement>({ maxTilt: 3, scale: 1.01 });
+
   return (
     <div
+      ref={cardRef}
       data-anime
-      className={`group rounded-xl border border-border bg-surface-1 overflow-hidden transition-shadow duration-300 hover:shadow-md ${className}`}
+      className={`group rounded-xl border border-border bg-surface-1 overflow-hidden transition-all duration-300 hover:border-zinc-500 hover:shadow-md ${className}`}
     >
       {children}
     </div>
@@ -33,7 +35,7 @@ function SyllabusCard() {
     <div className="p-6 h-full flex flex-col gap-5">
       <div className="flex items-start gap-3">
         <div className="size-9 rounded-md border border-border bg-surface-2 flex items-center justify-center shrink-0">
-          <BookOpen className="size-4 text-cobalt" aria-hidden="true" />
+          <BookOpen className="size-4 text-white" aria-hidden="true" />
         </div>
         <div>
           <h3 className="text-base font-heading font-bold text-text-1">
@@ -41,7 +43,7 @@ function SyllabusCard() {
           </h3>
           <p className="mt-1 text-sm text-text-2 leading-relaxed">
             Questions come straight from the documents you upload. When you review a missed
-            question, Soma shows you the exact excerpt from your notes that holds the answer.
+            question, Somma shows you the exact excerpt from your notes that holds the answer.
           </p>
         </div>
       </div>
@@ -56,11 +58,11 @@ function SyllabusCard() {
             onFocus={() => setHoveredChunk(i)}
             onBlur={() => setHoveredChunk(null)}
             tabIndex={0}
-            className="flex items-center justify-between px-3 py-2 rounded-md border border-border bg-surface-2 cursor-default transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt"
-            style={{
-              borderColor: hoveredChunk === i ? 'var(--color-cobalt)' : undefined,
-              background: hoveredChunk === i ? 'var(--color-cobalt-mute)' : undefined,
-            }}
+            className={`flex items-center justify-between px-3 py-2 rounded-md border transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white cursor-default ${
+              hoveredChunk === i
+                ? 'border-white bg-zinc-800'
+                : 'border-border bg-surface-2'
+            }`}
           >
             <span className="text-xs font-medium text-text-1">{chunk.label}</span>
             <span className="text-[11px] font-mono text-text-3">{chunk.topic}</span>
@@ -104,7 +106,7 @@ function GradingCard() {
     <div ref={ref} className="p-6 h-full flex flex-col gap-5">
       <div className="flex items-start gap-3">
         <div className="size-9 rounded-md border border-border bg-surface-2 flex items-center justify-center shrink-0">
-          <PenLine className="size-4 text-cobalt" aria-hidden="true" />
+          <PenLine className="size-4 text-white" aria-hidden="true" />
         </div>
         <div>
           <h3 className="text-base font-heading font-bold text-text-1">
@@ -122,16 +124,16 @@ function GradingCard() {
         <div className="flex items-center justify-between">
           <span className="text-xs text-text-2">Written response score</span>
           <span
-            className="font-mono text-sm font-bold text-emerald tabular-nums"
+            className="font-mono text-sm font-bold text-white tabular-nums"
             aria-label={`Score: ${score} out of 100`}
           >
             {score}
             <span className="text-text-3 font-normal">/100</span>
           </span>
         </div>
-        <div className="h-1.5 w-full rounded-full bg-surface-3 overflow-hidden" role="progressbar" aria-valuenow={score} aria-valuemin={0} aria-valuemax={100}>
+        <div className="h-1.5 w-full rounded-full bg-surface-3 overflow-hidden border border-border" role="progressbar" aria-valuenow={score} aria-valuemin={0} aria-valuemax={100}>
           <div
-            className="h-full rounded-full bg-emerald transition-all duration-700"
+            className="h-full rounded-full bg-white transition-all duration-700"
             style={{ width: `${score}%` }}
           />
         </div>
@@ -160,14 +162,14 @@ function TimerCard() {
     <div className="p-6 h-full flex flex-col gap-5">
       <div className="flex items-start gap-3">
         <div className="size-9 rounded-md border border-border bg-surface-2 flex items-center justify-center shrink-0">
-          <Clock className="size-4 text-cobalt" aria-hidden="true" />
+          <Clock className="size-4 text-white" aria-hidden="true" />
         </div>
         <div>
           <h3 className="text-base font-heading font-bold text-text-1">
             Resilient exam timer
           </h3>
           <p className="mt-1 text-sm text-text-2 leading-relaxed">
-            Practice under real time pressure. If your timer runs out, Soma automatically
+            Practice under real time pressure. If your timer runs out, Somma automatically
             submits and grades the answers you have recorded so far.
           </p>
         </div>
@@ -175,7 +177,7 @@ function TimerCard() {
 
       <div className="mt-auto flex items-center justify-center rounded-md border border-border bg-surface-2 py-5">
         <div
-          className="font-mono text-4xl font-bold tabular-nums text-emerald tracking-tight"
+          className="font-mono text-4xl font-bold tabular-nums text-white tracking-tight"
           style={{ fontVariantNumeric: 'tabular-nums' }}
           aria-label={`${mins} minutes ${secs} seconds remaining`}
           aria-live="off"
@@ -199,9 +201,9 @@ const MASTERY_TOPICS: { label: string; level: MasteryLevel; pct: number }[] = [
 ];
 
 const LEVEL_COLOR: Record<MasteryLevel, string> = {
-  Mastered: 'var(--color-emerald)',
-  Developing: 'var(--color-cobalt)',
-  Weak: 'var(--color-amber)',
+  Mastered: '#ffffff',
+  Developing: '#a1a1aa',
+  Weak: '#71717a',
 };
 
 function MasteryCard() {
@@ -209,14 +211,14 @@ function MasteryCard() {
     <div className="p-6 h-full flex flex-col gap-5">
       <div className="flex items-start gap-3">
         <div className="size-9 rounded-md border border-border bg-surface-2 flex items-center justify-center shrink-0">
-          <BarChart2 className="size-4 text-cobalt" aria-hidden="true" />
+          <BarChart2 className="size-4 text-white" aria-hidden="true" />
         </div>
         <div>
           <h3 className="text-base font-heading font-bold text-text-1">
             Topic mastery tracking
           </h3>
           <p className="mt-1 text-sm text-text-2 leading-relaxed">
-            Soma tracks your accuracy across sessions and ranks every topic in your syllabus
+            Somma tracks your accuracy across sessions and ranks every topic in your syllabus
             as Weak, Developing, or Mastered, so you spend your time on the chapters that
             need work.
           </p>
@@ -235,7 +237,7 @@ function MasteryCard() {
                 {topic.level}
               </span>
             </div>
-            <div className="h-1 w-full rounded-full bg-surface-3 overflow-hidden" role="progressbar" aria-valuenow={topic.pct} aria-valuemin={0} aria-valuemax={100} aria-label={`${topic.label}: ${topic.pct}%`}>
+            <div className="h-1 w-full rounded-full bg-surface-3 overflow-hidden border border-border" role="progressbar" aria-valuenow={topic.pct} aria-valuemin={0} aria-valuemax={100} aria-label={`${topic.label}: ${topic.pct}%`}>
               <div
                 className="h-full rounded-full transition-all duration-500"
                 style={{

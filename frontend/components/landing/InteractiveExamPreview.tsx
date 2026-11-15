@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { FileText, Clock, CheckCircle, XCircle } from 'lucide-react';
+import { useTactile3DTilt } from '../../utils/animeMotion';
 
 type TabId = 'source' | 'session' | 'review';
 
@@ -71,7 +72,7 @@ function SourceTab() {
   return (
     <div className="space-y-3">
       <div className="flex items-center gap-2 pb-2 border-b border-border">
-        <FileText className="size-3.5 text-cobalt shrink-0" aria-hidden="true" />
+        <FileText className="size-3.5 text-zinc-300 shrink-0" aria-hidden="true" />
         <span className="text-xs font-medium text-text-1">
           SEN 203: Database Management Systems
         </span>
@@ -80,10 +81,10 @@ function SourceTab() {
       {SOURCE_CHUNKS.map((chunk) => (
         <div
           key={chunk.index}
-          className="rounded-md border border-border bg-surface-2 p-3 transition-colors duration-200 hover:border-cobalt/40"
+          className="rounded-md border border-border bg-surface-2 p-3 transition-colors duration-200 hover:border-zinc-500"
         >
           <div className="flex items-start gap-2.5">
-            <span className="font-mono text-[10px] text-cobalt font-semibold shrink-0 mt-0.5 w-6">
+            <span className="font-mono text-[10px] text-zinc-400 font-semibold shrink-0 mt-0.5 w-6">
               {chunk.index}
             </span>
             <div>
@@ -140,7 +141,7 @@ function SessionTab() {
           <span>Question 7 of 20</span>
         </div>
         <div
-          className="flex items-center gap-1 px-2 py-0.5 rounded bg-surface-2 border border-border text-xs font-semibold text-emerald"
+          className="flex items-center gap-1 px-2 py-0.5 rounded bg-surface-2 border border-border text-xs font-semibold text-white"
           aria-label="Time remaining"
           aria-live="off"
         >
@@ -150,9 +151,9 @@ function SessionTab() {
         </div>
       </div>
 
-      <div className="h-1 w-full rounded-full bg-surface-3 overflow-hidden">
+      <div className="h-1 w-full rounded-full bg-surface-3 overflow-hidden border border-border">
         <div
-          className="h-full rounded-full bg-cobalt transition-all duration-700"
+          className="h-full rounded-full bg-white transition-all duration-700"
           style={{ width: '35%' }}
         />
       </div>
@@ -172,9 +173,9 @@ function SessionTab() {
             const showResult = revealed && isSelected;
             const isShaking = shakingId === opt.id;
 
-            let ring = 'border-border bg-surface-2 hover:border-cobalt/60';
-            if (isSelected && opt.correct) ring = 'border-emerald bg-emerald/5';
-            if (isSelected && !opt.correct) ring = 'border-amber bg-amber/5';
+            let ring = 'border-border bg-surface-2 hover:border-zinc-500';
+            if (isSelected && opt.correct) ring = 'border-white bg-zinc-800 text-white shadow-sm';
+            if (isSelected && !opt.correct) ring = 'border-zinc-500 bg-zinc-900 text-zinc-300';
 
             return (
               <motion.button
@@ -185,7 +186,7 @@ function SessionTab() {
                 onClick={() => handleSelect(opt)}
                 animate={isShaking ? { x: [0, -5, 5, -3, 3, 0] } : { x: 0 }}
                 transition={{ duration: 0.3 }}
-                className={`w-full text-left rounded-md border px-3 py-2.5 text-xs transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt focus-visible:ring-offset-1 focus-visible:ring-offset-base active:scale-[0.99] ${ring}`}
+                className={`w-full text-left rounded-md border px-3 py-2.5 text-xs transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-1 focus-visible:ring-offset-base active:scale-[0.99] ${ring}`}
               >
                 <div className="flex items-start gap-2.5">
                   <span className="font-mono text-[10px] text-text-3 uppercase font-semibold w-3 mt-0.5 shrink-0">
@@ -195,9 +196,9 @@ function SessionTab() {
                   {showResult && (
                     <span className="shrink-0 mt-0.5">
                       {opt.correct ? (
-                        <CheckCircle className="size-3.5 text-emerald" aria-label="Correct" />
+                        <CheckCircle className="size-3.5 text-white" aria-label="Correct" />
                       ) : (
-                        <XCircle className="size-3.5 text-amber" aria-label="Incorrect" />
+                        <XCircle className="size-3.5 text-zinc-400" aria-label="Incorrect" />
                       )}
                     </span>
                   )}
@@ -213,7 +214,7 @@ function SessionTab() {
           <button
             type="button"
             onClick={handleReset}
-            className="text-[11px] text-text-2 hover:text-text-1 underline underline-offset-2 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-cobalt rounded"
+            className="text-[11px] text-text-2 hover:text-white underline underline-offset-2 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-400 rounded border border-transparent px-2 py-0.5"
           >
             Reset
           </button>
@@ -230,10 +231,10 @@ function ReviewTab() {
       <div className="rounded-md border border-border bg-surface-2 p-3">
         <div className="flex items-center justify-between mb-2">
           <span className="text-xs font-semibold text-text-1">Written response score</span>
-          <span className="font-mono text-sm font-bold text-emerald tabular-nums">0.85 / 1.0</span>
+          <span className="font-mono text-sm font-bold text-white tabular-nums">0.85 / 1.0</span>
         </div>
-        <div className="h-1.5 w-full rounded-full bg-surface-3 overflow-hidden">
-          <div className="h-full rounded-full bg-emerald" style={{ width: '85%' }} />
+        <div className="h-1.5 w-full rounded-full bg-surface-3 overflow-hidden border border-border">
+          <div className="h-full rounded-full bg-white" style={{ width: '85%' }} />
         </div>
       </div>
 
@@ -248,8 +249,8 @@ function ReviewTab() {
       </div>
 
       {/* Canonical answer */}
-      <div className="rounded-md border border-cobalt/30 bg-cobalt/5 p-3 space-y-1.5">
-        <p className="text-[10px] font-semibold text-cobalt uppercase tracking-wide">Model answer</p>
+      <div className="rounded-md border border-zinc-600 bg-zinc-900/90 p-3 space-y-1.5">
+        <p className="text-[10px] font-semibold text-zinc-300 uppercase tracking-wide">Model answer</p>
         <p className="text-xs text-text-1 leading-relaxed">
           A B-Tree index achieves O(log n) lookup complexity. The tree is kept balanced across
           insertions and deletions, so height grows logarithmically with n. Missing from your
@@ -262,7 +263,7 @@ function ReviewTab() {
         <p className="text-[10px] font-semibold text-text-3 uppercase tracking-wide">
           Source excerpt (page 12)
         </p>
-        <blockquote className="text-xs text-text-2 leading-relaxed border-l-2 border-cobalt pl-2.5">
+        <blockquote className="text-xs text-text-2 leading-relaxed border-l-2 border-white pl-2.5">
           "A B-Tree index stores keys in a balanced tree so lookups, insertions, and deletions
           all run in O(log n) time. PostgreSQL uses B-Trees for primary key constraints by
           default."
@@ -274,10 +275,12 @@ function ReviewTab() {
 
 export const InteractiveExamPreview: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabId>('source');
+  const cardRef = useTactile3DTilt<HTMLDivElement>({ maxTilt: 3.5, scale: 1.01 });
 
   return (
     <div
-      className="w-full max-w-md mx-auto rounded-xl border border-border bg-surface-1 overflow-hidden shadow-lg"
+      ref={cardRef}
+      className="w-full max-w-md mx-auto rounded-xl border border-zinc-700/80 bg-surface-1 overflow-hidden shadow-lg transition-all duration-300 hover:border-zinc-500"
       aria-label="Interactive product preview"
     >
       {/* Tab bar */}
@@ -295,10 +298,10 @@ export const InteractiveExamPreview: React.FC = () => {
             aria-controls={`tab-panel-${tab.id}`}
             id={`tab-${tab.id}`}
             onClick={() => setActiveTab(tab.id)}
-            className={`flex-1 py-2.5 px-2 text-xs font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-cobalt border-b-2 ${
+            className={`flex-1 py-2.5 px-2 text-xs font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-white border-b-2 border-t-0 border-l-0 border-r-0 ${
               activeTab === tab.id
-                ? 'border-cobalt text-cobalt bg-surface-1'
-                : 'border-transparent text-text-2 hover:text-text-1 hover:bg-surface-1/50'
+                ? 'border-b-white text-white font-semibold bg-surface-1'
+                : 'border-b-transparent text-text-2 hover:text-text-1 hover:bg-surface-1/50'
             }`}
           >
             {tab.label}

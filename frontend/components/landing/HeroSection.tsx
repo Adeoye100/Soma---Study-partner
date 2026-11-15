@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import InteractiveExamPreview from './InteractiveExamPreview';
 import { animeHeroIn } from './useAnimeEntrance';
+import { useMagneticHover } from '../../utils/animeMotion';
 
 interface HeroSectionProps {
   onScrollToDemo: () => void;
@@ -15,6 +16,8 @@ const HEADLINE_WORDS = [
 export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToDemo }) => {
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
+  const primaryBtnRef = useMagneticHover<HTMLButtonElement>({ strength: 6 });
+  const secondaryBtnRef = useMagneticHover<HTMLButtonElement>({ strength: 5 });
 
   const handleUpload = () => navigate('/login', { state: { showSignup: true } });
 
@@ -37,7 +40,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToDemo }) => {
 
             {/* Headline — Preospe for display, words individually animated */}
             <h1
-              className="text-5xl sm:text-6xl lg:text-[4rem] leading-[1.05] tracking-tight"
+              className="text-5xl sm:text-6xl lg:text-[4rem] leading-[1.05] tracking-tight font-bold text-text-1"
               style={{
                 fontFamily: "'Preospe', 'ITC Garamond Std', Georgia, serif",
                 maxWidth: '680px',
@@ -67,7 +70,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToDemo }) => {
               className="text-base sm:text-lg text-text-2 leading-relaxed"
               style={{ maxWidth: '540px', opacity: 0, transform: 'translateY(14px)' }}
             >
-              Upload your lecture PDFs, slide photos, or markdown notes. Soma extracts the
+              Upload your lecture PDFs, slide photos, or markdown notes. Somma extracts the
               core topics, builds timed multiple-choice and written tests, grades your
               answers against your source material, and shows you what to study next.
             </p>
@@ -75,20 +78,22 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToDemo }) => {
             {/* CTAs */}
             <div className="flex flex-wrap items-center gap-3 pt-1">
               <button
+                ref={primaryBtnRef}
                 type="button"
                 data-hero-cta
                 onClick={handleUpload}
-                className="inline-flex items-center px-5 py-2.5 rounded-md bg-cobalt text-white text-sm font-semibold transition-all duration-200 hover:bg-cobalt-mid active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt focus-visible:ring-offset-2 focus-visible:ring-offset-base"
+                className="inline-flex items-center px-5 py-2.5 rounded-md border border-white bg-white text-black text-sm font-semibold transition-all duration-200 hover:bg-zinc-200 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-base"
                 style={{ opacity: 0, transform: 'translateY(14px)' }}
               >
                 Upload study material
               </button>
 
               <button
+                ref={secondaryBtnRef}
                 type="button"
                 data-hero-cta
                 onClick={onScrollToDemo}
-                className="inline-flex items-center px-5 py-2.5 rounded-md border border-border text-sm font-semibold text-text-1 bg-surface-1/60 backdrop-blur-sm transition-all duration-200 hover:bg-surface-2 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt focus-visible:ring-offset-2 focus-visible:ring-offset-base"
+                className="inline-flex items-center px-5 py-2.5 rounded-md border border-border text-sm font-semibold text-text-1 bg-surface-1/60 backdrop-blur-sm transition-all duration-200 hover:bg-surface-2 hover:border-zinc-500 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 focus-visible:ring-offset-base"
                 style={{ opacity: 0, transform: 'translateY(14px)' }}
               >
                 Try a sample exam

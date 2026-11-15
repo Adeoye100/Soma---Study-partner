@@ -10,6 +10,7 @@ import { Avatar, AvatarImage, AvatarFallback } from './Avatar';
 import PasswordStrengthIndicator, { PasswordValidationState } from './PasswordStrengthIndicator';
 import ShaderBackground from './ShaderBackground';
 import InfoModal from './InfoModal';
+import { getUserAvatarUrl } from '../utils/avatar';
 
 const LoginScreen: React.FC = () => {
   const location = useLocation();
@@ -177,7 +178,7 @@ const LoginScreen: React.FC = () => {
   };
 
   const avatarUrl = !isLogin
-    ? `https://api.dicebear.com/8.x/${gender === 'other' ? 'micah' : (gender === 'male' ? 'pixel-art' : 'avataaars')}/svg?seed=${username || 'default'}`
+    ? getUserAvatarUrl(username || 'default')
     : '';
 
 
@@ -188,7 +189,7 @@ const LoginScreen: React.FC = () => {
         <div className="hidden md:flex flex-col p-6 md:p-8">
           <div className="flex items-center gap-3 mb-4">
             <BookOpen className="h-8 sm:h-10 w-8 sm:w-10 text-primary animated-book" />
-            <h1 className="font-brand text-3xl sm:text-4xl font-bold animated-gradient-text">
+            <h1 className="font-display font-['Preospe'] text-3xl sm:text-4xl font-bold animated-gradient-text">
               Somma
             </h1>
           </div>

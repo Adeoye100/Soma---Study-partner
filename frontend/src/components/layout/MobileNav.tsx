@@ -8,6 +8,7 @@ import {
 import { useDashboardStore } from '../../store/dashboardStore';
 import type { PageView } from '../../types/admin';
 import { useState } from 'react';
+import { getUserAvatarUrl } from '../../../utils/avatar';
 
 interface NavItem {
   id: PageView;
@@ -71,19 +72,19 @@ export function MobileNav() {
               {/* Header */}
               <div className="h-16 flex items-center justify-between px-4 border-b border-border">
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center">
+                  <div className="w-9 h-9 rounded-xl bg-zinc-900 border border-zinc-700/60 flex items-center justify-center">
                     <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                     </svg>
                   </div>
                   <div>
-                    <h1 className="font-bold text-lg text-foreground">Somma</h1>
+                    <h1 className="font-display font-['Preospe'] font-bold text-lg text-foreground">Somma</h1>
                     <p className="text-[10px] text-muted-foreground">EDTECH ADMIN</p>
                   </div>
                 </div>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="w-8 h-8 rounded-lg hover:bg-muted flex items-center justify-center"
+                  className="w-8 h-8 rounded-lg hover:bg-muted flex items-center justify-center border border-border"
                 >
                   <X className="w-5 h-5 text-muted-foreground" />
                 </button>
@@ -99,15 +100,15 @@ export function MobileNav() {
                     <motion.button
                       key={item.id}
                       onClick={() => handleNavClick(item.id)}
-                      className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 mb-1 ${
+                      className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 mb-1 border ${
                         isActive 
-                          ? 'bg-primary/10 text-primary border border-primary/20' 
-                          : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                          ? 'bg-zinc-800 text-white border-zinc-600' 
+                          : 'text-muted-foreground hover:text-foreground hover:bg-muted border-transparent'
                       }`}
                       whileTap={{ scale: 0.98 }}
                     >
                       <Icon className="w-5 h-5 flex-shrink-0" />
-                      <span className={`text-sm font-medium ${isActive ? 'text-primary' : ''}`}>
+                      <span className={`text-sm font-medium ${isActive ? 'text-white' : ''}`}>
                         {item.label}
                       </span>
                     </motion.button>
@@ -117,11 +118,11 @@ export function MobileNav() {
 
               {/* Admin Profile */}
               <div className="p-3 border-t border-border">
-                <div className="flex items-center gap-3 p-2 rounded-xl">
+                <div className="flex items-center gap-3 p-2 rounded-xl border border-border/50">
                   <img
-                    src="https://api.dicebear.com/7.x/avataaars/svg?seed=admin"
+                    src={getUserAvatarUrl('admin')}
                     alt="Admin"
-                    className="w-9 h-9 rounded-full bg-primary/20"
+                    className="w-9 h-9 rounded-full bg-zinc-800 border border-zinc-700"
                   />
                   <div className="text-left">
                     <p className="text-sm font-medium text-foreground">Chidi Obi</p>
@@ -145,10 +146,10 @@ export function MobileNav() {
               <button
                 key={item.id}
                 onClick={() => setCurrentPage(item.id)}
-                className={`flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-colors ${
+                className={`flex flex-col items-center gap-1 px-3 py-2 rounded-xl border transition-colors ${
                   isActive 
-                    ? 'text-primary' 
-                    : 'text-muted-foreground'
+                    ? 'text-white bg-zinc-800 border-zinc-600' 
+                    : 'text-muted-foreground border-transparent'
                 }`}
               >
                 <Icon className="w-5 h-5" />
@@ -158,7 +159,7 @@ export function MobileNav() {
           })}
           <button
             onClick={() => setIsOpen(true)}
-            className="flex flex-col items-center gap-1 px-3 py-2 rounded-xl text-muted-foreground"
+            className="flex flex-col items-center gap-1 px-3 py-2 rounded-xl text-muted-foreground border border-border"
           >
             <div className="w-5 h-5 flex items-center justify-center">
               <span className="text-xs font-bold">+</span>

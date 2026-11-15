@@ -34,7 +34,7 @@ describe('LandingPage', () => {
     );
 
     // Brand name appears in nav
-    expect(screen.getAllByText('Soma').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Somma').length).toBeGreaterThan(0);
 
     // Hero headline words are present (rendered as individual spans)
     expect(screen.getByText('Turn')).toBeInTheDocument();

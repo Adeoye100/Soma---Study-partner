@@ -1,79 +1,128 @@
 import React, { useState, useEffect } from 'react';
-import GlassCard from './GlassCard';
-const quotes = [
-  { quote: "Education is the passport to the future — prepare for it today.", author: "Malcolm X" },
-  { quote: "When something is important enough, you do it even if the odds are not in your favor.", author: "Elon Musk" },
-  { quote: "You have to fight to reach your dream. You have to sacrifice and work hard for it.", author: "Lionel Messi" },
-  { quote: "Your past does not disqualify you from your future — keep moving forward.", author: "Enoch Adeboye" },
-  { quote: "Start small, ship fast, and iterate — motion beats perfection.", author: "Sam Altman" },
-  { quote: "Break big tasks into tiny, repeatable habits and compound progress every day.", author: "Life Hack" },
-  { quote: "Learning is a lifelong process; master fundamentals and the rest follows.", author: "Education Tip" },
-  { quote: "Don't be afraid to take big risks when necessary — you'll regret missed chances more than failed attempts.", author: "Elon Musk" },
-  { quote: "Focus, practice, and a love for the game — the rest is built from discipline.", author: "Lionel Messi" },
-  { quote: "Read widely, build simple things, and ship — the world rewards makers.", author: "Sam Altman" },
-  { quote: "Small, steady improvements compound into huge gains over time.", author: "Atomic Habit" },
-  { quote: "Use your time like a currency: spend on learning, building, and relationships that scale.", author: "Productivity Tip" },
-  { quote: "Learn to teach what you learn — teaching is one of the fastest ways to master a subject.", author: "Study Tip" },
-  { quote: "It's okay to fail — fail fast, learn fast, and iterate.", author: "Startup Advice" },
-  { quote: "Simplicity is the Ultimate Sophistication", author: "Leonardo Davinci" },
-  { quote: "Wisdom is the principal thing; therefore get wisdom", author: "Proverbs 4:7" },
+import { Sparkles, Quote, BookOpen, Brain, Zap, Target } from 'lucide-react';
 
-];
+interface StudyPrompt {
+  quote: string;
+  author: string;
+  tag: string;
+  icon: React.ComponentType<{ className?: string }>;
+}
 
-const images = [
-    '/img/1.jpg',
-    '/img/2.jpg',
-    '/img/3.jpg',
-    '/img/4.jpg',
-    '/img/5.jpg',
-    '/img/6.jpg',
-    '/img/7.jpg',
-    '/img/8.jpg',
-    '/img/9.jpg',
-    '/img/10.jpg'
+const studyPrompts: StudyPrompt[] = [
+  {
+    quote: "Testing yourself isn't just a way to measure what you know — it's one of the strongest ways to build memory.",
+    author: "Make It Stick: The Science of Successful Learning",
+    tag: "Active Recall",
+    icon: Brain,
+  },
+  {
+    quote: "The ultimate test of your knowledge is your ability to convey it clearly and simply to another person.",
+    author: "Richard Feynman",
+    tag: "Feynman Technique",
+    icon: Sparkles,
+  },
+  {
+    quote: "Retrieval practice produces durable, flexible learning that stands up under exam pressure.",
+    author: "Cognitive Psychology Principle",
+    tag: "Exam Readiness",
+    icon: Target,
+  },
+  {
+    quote: "We are what we repeatedly do. Excellence, then, is not an act, but a habit.",
+    author: "Will Durant (on Aristotle)",
+    tag: "Daily Mastery",
+    icon: Zap,
+  },
+  {
+    quote: "While we teach, we learn. Break down complex chapters into questions and test your understanding early.",
+    author: "Seneca",
+    tag: "Study Method",
+    icon: BookOpen,
+  },
+  {
+    quote: "Spacing out your practice sessions turns short-term effort into permanent mastery.",
+    author: "Spaced Repetition Science",
+    tag: "Retention",
+    icon: Brain,
+  },
 ];
 
 const InspirationCard: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [fade, setFade] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex(prevIndex => (prevIndex + 1) % Math.min(images.length, quotes.length));
-    }, 5000); // Change image and quote every 5 seconds
+      setFade(false);
+      setTimeout(() => {
+        setCurrentIndex((prev) => (prev + 1) % studyPrompts.length);
+        setFade(true);
+      }, 250);
+    }, 6000);
 
     return () => clearInterval(interval);
   }, []);
 
-  const currentQuote = quotes[currentIndex];
+  const current = studyPrompts[currentIndex];
+  const IconComponent = current.icon;
 
   return (
-    <GlassCard className="w-full h-full min-h-[280px] sm:min-h-[320px] aspect-[4/5] relative border border-solid border-white/20 rounded-2xl overflow-hidden shadow-lg">
-      {/* Background Image Carousel */}
-      {images.map((img, index) => (
-        <img
-          key={img}
-          src={img}
-          alt="Inspirational background"
-          className={`w-full h-full object-cover absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentIndex ? 'opacity-100' : 'opacity-0'}`}
-        />
-      ))}
+    <div className="w-full relative rounded-2xl border border-border bg-card/80 dark:bg-card/60 backdrop-blur-md p-6 sm:p-7 shadow-sm transition-all duration-300 overflow-hidden group">
+      {/* Subtle ambient monochrome glow */}
+      <div className="absolute -top-12 -right-12 w-40 h-40 bg-white/5 rounded-full blur-2xl pointer-events-none" />
+      <div className="absolute -bottom-12 -left-12 w-40 h-40 bg-zinc-500/10 rounded-full blur-2xl pointer-events-none" />
 
-      {/* Foreground Blurry Layer with Quote */}
-      {/* This div now covers the appropriate portion and applies the blur/background */}
-      <div className="w-full sm:w-1/2 h-full p-3 sm:p-4 flex flex-col justify-start sm:justify-center absolute inset-0 left-0 backdrop-blur-lg bg-black/20 text-gray-200 font-medium font-sans">
-        {/* Spinning Gradient Element - moved inside and sized responsively */}
-        <div className="w-20 h-20 sm:w-32 sm:h-32 rounded-full bg-gradient-to-tr from-purple-500 to-orange-300 animate-spin self-center flex-shrink-0" style={{ animationDuration: '15s' }} />
-
-        {/* Quote text - now just a container for the text, no longer applying blur/bg */}
-        <div className="w-full px-2 sm:p-3 flex flex-col rounded-xl relative h-24 sm:h-40 mt-2 sm:mt-4">
-          <div key={currentIndex} className="animate-fade-in absolute inset-0 flex flex-col justify-between">
-            <span className="text-sm sm:text-lg font-medium leading-tight">"{currentQuote.quote}"</span>
-            <span className="text-xs sm:text-sm text-gray-300 text-right">- {currentQuote.author}</span>
-          </div>
+      {/* Header with pill tag */}
+      <div className="flex items-center justify-between mb-4 relative z-10">
+        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-zinc-800 text-zinc-200 border border-zinc-700">
+          <IconComponent className="w-3.5 h-3.5" />
+          <span>{current.tag}</span>
         </div>
+        <Quote className="w-5 h-5 text-muted-foreground/40" />
       </div>
-    </GlassCard>
+
+      {/* Quote content */}
+      <div className="min-h-[110px] sm:min-h-[120px] flex flex-col justify-between relative z-10">
+        <p
+          className={`font-heading text-base sm:text-lg text-foreground font-medium leading-snug tracking-normal transition-all duration-300 ${
+            fade ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'
+          }`}
+        >
+          "{current.quote}"
+        </p>
+
+        <p
+          className={`text-xs sm:text-sm text-muted-foreground font-sans mt-3 transition-all duration-300 ${
+            fade ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          — {current.author}
+        </p>
+      </div>
+
+      {/* Carousel dots */}
+      <div className="flex items-center gap-1.5 mt-5 relative z-10">
+        {studyPrompts.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => {
+              setFade(false);
+              setTimeout(() => {
+                setCurrentIndex(i);
+                setFade(true);
+              }, 200);
+            }}
+            aria-label={`Go to slide ${i + 1}`}
+            className={`h-1.5 rounded-full border border-border transition-all duration-300 ${
+              i === currentIndex
+                ? 'w-6 bg-white border-white'
+                : 'w-1.5 bg-muted-foreground/25 hover:bg-muted-foreground/50 border-transparent'
+            }`}
+          />
+        ))}
+      </div>
+    </div>
   );
-}
+};
 
 export default InspirationCard;

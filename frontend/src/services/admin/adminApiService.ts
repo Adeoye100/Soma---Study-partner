@@ -123,27 +123,3 @@ export class AdminApiService {
     });
   }
 }
-
-// Public feedback submission (no admin required)
-export async function submitFeedback(data: {
-  type: string;
-  title: string;
-  description: string;
-  severity: string;
-  page_url?: string;
-}) {
-  const { data: { session } } = await supabase.auth.getSession();
-  const headers: Record<string, string> = {
-    'Content-Type': 'application/json'
-  };
-  if (session?.access_token) {
-    headers['Authorization'] = `Bearer ${session.access_token}`;
-  }
-  const res = await fetch(`${AdminApiService['baseUrl']}/api/feedback`, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify(data)
-  });
-  if (!res.ok) throw new Error('Submission failed');
-  return res.json();
-}

@@ -118,7 +118,7 @@ export default {
         heading: ['"ITC Garamond Std"', '"ITCGaramond"', 'Georgia', 'serif'],
         display: ['Preospe', '"ITC Garamond Std"', 'Georgia', 'serif'],
         serif: ['"ITC Garamond Std"', '"ITCGaramond"', 'Georgia', 'serif'],
-        brand: ['Poppins', 'system-ui', '-apple-system', 'sans-serif'],
+        brand: ['Preospe', 'Poppins', 'system-ui', '-apple-system', 'sans-serif'],
         raquen: ['Raquen', 'sans-serif'],
         moga: ['Moga', 'sans-serif'],
         agneos: ['Agneos', 'sans-serif'],

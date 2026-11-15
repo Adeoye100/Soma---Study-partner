@@ -11,23 +11,23 @@ const ease = [0.22, 1, 0.36, 1] as const;
 const FAQS = [
   {
     q: 'What file types can I upload?',
-    a: 'You can upload PDF documents, PNG and JPEG images (including photos of slides or handwritten pages), plain text files, and Markdown files. If you upload the same file twice, Soma recognizes it automatically and avoids creating duplicates.',
+    a: 'You can upload PDF documents, PNG and JPEG images (including photos of slides or handwritten pages), plain text files, and Markdown files. If you upload the same file twice, Somma recognizes it automatically and avoids creating duplicates.',
   },
   {
-    q: 'How does Soma grade written answers?',
-    a: 'When Soma generates a written question from your notes, it also creates a grading rubric based on the source text. When you submit your answer, it compares your response against that rubric, awards full or partial credit, and explains which key concepts you hit or missed.',
+    q: 'How does Somma grade written answers?',
+    a: 'When Somma generates a written question from your notes, it also creates a grading rubric based on the source text. When you submit your answer, it compares your response against that rubric, awards full or partial credit, and explains which key concepts you hit or missed.',
   },
   {
     q: 'What happens if my internet disconnects during a timed test?',
-    a: 'Your session state and draft answers sync continuously over a live connection. If your page refreshes or your Wi-Fi drops briefly, you can rejoin the active session without losing your recorded answers. If time expires while you are away, Soma grades the answers you already completed.',
+    a: 'Your session state and draft answers sync continuously over a live connection. If your page refreshes or your Wi-Fi drops briefly, you can rejoin the active session without losing your recorded answers. If time expires while you are away, Somma grades the answers you already completed.',
   },
   {
-    q: 'Does Soma invent facts outside my course material?',
-    a: 'Soma builds its topic outlines, questions, and review explanations from the chunks of text extracted from your uploaded files. Every graded question in Review Mode includes the source excerpt from your material so you can verify it yourself.',
+    q: 'Does Somma invent facts outside my course material?',
+    a: 'Somma builds its topic outlines, questions, and review explanations from the chunks of text extracted from your uploaded files. Every graded question in Review Mode includes the source excerpt from your material so you can verify it yourself.',
   },
   {
     q: 'How does the study plan decide what I should review next?',
-    a: 'After each exam, Soma looks at your score per topic, the difficulty of the questions you missed, and how long ago you practiced that material. Topics with low accuracy appear at the top of your plan for immediate drills, while mastered topics are scheduled for spaced recall later on.',
+    a: 'After each exam, Somma looks at your score per topic, the difficulty of the questions you missed, and how long ago you practiced that material. Topics with low accuracy appear at the top of your plan for immediate drills, while mastered topics are scheduled for spaced recall later on.',
   },
 ];
 

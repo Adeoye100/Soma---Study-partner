@@ -2,6 +2,7 @@ import React from 'react';
 import { CalendarDays, BookMarked, Target } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { useAnimeEntrance } from './useAnimeEntrance';
+import { useTactile3DTilt } from '../../utils/animeMotion';
 
 interface ColData {
   icon: LucideIcon;
@@ -27,6 +28,29 @@ const COLUMNS: ColData[] = [
   },
 ];
 
+function ColumnCard({ col }: { col: ColData }) {
+  const cardRef = useTactile3DTilt<HTMLDivElement>({ maxTilt: 3, scale: 1.01 });
+  const Icon = col.icon;
+
+  return (
+    <div
+      ref={cardRef}
+      data-anime
+      className="flex flex-col gap-4 p-6 rounded-xl border border-border bg-surface-1/80 backdrop-blur-sm transition-all duration-300 hover:border-zinc-500 hover:shadow-md"
+    >
+      <div className="size-9 rounded-md border border-border bg-surface-2 flex items-center justify-center shrink-0">
+        <Icon className="size-4 text-white" aria-hidden="true" />
+      </div>
+      <div>
+        <h3 className="text-base font-heading font-bold text-text-1 mb-2">
+          {col.title}
+        </h3>
+        <p className="text-sm text-text-2 leading-relaxed">{col.body}</p>
+      </div>
+    </div>
+  );
+}
+
 export const UseCaseColumnsSection: React.FC = () => {
   const sectionRef = useAnimeEntrance<HTMLDivElement>('[data-anime]', {
     translateY: 28,
@@ -39,31 +63,14 @@ export const UseCaseColumnsSection: React.FC = () => {
       <div ref={sectionRef} className="max-w-6xl mx-auto px-4 sm:px-6">
         <div data-anime className="max-w-xl mb-14">
           <h2 className="text-3xl sm:text-4xl font-heading font-bold text-text-1">
-            How students use Soma through the semester.
+            How students use Somma through the semester.
           </h2>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {COLUMNS.map((col) => {
-            const Icon = col.icon;
-            return (
-              <div
-                key={col.title}
-                data-anime
-                className="flex flex-col gap-4 p-6 rounded-xl border border-border bg-surface-1/80 backdrop-blur-sm"
-              >
-                <div className="size-9 rounded-md border border-border bg-surface-2 flex items-center justify-center shrink-0">
-                  <Icon className="size-4 text-cobalt" aria-hidden="true" />
-                </div>
-                <div>
-                  <h3 className="text-base font-heading font-bold text-text-1 mb-2">
-                    {col.title}
-                  </h3>
-                  <p className="text-sm text-text-2 leading-relaxed">{col.body}</p>
-                </div>
-              </div>
-            );
-          })}
+          {COLUMNS.map((col) => (
+            <ColumnCard key={col.title} col={col} />
+          ))}
         </div>
       </div>
     </section>

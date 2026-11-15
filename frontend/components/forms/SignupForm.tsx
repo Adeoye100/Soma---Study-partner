@@ -7,6 +7,7 @@ import PasswordField from './PasswordField';
 import { Avatar, AvatarImage, AvatarFallback } from '../Avatar';
 import PasswordStrengthIndicator, { PasswordValidationState } from '../PasswordStrengthIndicator';
 import { validateEmail, validatePassword, validateUsername, validateGender, calculatePasswordStrength, formatAuthError, validateRedirect } from '../../utils/authValidation';
+import { getUserAvatarUrl } from '../../utils/avatar';
 import { Sparkles } from 'lucide-react';
 
 interface SignupFormProps {
@@ -155,7 +156,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onToggleForm }) => {
     }
   };
 
-  const avatarUrl = `https://api.dicebear.com/8.x/${formData.gender === 'other' ? 'micah' : (formData.gender === 'male' ? 'pixel-art' : 'avataaars')}/svg?seed=${formData.username || 'default'}`;
+  const avatarUrl = getUserAvatarUrl(formData.username || 'default');
 
   const inputBaseClasses = "mt-1 block h-9 sm:h-10 w-full rounded-md border border-input bg-card text-foreground py-2 px-3 text-sm placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200";
 

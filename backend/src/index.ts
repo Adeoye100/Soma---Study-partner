@@ -29,7 +29,6 @@ import authRouter        from '@/routes/auth';
 import examRouter        from '@/routes/exam';
 import materialRouter    from '@/routes/material';
 import resultRouter      from '@/routes/result';
-import feedbackRouter    from '@/routes/feedback';
 import leaderboardRouter from '@/routes/leaderboard';
 import userRouter        from '@/routes/user';
 import documentsRouter   from '@/routes/documents-free';
@@ -168,7 +167,6 @@ app.use('/api/auth',        authRouter);
 app.use('/api/exam',        examRouter);        // authMiddleware applied per-route inside
 app.use('/api/material',    authMiddleware, materialRouter);
 app.use('/api/result',      authMiddleware, resultRouter);
-app.use('/api/feedback',    feedbackRouter);
 app.use('/api/leaderboard', leaderboardRouter);
 app.use('/api/user',        authMiddleware, userRouter);
 app.use('/api/documents',   documentsRouter);   // authMiddleware applied per-route inside
@@ -194,9 +192,9 @@ function start(): void {
   }
 
   const server = app.listen(PORT, () => {
-    logger.info(`🚀 Soma backend running on port ${PORT}`);
+    logger.info(`🚀 Somma backend running on port ${PORT}`);
     logger.info(`📍 Environment: ${process.env.NODE_ENV ?? 'development'}`);
-    logger.info('📦 Mounted: /api/auth · /api/exam · /api/material · /api/result · /api/feedback · /api/leaderboard · /api/user · /api/documents');
+    logger.info('📦 Mounted: /api/auth · /api/exam · /api/material · /api/result · /api/leaderboard · /api/user · /api/documents');
     logger.info('🩺 Health: GET /health · GET /api/health');
   });
 

@@ -1,13 +1,14 @@
 import React from 'react';
 import { Upload, Settings, Timer, CheckSquare } from 'lucide-react';
 import { useAnimeEntrance } from './useAnimeEntrance';
+import { useTactile3DTilt } from '../../utils/animeMotion';
 
 const STEPS = [
   {
     number: 1,
     icon: Upload,
     title: 'Drop in your course files.',
-    body: 'Upload PDFs, photos of handwritten notes or whiteboard slides, plain text, or markdown files. Soma parses the text, runs OCR on images, and organizes everything into a structured topic outline.',
+    body: 'Upload PDFs, photos of handwritten notes or whiteboard slides, plain text, or markdown files. Somma parses the text, runs OCR on images, and organizes everything into a structured topic outline.',
   },
   {
     number: 2,
@@ -29,6 +30,37 @@ const STEPS = [
   },
 ];
 
+function StepCard({ step }: { step: (typeof STEPS)[number] }) {
+  const cardRef = useTactile3DTilt<HTMLDivElement>({ maxTilt: 3, scale: 1.01 });
+  const Icon = step.icon;
+
+  return (
+    <div
+      ref={cardRef}
+      data-anime
+      className="rounded-xl border border-border bg-surface-1/80 backdrop-blur-sm p-6 flex flex-col gap-4 transition-all duration-300 hover:border-zinc-500 hover:shadow-md"
+    >
+      {/* Step number + icon */}
+      <div className="flex items-center justify-between">
+        <div className="size-9 rounded-md border border-border bg-surface-2 flex items-center justify-center">
+          <Icon className="size-4 text-white" aria-hidden="true" />
+        </div>
+        <span className="font-mono text-xs font-bold text-white" aria-label={`Step ${step.number}`}>
+          {step.number}
+        </span>
+      </div>
+
+      {/* Content */}
+      <div>
+        <h3 className="text-base font-heading font-bold text-text-1 mb-2">
+          {step.title}
+        </h3>
+        <p className="text-sm text-text-2 leading-relaxed">{step.body}</p>
+      </div>
+    </div>
+  );
+}
+
 export const HowItWorksTimeline: React.FC = () => {
   const sectionRef = useAnimeEntrance<HTMLDivElement>('[data-anime]', {
     translateY: 30,
@@ -48,34 +80,9 @@ export const HowItWorksTimeline: React.FC = () => {
 
         {/* Steps grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 relative">
-          {STEPS.map((step) => {
-            const Icon = step.icon;
-            return (
-              <div
-                key={step.number}
-                data-anime
-                className="rounded-xl border border-border bg-surface-1/80 backdrop-blur-sm p-6 flex flex-col gap-4 transition-shadow duration-300 hover:shadow-md"
-              >
-                {/* Step number + icon */}
-                <div className="flex items-center justify-between">
-                  <div className="size-9 rounded-md border border-border bg-surface-2 flex items-center justify-center">
-                    <Icon className="size-4 text-cobalt" aria-hidden="true" />
-                  </div>
-                  <span className="font-mono text-xs font-bold text-cobalt" aria-label={`Step ${step.number}`}>
-                    {step.number}
-                  </span>
-                </div>
-
-                {/* Content */}
-                <div>
-                  <h3 className="text-base font-heading font-bold text-text-1 mb-2">
-                    {step.title}
-                  </h3>
-                  <p className="text-sm text-text-2 leading-relaxed">{step.body}</p>
-                </div>
-              </div>
-            );
-          })}
+          {STEPS.map((step) => (
+            <StepCard key={step.number} step={step} />
+          ))}
         </div>
       </div>
     </section>

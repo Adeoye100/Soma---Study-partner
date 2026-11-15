@@ -53,7 +53,7 @@ export const generateUser = (id: string): User => {
     id,
     name: `${firstName} ${lastName}`,
     email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@email.com`,
-    avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${id}`,
+    avatar: `https://api.dicebear.com/10.x/shapes/svg?seed=${id}&backgroundColor=09090b,18181b,27272a,ffffff,f4f4f5&shape1Color=000000,27272a,71717a,d4d4d8,ffffff&shape2Color=09090b,3f3f46,a1a1aa,e4e4e7,ffffff&shape3Color=18181b,52525b,d4d4d8,f4f4f5,ffffff`,
     country: country.name,
     countryCode: country.code,
     role: 'student',
@@ -144,10 +144,10 @@ export const timeSeriesData: TimeSeriesData[] = [
 
 // Traffic sources
 export const trafficSources: TrafficSource[] = [
-  { name: 'Direct Traffic', value: 3486, percentage: 42, change: 5, color: '#6C63FF' },
-  { name: 'Organic Search', value: 2324, percentage: 28, change: 12, color: '#22C55E' },
-  { name: 'Referral', value: 1494, percentage: 18, change: -2, color: '#F59E0B' },
-  { name: 'Social Media', value: 996, percentage: 12, change: 0, color: '#3B82F6' },
+  { name: 'Direct Traffic', value: 3486, percentage: 42, change: 5, color: '#ffffff' },
+  { name: 'Organic Search', value: 2324, percentage: 28, change: 12, color: '#d4d4d8' },
+  { name: 'Referral', value: 1494, percentage: 18, change: -2, color: '#a1a1aa' },
+  { name: 'Social Media', value: 996, percentage: 12, change: 0, color: '#71717a' },
 ];
 
 // Country data
@@ -165,11 +165,11 @@ export const countryData: CountryData[] = [
 
 // Region data
 export const regionData: RegionData[] = [
-  { name: 'West Africa', value: 6670, percentage: 52, color: '#6C63FF' },
-  { name: 'East Africa', value: 5110, percentage: 40, color: '#22C55E' },
-  { name: 'Southern Africa', value: 1680, percentage: 13, color: '#F59E0B' },
-  { name: 'Diaspora', value: 830, percentage: 6, color: '#3B82F6' },
-  { name: 'Other', value: 120, percentage: 1, color: '#6B7280' },
+  { name: 'West Africa', value: 6670, percentage: 52, color: '#ffffff' },
+  { name: 'East Africa', value: 5110, percentage: 40, color: '#d4d4d8' },
+  { name: 'Southern Africa', value: 1680, percentage: 13, color: '#a1a1aa' },
+  { name: 'Diaspora', value: 830, percentage: 6, color: '#71717a' },
+  { name: 'Other', value: 120, percentage: 1, color: '#52525b' },
 ];
 
 // Subject performance
@@ -186,16 +186,16 @@ export const subjectPerformance: SubjectPerformance[] = [
 
 // Score distribution
 export const scoreDistribution: ScoreDistribution[] = [
-  { range: '0-10', count: 45, color: '#EF4444' },
-  { range: '11-20', count: 78, color: '#EF4444' },
-  { range: '21-30', count: 124, color: '#EF4444' },
-  { range: '31-40', count: 186, color: '#EF4444' },
-  { range: '41-50', count: 342, color: '#F59E0B' },
-  { range: '51-60', count: 580, color: '#F59E0B' },
-  { range: '61-70', count: 720, color: '#22C55E' },
-  { range: '71-80', count: 650, color: '#22C55E' },
-  { range: '81-90', count: 420, color: '#22C55E' },
-  { range: '91-100', count: 155, color: '#22C55E' },
+  { range: '0-10', count: 45, color: '#52525b' },
+  { range: '11-20', count: 78, color: '#52525b' },
+  { range: '21-30', count: 124, color: '#71717a' },
+  { range: '31-40', count: 186, color: '#71717a' },
+  { range: '41-50', count: 342, color: '#a1a1aa' },
+  { range: '51-60', count: 580, color: '#a1a1aa' },
+  { range: '61-70', count: 720, color: '#d4d4d8' },
+  { range: '71-80', count: 650, color: '#d4d4d8' },
+  { range: '81-90', count: 420, color: '#ffffff' },
+  { range: '91-100', count: 155, color: '#ffffff' },
 ];
 
 // Performance trends

@@ -1,93 +1,44 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useClerk } from '@clerk/react';
 import AuthContainer from './components/forms/AuthContainer';
 import MainApp from './components/MainApp';
 import { supabase } from './services/supabase';
 import Loader from './components/Loader';
-import { Session, User } from '@supabase/supabase-js';
+import { User } from '@supabase/supabase-js';
 import ProtectedRoute from './components/ProtectedRoute';
 import LandingPage from './components/LandingPage';
 import ResetPasswordForm from './components/ResetPasswordForm';
 import AuthCallback from './pages/auth/callback';
-import AuthProvider from './context/AuthContext';
+import { useAuth } from './context/AuthContext';
 import { useSessionHeartbeat } from './src/hooks/useSessionHeartbeat';
-import FeedbackForm from './src/components/FeedbackForm';
 
 const App: React.FC = () => {
-  const [session, setSession] = useState<Session | null>(null);
-  const [user, setUser] = useState<User | null>(null);
-  const [loadingSession, setLoadingSession] = useState(true);
-  const [isPasswordRecovery, setIsPasswordRecovery] = useState(false);
-  const [authError, setAuthError] = useState<string | null>(null);
+  const { session, user, loading } = useAuth();
+  const { signOut: clerkSignOut } = useClerk();
+  const [currentUser, setCurrentUser] = useState<User | null>(user);
 
   useSessionHeartbeat();
 
-
-  // Initialize session with error handling
-  const initializeSession = useCallback(async () => {
-    try {
-      const { data, error } = await supabase.auth.getSession();
-      if (error) {
-        // Handle specific error types
-        if (error.message.includes('fetch') || error.message.includes('network') || error.message.includes('CORS')) {
-          console.warn('Network error during auth initialization, attempting to recover...');
-          setAuthError('network');
-        } else {
-          console.error('Auth error:', error.message);
-          setAuthError(error.message);
-        }
-      } else {
-        setSession(data.session);
-        setUser(data.session?.user ?? null);
-        setAuthError(null);
-      }
-    } catch (err: any) {
-      // Network or CORS errors will throw instead of returning error
-      console.warn('Network error during auth initialization:', err.message);
-      setAuthError('network');
-    } finally {
-      setLoadingSession(false);
-    }
-  }, []);
-
-
   useEffect(() => {
-    // Initialize session
-    initializeSession();
-
-    // Set up auth state change listener with error handling
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
-      // Handle auth events even if there was a network error
-      if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
-        setSession(session);
-        setUser(session?.user ?? null);
-        setAuthError(null);
-        setIsPasswordRecovery(false);
-      } else if (event === 'SIGNED_OUT') {
-        setSession(null);
-        setUser(null);
-      } else if (event === 'PASSWORD_RECOVERY') {
-        setIsPasswordRecovery(true);
-      } else if (event === 'USER_UPDATED') {
-        setUser(session?.user ?? null);
-      }
-      
-      // Always update loading state when we get any auth event
-      setLoadingSession(false);
-    });
-
-    return () => subscription.unsubscribe();
-  }, [initializeSession]);
+    setCurrentUser(user);
+  }, [user]);
 
   const handleLogout = async () => {
+    try {
+      await clerkSignOut();
+    } catch {
+      // ignore
+    }
     await supabase.auth.signOut();
+    setCurrentUser(null);
   };
 
   const handleAvatarUpdate = useCallback((newAvatarUrl: string) => {
-    setUser(prevUser => (prevUser ? { ...prevUser, user_metadata: { ...prevUser.user_metadata, avatar_url: newAvatarUrl } } : prevUser));
+    setCurrentUser(prevUser => (prevUser ? { ...prevUser, user_metadata: { ...prevUser.user_metadata, avatar_url: newAvatarUrl } } : prevUser));
   }, []);
 
-  if (loadingSession) {
+  if (loading) {
     return (
       <div className="flex items-center justify-center h-screen bg-background">
         <Loader text="Loading session..." />
@@ -95,45 +46,53 @@ const App: React.FC = () => {
     );
   }
 
+  const effectiveUser = currentUser || user;
+  const isAuthenticated = Boolean(session || effectiveUser);
+
   return (
     <div className="min-h-screen font-sans bg-background text-foreground">
-      <AuthProvider>
-        <BrowserRouter>
-          <FeedbackForm />
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route
+            path="/login"
+            element={!isAuthenticated ? <AuthContainer /> : <Navigate to="/dashboard" />}
+          />
+          <Route
+            path="/login/*"
+            element={!isAuthenticated ? <AuthContainer /> : <Navigate to="/dashboard" />}
+          />
+          <Route
+            path="/signup"
+            element={!isAuthenticated ? <AuthContainer /> : <Navigate to="/dashboard" />}
+          />
+          <Route
+            path="/signup/*"
+            element={!isAuthenticated ? <AuthContainer /> : <Navigate to="/dashboard" />}
+          />
+          <Route
+            path="/reset-password"
+            element={<ResetPasswordForm />}
+          />
+          <Route
+            path="/auth/callback"
+            element={<AuthCallback />}
+          />
+          <Route element={<ProtectedRoute />}>
             <Route
-              path="/login"
-              element={!session ? <AuthContainer /> : isPasswordRecovery ? <ResetPasswordForm /> : <Navigate to="/dashboard" />}
+              path="/dashboard"
+              element={
+                <MainApp
+                  user={effectiveUser!}
+                  onLogout={handleLogout}
+                  onAvatarUpdate={handleAvatarUpdate}
+                />
+              }
             />
-            <Route
-              path="/signup"
-              element={!session ? <Navigate to="/login" state={{ showSignup: true }} /> : <Navigate to="/dashboard" />}
-            />
-            <Route
-              path="/reset-password"
-              element={isPasswordRecovery ? <ResetPasswordForm /> : <Navigate to="/login" />}
-            />
-            <Route
-              path="/auth/callback"
-              element={<AuthCallback />}
-            />
-            <Route element={<ProtectedRoute />}>
-              <Route
-                path="/dashboard"
-                element={
-                  <MainApp
-                    user={user!}
-                    onLogout={handleLogout}
-                    onAvatarUpdate={handleAvatarUpdate}
-                  />
-                }
-              />
-              <Route path="/app" element={<Navigate to="/dashboard" replace />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </AuthProvider>
+            <Route path="/app" element={<Navigate to="/dashboard" replace />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };

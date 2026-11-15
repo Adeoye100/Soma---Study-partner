@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { SignIn, SignUp } from '@clerk/react';
 import ShaderBackground from '../ShaderBackground';
 import InspirationCard from '../InspirationCard';
 import { BookOpen } from 'lucide-react';
@@ -9,24 +10,29 @@ import ForgotPasswordForm from '../ForgotPasswordForm';
 import InfoModal from '../InfoModal';
 
 type AuthMode = 'login' | 'signup' | 'forgot-password';
+type AuthProviderTab = 'clerk' | 'email';
 
 const AuthContainer: React.FC = () => {
   const location = useLocation();
   const [mode, setMode] = useState<AuthMode>('login');
+  const [providerTab, setProviderTab] = useState<AuthProviderTab>('clerk');
   const [showTerms, setShowTerms] = useState(false);
 
   // Handle initial route state
   useEffect(() => {
-    if (location.state?.showSignup) {
+    if (location.state?.showSignup || location.pathname.includes('/signup')) {
       setMode('signup');
+    } else {
+      setMode('login');
     }
-  }, [location.state]);
+  }, [location.state, location.pathname]);
 
   const handleToggleForm = () => {
     setMode(prev => prev === 'login' ? 'signup' : 'login');
   };
 
   const handleForgotPassword = () => {
+    setProviderTab('email');
     setMode('forgot-password');
   };
 
@@ -35,24 +41,60 @@ const AuthContainer: React.FC = () => {
   };
 
   const renderAuthContent = () => {
-    switch (mode) {
-      case 'forgot-password':
-        return (
-          <ForgotPasswordForm onBackToLogin={handleBackToLogin} />
-        );
-      case 'signup':
-        return (
-          <SignupForm onToggleForm={handleToggleForm} />
-        );
-      case 'login':
-      default:
-        return (
-          <LoginForm 
-            onToggleForm={handleToggleForm}
-            onForgotPassword={handleForgotPassword}
-          />
-        );
+    if (providerTab === 'clerk') {
+      return (
+        <div className="flex flex-col items-center w-full">
+          {mode === 'signup' ? (
+            <SignUp
+              routing="hash"
+              signInUrl="/login"
+              fallbackRedirectUrl="/dashboard"
+            />
+          ) : (
+            <SignIn
+              routing="hash"
+              signUpUrl="/signup"
+              fallbackRedirectUrl="/dashboard"
+            />
+          )}
+          <button
+            type="button"
+            onClick={() => setProviderTab('email')}
+            className="mt-4 text-xs text-muted-foreground hover:text-foreground underline transition-colors"
+          >
+            Or continue with email &amp; password form
+          </button>
+        </div>
+      );
     }
+
+    return (
+      <div className="flex flex-col w-full">
+        <button
+          type="button"
+          onClick={() => setProviderTab('clerk')}
+          className="mb-4 text-xs text-primary hover:underline text-left transition-colors font-medium flex items-center gap-1"
+        >
+          &larr; Back to Clerk sign-in
+        </button>
+        {(() => {
+          switch (mode) {
+            case 'forgot-password':
+              return <ForgotPasswordForm onBackToLogin={handleBackToLogin} />;
+            case 'signup':
+              return <SignupForm onToggleForm={handleToggleForm} />;
+            case 'login':
+            default:
+              return (
+                <LoginForm 
+                  onToggleForm={handleToggleForm}
+                  onForgotPassword={handleForgotPassword}
+                />
+              );
+          }
+        })()}
+      </div>
+    );
   };
 
   return (
@@ -62,7 +104,7 @@ const AuthContainer: React.FC = () => {
         <div className="hidden md:flex flex-col p-6 md:p-8">
           <div className="flex items-center gap-3 mb-4">
             <BookOpen className="h-8 sm:h-10 w-8 sm:w-10 text-foreground flex-shrink-0" />
-            <h1 className="font-heading text-3xl sm:text-4xl font-bold uppercase tracking-wider text-foreground">
+            <h1 className="font-display font-['Preospe'] text-3xl sm:text-4xl font-bold uppercase tracking-wider text-foreground">
               Somma
             </h1>
           </div>
