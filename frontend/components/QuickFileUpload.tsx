@@ -32,7 +32,7 @@ export default function QuickFileUpload() {
 
     return (
         <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow">
-            <h2 className="text-2xl font-bold mb-4">📄 Document Text Extraction</h2>
+            <h2 className="text-2xl font-bold mb-4">Document Text Extraction</h2>
 
             <div className="mb-4">
                 <label className="block text-sm font-medium mb-2">

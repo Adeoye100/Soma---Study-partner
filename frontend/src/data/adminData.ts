@@ -21,15 +21,15 @@ const lastNames = [
 ];
 
 const countries = [
-  { name: 'Nigeria', code: 'NG', flag: '🇳🇬' },
-  { name: 'Kenya', code: 'KE', flag: '🇰🇪' },
-  { name: 'Ghana', code: 'GH', flag: '🇬🇭' },
-  { name: 'Uganda', code: 'UG', flag: '🇺🇬' },
-  { name: 'Tanzania', code: 'TZ', flag: '🇹🇿' },
-  { name: 'Zambia', code: 'ZM', flag: '🇿🇲' },
-  { name: 'South Africa', code: 'ZA', flag: '🇿🇦' },
-  { name: 'United Kingdom', code: 'GB', flag: '🇬🇧' },
-  { name: 'United States', code: 'US', flag: '🇺🇸' },
+  { name: 'Nigeria', code: 'NG', flag: 'NG' },
+  { name: 'Kenya', code: 'KE', flag: 'KE' },
+  { name: 'Ghana', code: 'GH', flag: 'GH' },
+  { name: 'Uganda', code: 'UG', flag: 'UG' },
+  { name: 'Tanzania', code: 'TZ', flag: 'TZ' },
+  { name: 'Zambia', code: 'ZM', flag: 'ZM' },
+  { name: 'South Africa', code: 'ZA', flag: 'ZA' },
+  { name: 'United Kingdom', code: 'GB', flag: 'GB' },
+  { name: 'United States', code: 'US', flag: 'US' },
 ];
 
 const subjects = [
@@ -73,7 +73,7 @@ const generateBadges = (count: number): Badge[] => {
   return Array.from({ length: count }, (_, i) => ({
     id: `badge-${i}`,
     name: badgeNames[i % badgeNames.length],
-    icon: '🏆',
+    icon: 'award',
     earnedAt: new Date(Date.now() - Math.random() * 180 * 24 * 60 * 60 * 1000),
   }));
 };
@@ -152,15 +152,15 @@ export const trafficSources: TrafficSource[] = [
 
 // Country data
 export const countryData: CountryData[] = [
-  { rank: 1, country: 'Nigeria', flag: '🇳🇬', users: 4520, exams: 12580, passRate: 72.5, coordinates: [9.082, 8.6753] },
-  { rank: 2, country: 'Kenya', flag: '🇰🇪', users: 2890, exams: 8340, passRate: 76.2, coordinates: [-0.0236, 37.9062] },
-  { rank: 3, country: 'Ghana', flag: '🇬🇭', users: 2150, exams: 6420, passRate: 74.8, coordinates: [7.9465, -1.0232] },
-  { rank: 4, country: 'South Africa', flag: '🇿🇦', users: 1680, exams: 4890, passRate: 78.3, coordinates: [-30.5595, 22.9375] },
-  { rank: 5, country: 'Uganda', flag: '🇺🇬', users: 1240, exams: 3650, passRate: 71.2, coordinates: [1.3733, 32.2903] },
-  { rank: 6, country: 'Tanzania', flag: '🇹🇿', users: 980, exams: 2840, passRate: 69.8, coordinates: [-6.369, 34.8888] },
-  { rank: 7, country: 'Zambia', flag: '🇿🇲', users: 720, exams: 2150, passRate: 73.5, coordinates: [-13.1339, 27.8493] },
-  { rank: 8, country: 'United Kingdom', flag: '🇬🇧', users: 450, exams: 1280, passRate: 81.2, coordinates: [55.3781, -3.436] },
-  { rank: 9, country: 'United States', flag: '🇺🇸', users: 380, exams: 1120, passRate: 79.5, coordinates: [37.0902, -95.7129] },
+  { rank: 1, country: 'Nigeria', flag: 'NG', users: 4520, exams: 12580, passRate: 72.5, coordinates: [9.082, 8.6753] },
+  { rank: 2, country: 'Kenya', flag: 'KE', users: 2890, exams: 8340, passRate: 76.2, coordinates: [-0.0236, 37.9062] },
+  { rank: 3, country: 'Ghana', flag: 'GH', users: 2150, exams: 6420, passRate: 74.8, coordinates: [7.9465, -1.0232] },
+  { rank: 4, country: 'South Africa', flag: 'ZA', users: 1680, exams: 4890, passRate: 78.3, coordinates: [-30.5595, 22.9375] },
+  { rank: 5, country: 'Uganda', flag: 'UG', users: 1240, exams: 3650, passRate: 71.2, coordinates: [1.3733, 32.2903] },
+  { rank: 6, country: 'Tanzania', flag: 'TZ', users: 980, exams: 2840, passRate: 69.8, coordinates: [-6.369, 34.8888] },
+  { rank: 7, country: 'Zambia', flag: 'ZM', users: 720, exams: 2150, passRate: 73.5, coordinates: [-13.1339, 27.8493] },
+  { rank: 8, country: 'United Kingdom', flag: 'GB', users: 450, exams: 1280, passRate: 81.2, coordinates: [55.3781, -3.436] },
+  { rank: 9, country: 'United States', flag: 'US', users: 380, exams: 1120, passRate: 79.5, coordinates: [37.0902, -95.7129] },
 ];
 
 // Region data

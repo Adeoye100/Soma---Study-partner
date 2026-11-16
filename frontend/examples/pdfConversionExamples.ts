@@ -54,10 +54,10 @@ export async function batchConversionExample() {
         console.log(`${file.name}: ${progress.progress}% - ${progress.message}`);
       });
       
-      console.log(`✅ Successfully converted: ${file.name}`);
+      console.log(`[OK] Successfully converted: ${file.name}`);
       
     } catch (error) {
-      console.error(`❌ Failed to convert ${file.name}:`, error);
+      console.error(`[ERROR] Failed to convert ${file.name}:`, error);
     }
   }
 }
@@ -174,7 +174,7 @@ async function processFileWithUI(file: File, container: HTMLElement) {
     // Success state
     container.style.backgroundColor = '#d4edda';
     container.style.borderColor = '#c3e6cb';
-    statusText.textContent = `✅ Conversion complete: ${pdfFile.name}`;
+    statusText.textContent = `Conversion complete: ${pdfFile.name}`;
     
     // Trigger download
     const link = document.createElement('a');
@@ -186,7 +186,7 @@ async function processFileWithUI(file: File, container: HTMLElement) {
     // Error state
     container.style.backgroundColor = '#f8d7da';
     container.style.borderColor = '#f5c6cb';
-    statusText.textContent = `❌ Error: ${error.message}`;
+    statusText.textContent = `Error: ${error.message}`;
   }
 }
 
@@ -243,7 +243,7 @@ export async function prepareExamMaterials(files: File[]): Promise<Material[]> {
         const pdfFile = await convertForExamProcessing(file);
         const material = await fileToMaterial(pdfFile);
         materials.push(material);
-        console.log(`✅ Converted: ${file.name}`);
+        console.log(`[OK] Converted: ${file.name}`);
       } else {
         // Method 2: Use document processor for complex files
         const result = await documentProcessor.processFile(file);
@@ -251,7 +251,7 @@ export async function prepareExamMaterials(files: File[]): Promise<Material[]> {
           const processedFile = result.pdfFile || result.originalFile;
           const material = await fileToMaterial(processedFile);
           materials.push(material);
-          console.log(`✅ Processed: ${file.name}`);
+          console.log(`[OK] Processed: ${file.name}`);
         } else {
           throw new Error(result.error || 'Processing failed');
         }
@@ -260,7 +260,7 @@ export async function prepareExamMaterials(files: File[]): Promise<Material[]> {
     } catch (error) {
       const errorMsg = `Failed to process ${file.name}: ${error.message}`;
       errors.push(errorMsg);
-      console.error(`❌ ${errorMsg}`);
+      console.error(`[ERROR] ${errorMsg}`);
     }
   }
 

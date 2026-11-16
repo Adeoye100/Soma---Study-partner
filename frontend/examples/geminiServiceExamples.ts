@@ -54,17 +54,17 @@ const exampleUserAnswers = [
  */
 export async function basicExamGenerationExample() {
   try {
-    console.log('🔄 Generating exam with enhanced error handling...');
+    console.log('[In Progress] Generating exam with enhanced error handling...');
     
     // This uses the enhanced version with exponential backoff
     const questions = await generateExamEnhanced(exampleConfig, exampleMaterials);
     
-    console.log('✅ Generated', questions.length, 'questions successfully');
+    console.log('[OK] Generated', questions.length, 'questions successfully');
     console.log('First question:', questions[0]);
     
     return questions;
   } catch (error) {
-    console.error('❌ Failed to generate exam:', error);
+    console.error('[ERROR] Failed to generate exam:', error);
     throw error;
   }
 }
@@ -74,18 +74,18 @@ export async function basicExamGenerationExample() {
  */
 export async function enhancedEvaluationExample() {
   try {
-    console.log('🔄 Evaluating answer with enhanced error handling...');
+    console.log('[In Progress] Evaluating answer with enhanced error handling...');
     
     const result = await evaluateAnswerEnhanced(
       exampleQuestions[0], 
       exampleUserAnswers[0]
     );
     
-    console.log('✅ Evaluation result:', result);
+    console.log('[OK] Evaluation result:', result);
     
     return result;
   } catch (error) {
-    console.error('❌ Failed to evaluate answer:', error);
+    console.error('[ERROR] Failed to evaluate answer:', error);
     throw error;
   }
 }
@@ -103,30 +103,30 @@ export async function batchProcessingExample() {
   ];
 
   try {
-    console.log('🔄 Processing multiple requests with progress tracking...');
+    console.log('[In Progress] Processing multiple requests with progress tracking...');
     
     const results = await runMultipleGeminiRequestsEnhanced(
       prompts,
       (current, total, message) => {
-        console.log(`📊 Progress: ${current}/${total} - ${message}`);
+        console.log(` Progress: ${current}/${total} - ${message}`);
         // Here you could update a progress bar in the UI
       }
     );
     
-    console.log('✅ Batch processing completed!');
+    console.log('[OK] Batch processing completed!');
     console.log(`Success: ${results.filter(r => r.success).length}/${results.length}`);
     
     results.forEach((result, index) => {
       if (result.success) {
-        console.log(`✅ Request ${index + 1}: Success`);
+        console.log(`[OK] Request ${index + 1}: Success`);
       } else {
-        console.log(`❌ Request ${index + 1}: Failed - ${result.error}`);
+        console.log(`[ERROR] Request ${index + 1}: Failed - ${result.error}`);
       }
     });
     
     return results;
   } catch (error) {
-    console.error('❌ Failed batch processing:', error);
+    console.error('[ERROR] Failed batch processing:', error);
     throw error;
   }
 }
@@ -136,26 +136,26 @@ export async function batchProcessingExample() {
  */
 export async function serviceMonitoringExample() {
   try {
-    console.log('🔍 Checking service status...');
+    console.log('Checking service status...');
     
     const status = getServiceStatus();
-    console.log('📊 Service Status:', status);
+    console.log('Service Status:', status);
     
-    console.log('🔄 Checking next key...');
+    console.log('Checking next key...');
     const keyInfo = getNextKey();
-    console.log('🔑 Key Info:', keyInfo);
+    console.log('Key Info:', keyInfo);
     
-    console.log('🔄 Resetting to first key...');
+    console.log('Resetting to first key...');
     resetToFirstKey();
-    console.log('✅ Reset completed');
+    console.log('[OK] Reset completed');
     
     // Check status again
     const newStatus = getServiceStatus();
-    console.log('📊 New Status:', newStatus);
+    console.log('New Status:', newStatus);
     
     return { status, keyInfo, newStatus };
   } catch (error) {
-    console.error('❌ Service monitoring failed:', error);
+    console.error('[ERROR] Service monitoring failed:', error);
     throw error;
   }
 }
@@ -166,7 +166,7 @@ export async function serviceMonitoringExample() {
  */
 export async function errorRecoveryExample() {
   try {
-    console.log('🧪 Testing error recovery mechanisms...');
+    console.log('Testing error recovery mechanisms...');
     
     // Simulate a request that might fail
     const prompts = [
@@ -178,11 +178,11 @@ export async function errorRecoveryExample() {
     const results = await runMultipleGeminiRequests(
       prompts,
       (current, total, message) => {
-        console.log(`📊 Error test progress: ${current}/${total} - ${message}`);
+        console.log(`Error test progress: ${current}/${total} - ${message}`);
       }
     );
     
-    console.log('✅ Error recovery test completed');
+    console.log('[OK] Error recovery test completed');
     console.log('Results summary:', {
       total: results.length,
       successful: results.filter(r => r.success).length,
@@ -191,11 +191,11 @@ export async function errorRecoveryExample() {
     
     // Check final service status
     const finalStatus = getServiceStatus();
-    console.log('📊 Final service status:', finalStatus);
+    console.log('Final service status:', finalStatus);
     
     return { results, finalStatus };
   } catch (error) {
-    console.error('❌ Error recovery test failed:', error);
+    console.error('[ERROR] Error recovery test failed:', error);
     throw error;
   }
 }
@@ -206,7 +206,7 @@ export async function errorRecoveryExample() {
  */
 export async function comprehensiveWorkflowExample() {
   try {
-    console.log('🚀 Starting comprehensive workflow...');
+    console.log('Starting comprehensive workflow...');
     
     // Step 1: Check service status
     console.log('Step 1: Checking service status...');
@@ -238,7 +238,7 @@ export async function comprehensiveWorkflowExample() {
       status: { initial: initialStatus, final: finalStatus }
     };
   } catch (error) {
-    console.error('❌ Comprehensive workflow failed:', error);
+    console.error('[ERROR] Comprehensive workflow failed:', error);
     throw error;
   }
 }
@@ -249,7 +249,7 @@ export async function comprehensiveWorkflowExample() {
  */
 export async function performanceTestingExample() {
   try {
-    console.log('⚡ Starting performance testing...');
+    console.log('Starting performance testing...');
     
     const testPrompts = Array.from({ length: 10 }, (_, i) => 
       `Generate a brief explanation of AI topic ${i + 1}`
@@ -260,14 +260,14 @@ export async function performanceTestingExample() {
     const results = await runMultipleGeminiRequestsEnhanced(
       testPrompts,
       (current, total, message) => {
-        console.log(`⚡ Performance test: ${current}/${total} - ${message}`);
+        console.log(`Performance test: ${current}/${total} - ${message}`);
       }
     );
     
     const endTime = Date.now();
     const duration = endTime - startTime;
     
-    console.log('⚡ Performance test completed!');
+    console.log('[OK] Performance test completed!');
     console.log(`Duration: ${duration}ms`);
     console.log(`Average per request: ${duration / testPrompts.length}ms`);
     console.log(`Success rate: ${(results.filter(r => r.success).length / results.length * 100).toFixed(1)}%`);
@@ -279,7 +279,7 @@ export async function performanceTestingExample() {
       successRate: results.filter(r => r.success).length / results.length
     };
   } catch (error) {
-    console.error('❌ Performance testing failed:', error);
+    console.error('[ERROR] Performance testing failed:', error);
     throw error;
   }
 }
@@ -288,7 +288,7 @@ export async function performanceTestingExample() {
  * Run all examples
  */
 export async function runAllExamples() {
-  console.log('🎯 Running all Gemini service examples...\n');
+  console.log('Running all Gemini service examples...\n');
   
   try {
     // Run examples in sequence
@@ -312,10 +312,10 @@ export async function runAllExamples() {
     
     await performanceTestingExample();
     
-    console.log('\n🎉 All examples completed successfully!');
+    console.log('\n[OK] All examples completed successfully!');
     
   } catch (error) {
-    console.error('\n❌ Example execution failed:', error);
+    console.error('\n[ERROR] Example execution failed:', error);
   }
 }
 
@@ -324,7 +324,7 @@ export async function runAllExamples() {
  */
 export async function quickTest() {
   try {
-    console.log('🧪 Quick test of enhanced service...');
+    console.log('Quick test of enhanced service...');
     
     // Test basic functionality
     const status = getServiceStatus();
@@ -332,12 +332,12 @@ export async function quickTest() {
     
     if (status.totalKeys > 0) {
       const testResult = await runMultipleGeminiRequests(["Hello, can you respond?"]);
-      console.log('✅ Quick test passed:', testResult[0].success ? 'Success' : 'Failed');
+      console.log('[OK] Quick test passed:', testResult[0].success ? 'Success' : 'Failed');
     } else {
-      console.log('⚠️ No API keys available for testing');
+      console.log('[WARNING] No API keys available for testing');
     }
     
   } catch (error) {
-    console.error('❌ Quick test failed:', error);
+    console.error('[ERROR] Quick test failed:', error);
   }
 }

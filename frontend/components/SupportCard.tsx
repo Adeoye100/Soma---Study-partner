@@ -72,7 +72,7 @@ const SupportCard: React.FC = () => {
       {/* Enhanced Toast Message */}
       <CopyToast className={toastVisible ? 'visible' : ''}>
         <div className="toast-content">
-          <span className="toast-icon">✓</span>
+          <span className="toast-icon">[Done]</span>
           Account number copied successfully!
           <button className="toast-close" onClick={() => setToastVisible(false)}>×</button>
         </div>
@@ -94,10 +94,10 @@ const SupportCard: React.FC = () => {
             </div>
             <div className="modal-actions">
               <ActionButton onClick={() => handleModalAction('share')}>
-                <span>📤</span> Share Details
+                <span>[Share]</span> Share Details
               </ActionButton>
               <ActionButton onClick={() => handleModalAction('donate')}>
-                <span>💝</span> Make Donation
+                <span>[Donate]</span> Make Donation
               </ActionButton>
             </div>
           </ModalBody>

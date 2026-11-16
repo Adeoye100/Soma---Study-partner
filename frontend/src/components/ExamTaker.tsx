@@ -86,7 +86,7 @@ export const ExamTaker: React.FC<ExamTakerProps> = ({ exam, onComplete }) => {
           You got {correct} out of {exam.questions.length} questions correct
         </p>
         <p className={`text-lg font-semibold ${passed ? 'text-green-400' : 'text-red-400'}`}>
-          {passed ? '✓ PASSED' : '✗ FAILED'}
+          {passed ? 'PASSED' : 'FAILED'}
         </p>
       </div>
     )

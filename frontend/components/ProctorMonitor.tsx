@@ -69,7 +69,7 @@ export const ProctorMonitor: React.FC<ProctorMonitorProps> = ({
             } catch (err) {
                 const message = err instanceof Error ? err.message : 'Could not access camera';
                 setErrorMessage(`Camera access denied: ${message}`);
-                setStatusMessage('❌ Camera access denied');
+                setStatusMessage('[Error] Camera access denied');
             }
         };
 
@@ -118,9 +118,9 @@ export const ProctorMonitor: React.FC<ProctorMonitorProps> = ({
                 setCurrentStatus(result.status);
 
                 if (result.status === 'normal') {
-                    setStatusMessage('✓ Student focused');
+                    setStatusMessage('Student focused');
                 } else if (result.status === 'warning') {
-                    setStatusMessage(`⚠️ ${result.reason} — ${result.duration || 0}s`);
+                    setStatusMessage(`[Warning] ${result.reason} — ${result.duration || 0}s`);
                     setViolations((prev) => [
                         ...prev,
                         {
@@ -131,7 +131,7 @@ export const ProctorMonitor: React.FC<ProctorMonitorProps> = ({
                         },
                     ]);
                 } else if (result.status === 'malpractice') {
-                    setStatusMessage('🚨 MALPRACTICE DETECTED — Auto-submitting exam');
+                    setStatusMessage('[ALERT] MALPRACTICE DETECTED — Auto-submitting exam');
                     setViolations((prev) => [
                         ...prev,
                         {
@@ -155,7 +155,7 @@ export const ProctorMonitor: React.FC<ProctorMonitorProps> = ({
 
                     // If network fails, log but don't crash the exam
                     if (error.code === 'NETWORK_ERROR') {
-                        setStatusMessage('⚠️ Connection lost — retrying...');
+                        setStatusMessage('[Warning] Connection lost — retrying...');
                     }
                 } else {
                     console.error('[ProctorMonitor] Unexpected error:', error);

@@ -35,28 +35,28 @@ The Smart Examination Automation Framework is a comprehensive, modular system de
 
 ## Key Features
 
-### 🎯 Workflow Automation
+### Workflow Automation
 
 - **Sequential Processing**: Execute steps in defined order with dependencies
 - **Error Handling**: Comprehensive error recovery with retry mechanisms
 - **State Management**: Track workflow execution and maintain state
 - **Monitoring**: Real-time monitoring and event-driven updates
 
-### 📥 Input Processing
+### Input Processing
 
 - **Multiple Formats**: Support for various input types (materials, configurations, user data)
 - **Validation**: Built-in validation with customizable rules
 - **Content Extraction**: Automatic content analysis and topic extraction
 - **Normalization**: Standardize input data for consistent processing
 
-### ⚖️ Business Rules
+### Business Rules
 
 - **Configurable Rules**: Define custom business logic and constraints
 - **Rule Chains**: Execute multiple rules in sequence
 - **Priority System**: Prioritize rule execution based on importance
 - **Decision Making**: Automated decision-making based on business logic
 
-### 📤 Output Generation
+### Output Generation
 
 - **Multiple Formats**: JSON, HTML, CSV, XML output generation
 - **Customizable Templates**: Custom output formatting

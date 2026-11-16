@@ -389,7 +389,7 @@ const SetupScreen: React.FC<SetupScreenProps> = ({ onExamStart }) => {
 
                 {/* Time Calculation Display */}
                 <div className="mt-6 p-4 bg-primary/5 border border-primary/20 rounded-lg transition-colors duration-200">
-                  <h3 className="text-sm font-semibold text-primary mb-2 transition-colors duration-200">⏱️ Estimated Exam Time</h3>
+                  <h3 className="text-sm font-semibold text-primary mb-2 transition-colors duration-200">Estimated Exam Time</h3>
                   <div className="flex items-center gap-4">
                     <div className="text-2xl font-bold text-foreground transition-colors duration-200">
                       {formattedTime}

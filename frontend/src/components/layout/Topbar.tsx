@@ -62,7 +62,7 @@ export function Topbar() {
           >
             <Search className="w-4 h-4" />
             <span className="text-sm">Search...</span>
-            <kbd className="ml-2 px-1.5 py-0.5 text-[10px] bg-muted rounded">⌘K</kbd>
+            <kbd className="ml-2 px-1.5 py-0.5 text-[10px] bg-muted rounded">Ctrl+K</kbd>
           </button>
           
           {/* Search Modal */}

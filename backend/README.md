@@ -2,7 +2,7 @@
 
 A secure, production-ready Node.js backend service that interfaces with Google's Gemini API to process student and educator requests from the React-based Smart Examination Web App.
 
-## 🚀 Features
+## Features
 
 - **Secure API Integration**: Robust connection to Google Gemini API with multiple key rotation
 - **Authentication & Authorization**: JWT-based authentication system
@@ -14,7 +14,7 @@ A secure, production-ready Node.js backend service that interfaces with Google's
 - **Scalability**: Designed for concurrent requests with proper resource management
 - **Compliance**: Data privacy and security compliance standards
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 backend/
@@ -35,7 +35,7 @@ backend/
 └── .env.example
 ```
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 - **Runtime**: Node.js 18+
 - **Framework**: Express.js with TypeScript
@@ -48,7 +48,7 @@ backend/
 - **Monitoring**: Health checks, metrics collection
 - **Testing**: Jest for unit and integration tests
 
-## 🚀 Quick Start
+## Quick Start
 
 1. **Install Dependencies**
    ```bash
@@ -72,7 +72,7 @@ backend/
    npm start
    ```
 
-## 🔐 API Endpoints
+## API Endpoints
 
 ### Authentication
 - `POST /api/auth/register` - User registration
@@ -91,7 +91,7 @@ backend/
 - `GET /metrics` - Application metrics
 - `GET /api/status` - Service status and API key information
 
-## 🔒 Security Features
+## Security Features
 
 - **API Key Management**: Secure storage and rotation of Gemini API keys
 - **Input Sanitization**: All inputs are validated and sanitized
@@ -101,7 +101,7 @@ backend/
 - **Request Validation**: Comprehensive request validation
 - **Error Handling**: Secure error responses without information leakage
 
-## 📊 Monitoring & Logging
+## Monitoring & Logging
 
 - **Structured Logging**: JSON-formatted logs with Winston
 - **Performance Monitoring**: Request timing and performance metrics
@@ -109,7 +109,7 @@ backend/
 - **Health Checks**: System health monitoring
 - **API Key Status**: Real-time API key rotation monitoring
 
-## 🚀 Deployment
+## Deployment
 
 ### Docker Deployment
 ```bash
@@ -128,11 +128,11 @@ REDIS_URL=redis://localhost:6379
 CORS_ORIGIN=https://your-frontend-domain.com
 ```
 
-## 📖 API Documentation
+## API Documentation
 
 Full API documentation is available at `/docs` when running the server.
 
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -140,6 +140,6 @@ Full API documentation is available at `/docs` when running the server.
 4. Add tests
 5. Submit a pull request
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License.

@@ -76,19 +76,19 @@ const DocumentConverter: React.FC<DocumentConverterProps> = ({
   const getStageIcon = (stage: string) => {
     switch (stage) {
       case 'validation':
-        return '🔍';
+        return '[Validation]';
       case 'extraction':
-        return '📄';
+        return '[Extraction]';
       case 'generation':
-        return '🔄';
+        return '[Generation]';
       case 'formatting':
-        return '🎨';
+        return '[Formatting]';
       case 'rendering':
-        return '📋';
+        return '[Rendering]';
       case 'completion':
-        return '✅';
+        return '[Complete]';
       default:
-        return '⚙️';
+        return '[Processing]';
     }
   };
 
@@ -199,12 +199,12 @@ const ExamDocumentProcessor: React.FC = () => {
 
   const handleConversionComplete = useCallback((pdfFile: File) => {
     setConvertedFiles(prev => [...prev, pdfFile]);
-    console.log('✅ Document converted successfully:', pdfFile.name);
+    console.log('[OK] Document converted successfully:', pdfFile.name);
   }, []);
 
   const handleConversionError = useCallback((error: string) => {
     setErrors(prev => [...prev, error]);
-    console.error('❌ Conversion failed:', error);
+    console.error('[ERROR] Conversion failed:', error);
   }, []);
 
   return (
@@ -236,7 +236,7 @@ const ExamDocumentProcessor: React.FC = () => {
                     </div>
                   </div>
                   <div className="text-green-600 transition-colors duration-300">
-                    ✅ Ready for exam processing
+                    Ready for exam processing
                   </div>
                 </div>
               ))}

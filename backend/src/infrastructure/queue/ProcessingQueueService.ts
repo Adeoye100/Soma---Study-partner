@@ -93,7 +93,7 @@ export class ProcessingQueueService {
           await this.validateRedisConnection(this.config.redisUrl);
         } catch (error) {
           if (process.env.NODE_ENV === 'development') {
-            console.warn('⚠️ Redis connection validation failed in development, continuing with degraded queue functionality');
+            console.warn('[WARNING] Redis connection validation failed in development, continuing with degraded queue functionality');
           } else {
             throw error;
           }

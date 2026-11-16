@@ -408,7 +408,7 @@ export function createThrottlingMiddleware(options: ThrottlingOptions) {
 
 const isDev = process.env.NODE_ENV === 'development';
 
-// ⚠️ Throttle is environment-aware.
+// [NOTE] Throttle is environment-aware.
 // Development: 100 requests/60s — for testing only.
 // Production:  1 request/1s    — enforced strictly.
 // Never disable throttle entirely — it is a security boundary.

@@ -167,7 +167,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onToggleForm, onForgotPassword })
               className="h-4 w-4 rounded border-input bg-card text-primary focus:ring-ring disabled:opacity-50"
             />
             <label htmlFor="remember-me" className="ml-2 block text-xs sm:text-sm text-muted-foreground">
-              Remember me! 👋
+              Remember me!
             </label>
           </div>
           <button 

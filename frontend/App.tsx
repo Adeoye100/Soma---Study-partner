@@ -8,7 +8,6 @@ import Loader from './components/Loader';
 import { User } from '@supabase/supabase-js';
 import ProtectedRoute from './components/ProtectedRoute';
 import LandingPage from './components/LandingPage';
-import ResetPasswordForm from './components/ResetPasswordForm';
 import AuthCallback from './pages/auth/callback';
 import { useAuth } from './context/AuthContext';
 import { useSessionHeartbeat } from './src/hooks/useSessionHeartbeat';
@@ -72,7 +71,7 @@ const App: React.FC = () => {
           />
           <Route
             path="/reset-password"
-            element={<ResetPasswordForm />}
+            element={<Navigate to="/login" replace />}
           />
           <Route
             path="/auth/callback"

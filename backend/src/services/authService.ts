@@ -497,7 +497,7 @@ export class AuthService {
       // seamlessly fall back to the in-memory dev adapter so development is unblocked.
       if (this.isDevMode && err instanceof ExternalServiceError) {
         logger.warn(
-          `⚠️ Downstream identity service is unreachable (${err.message}). ` +
+          `[Warning] Downstream identity service is unreachable (${err.message}). ` +
           `Falling back to DevInMemoryAuthAdapter for local development.`
         );
         return await this.devFallbackAdapter.signIn(credentials.email, credentials.password);
@@ -515,7 +515,7 @@ export class AuthService {
     } catch (err: any) {
       if (this.isDevMode && err instanceof ExternalServiceError) {
         logger.warn(
-          `⚠️ Downstream identity service is unreachable (${err.message}). ` +
+          `[Warning] Downstream identity service is unreachable (${err.message}). ` +
           `Falling back to DevInMemoryAuthAdapter for local development.`
         );
         return await this.devFallbackAdapter.signUp(credentials);

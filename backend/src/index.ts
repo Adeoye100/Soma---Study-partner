@@ -25,7 +25,6 @@ import { authMiddleware } from '@/middleware/auth';
 import { validateConfig } from '@/config';
 
 // ── Routes ────────────────────────────────────────────────────────────────────
-import authRouter        from '@/routes/auth';
 import examRouter        from '@/routes/exam';
 import materialRouter    from '@/routes/material';
 import resultRouter      from '@/routes/result';
@@ -163,7 +162,7 @@ app.post(
 
 // ── API routes ────────────────────────────────────────────────────────────────
 
-app.use('/api/auth',        authRouter);
+// Authentication is handled exclusively by Clerk. Legacy auth endpoint unmounted.
 app.use('/api/exam',        examRouter);        // authMiddleware applied per-route inside
 app.use('/api/material',    authMiddleware, materialRouter);
 app.use('/api/result',      authMiddleware, resultRouter);
@@ -192,10 +191,10 @@ function start(): void {
   }
 
   const server = app.listen(PORT, () => {
-    logger.info(`🚀 Somma backend running on port ${PORT}`);
-    logger.info(`📍 Environment: ${process.env.NODE_ENV ?? 'development'}`);
-    logger.info('📦 Mounted: /api/auth · /api/exam · /api/material · /api/result · /api/leaderboard · /api/user · /api/documents');
-    logger.info('🩺 Health: GET /health · GET /api/health');
+    logger.info(`Somma backend running on port ${PORT}`);
+    logger.info(`Environment: ${process.env.NODE_ENV ?? 'development'}`);
+    logger.info('Mounted: /api/exam · /api/material · /api/result · /api/leaderboard · /api/user · /api/documents');
+    logger.info('Health: GET /health · GET /api/health');
   });
 
   const shutdown = (signal: string) => {

@@ -4,7 +4,7 @@
  * Result of text sanitization
  */
 export interface SanitizedResult {
-  text: string              // ✅ This is the cleaned text property
+  text: string              // This is the cleaned text property
   warnings: string[]
   removedPatterns: {
     malicious: number
@@ -112,7 +112,7 @@ export class TextSanitizer {
         : 0
 
     return {
-      text: sanitized,  // ✅ THIS IS THE PROPERTY NAME
+      text: sanitized,  // THIS IS THE PROPERTY NAME
       warnings,
       removedPatterns: {
         malicious: maliciousCount,

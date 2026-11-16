@@ -10,13 +10,13 @@ export const injectSelfXSSWarning = (): void => {
   console.log('%cSTOP!', stopStyles);
 
   console.log(
-    '%c⚠️ SECURITY WARNING:%c Anyone who tells you to paste code here is trying to steal your account. Pasting code into this console gives them full access to your session, authentication tokens, and personal data.',
+    '%c[SECURITY WARNING]%c Anyone who tells you to paste code here is trying to steal your account. Pasting code into this console gives them full access to your session, authentication tokens, and personal data.',
     bodyStyles,
     'font-family: sans-serif; font-size: 1.4em; line-height: 1.6; font-weight: bold; color: #dc2626;'
   );
 
   console.log(
-    '%c🛡️ Somma Study Partner will NEVER ask you to paste code here, enable any feature this way, or run any commands in your browser console. If anyone asks you to do this, they are attempting to hack your account.',
+    '%cSomma Study Partner will NEVER ask you to paste code here, enable any feature this way, or run any commands in your browser console. If anyone asks you to do this, they are attempting to hack your account.',
     brandStyles
   );
 };

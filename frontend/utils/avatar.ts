@@ -1,22 +1,12 @@
 /**
  * Avatar utility helper for consistent user avatars across Somma UI.
- * Standardizes on DiceBear 10.x shapes/triangles collection in pure black, white & grayscale patterns.
+ * Standardizes on DiceBear 10.x triangles collection with unique patterns and B&W colors.
+ * No custom avatar uploads.
  */
 
-export function getUserAvatarUrl(userName?: string | null, customAvatarUrl?: string | null): string {
-  if (customAvatarUrl) {
-    return customAvatarUrl;
-  }
+export function getUserAvatarUrl(userName?: string | null): string {
   const cleanName = userName?.trim() || 'Learner';
-  // Strict black, white and grayscale color palette for DiceBear
-  const monoParams = new URLSearchParams({
-    seed: cleanName,
-    backgroundColor: '09090b,18181b,27272a,ffffff,f4f4f5',
-    shape1Color: '000000,27272a,71717a,d4d4d8,ffffff',
-    shape2Color: '09090b,3f3f46,a1a1aa,e4e4e7,ffffff',
-    shape3Color: '18181b,52525b,d4d4d8,f4f4f5,ffffff',
-  });
-  return `https://api.dicebear.com/10.x/shapes/svg?${monoParams.toString()}`;
+  return `https://api.dicebear.com/10.x/triangles/svg?seed=${encodeURIComponent(cleanName)}`;
 }
 
 /**

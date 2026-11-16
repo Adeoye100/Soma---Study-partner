@@ -311,7 +311,7 @@ const LoginScreen: React.FC = () => {
                             className="h-4 w-4 rounded border-slate-300 text-primary-600 focus:ring-primary-500 dark:border-slate-600 dark:bg-slate-700 dark:focus:ring-offset-slate-800 transition-colors duration-300"
                           />
                           <label htmlFor="remember-me" className="ml-2 block text-xs sm:text-sm text-slate-700 dark:text-slate-300 transition-colors duration-300">
-                            Remember me pal 👋!
+                            Remember me pal!
                           </label>
                         </div>
                         <div className="text-xs sm:text-sm">

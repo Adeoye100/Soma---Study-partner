@@ -1,11 +1,9 @@
 import React from 'react';
 import { User } from '@supabase/supabase-js';
 import { BookOpen, LogOut } from 'lucide-react';
-import { Show, UserButton } from '@clerk/react';
 import { Avatar, AvatarImage, AvatarFallback } from './Avatar';
 import { Button } from '@/components/ui/button';
 import ThemeToggle from './ThemeToggle';
-import { getUserAvatarUrl } from '../utils/avatar';
 
 interface HeaderProps {
   user: User;
@@ -15,8 +13,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ user, onLogout, onOpenProfileSettings }) => {
   const userName = user.user_metadata?.full_name || user.email || 'Learner';
-  const customAvatarUrl = user.user_metadata?.avatar_url;
-  const avatarUrl = getUserAvatarUrl(userName, customAvatarUrl);
+  const avatarUrl = `https://api.dicebear.com/10.x/triangles/svg?seed=${encodeURIComponent(userName)}`;
   const fallbackName = (userName || 'A').slice(0, 2).toUpperCase();
 
   return (
@@ -30,9 +27,6 @@ const Header: React.FC<HeaderProps> = ({ user, onLogout, onOpenProfileSettings }
         </div>
         <div className="flex items-center gap-2 sm:gap-3">
           <ThemeToggle />
-          <Show when="signed-in">
-            <UserButton />
-          </Show>
           <Avatar className="h-9 w-9 cursor-pointer" onClick={onOpenProfileSettings} title={userName}>
             <AvatarImage src={avatarUrl} alt={userName} />
             <AvatarFallback>{fallbackName}</AvatarFallback>

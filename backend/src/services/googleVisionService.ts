@@ -44,21 +44,21 @@ export class GoogleVisionService {
       // Priority order: Service Account Key > API Key > Default credentials
       if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
         config.keyFilename = process.env.GOOGLE_APPLICATION_CREDENTIALS;
-        console.log('🔑 Using Google Service Account credentials');
+        console.log('Using Google Service Account credentials');
       } else if (process.env.GOOGLE_CLOUD_API_KEY) {
         config.apiKey = process.env.GOOGLE_CLOUD_API_KEY;
-        console.log('🔑 Using Google Cloud API key');
+        console.log('Using Google Cloud API key');
       } else if (process.env.GOOGLE_CLOUD_PROJECT_ID) {
         config.projectId = process.env.GOOGLE_CLOUD_PROJECT_ID;
-        console.log('🔑 Using Google Cloud project ID with default credentials');
+        console.log('Using Google Cloud project ID with default credentials');
       }
 
       this.client = new ImageAnnotatorClient(config);
       this.isConfigured = true;
 
-      console.log('✅ Google Vision API initialized successfully');
+      console.log('[OK] Google Vision API initialized successfully');
     } catch (error) {
-      console.warn('⚠️ Google Vision API not configured:', error instanceof Error ? error.message : 'Unknown error');
+      console.warn('[WARNING] Google Vision API not configured:', error instanceof Error ? error.message : 'Unknown error');
       this.isConfigured = false;
     }
   }

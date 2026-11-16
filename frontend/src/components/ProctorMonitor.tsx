@@ -200,7 +200,7 @@ export const ProctorMonitor: React.FC<ProctorMonitorProps> = ({
               : 'bg-green-500 hover:bg-green-600 text-white'
           }`}
         >
-          {isMonitoring ? '⏸ Pause Monitoring' : '▶ Resume Monitoring'}
+          {isMonitoring ? 'Pause Monitoring' : 'Resume Monitoring'}
         </button>
         <button
           onClick={() => {

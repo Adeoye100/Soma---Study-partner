@@ -65,14 +65,14 @@ Refinement pass on Soma — Study Partner frontend (`frontend/`). Operating in O
 
 | Gate Metric | Baseline (Commit b2accd3) | After Phase 2 (Commit 5e2ad32) | Status |
 | :--- | :--- | :--- | :--- |
-| **Vite Build** | Passed (3117 modules) | **Passed (3522 modules, 0 errors)** | ✅ PASS |
-| **TSC Errors (`tsc --noEmit`)** | 73 (79 with branch backend) | **78 total (0 new errors, -1 error)** | ✅ PASS |
-| **Broken `primary-NNN` classes** | 106 across project | **0 in Auth module & foundations** | ✅ PASS |
-| **Forbidden colors (orange/amber)** | Existing peach frozen | **0 additions (+0)** | ✅ PASS |
-| **Button Primitive Adoption** | 0 uses in live code | **100% in Auth module & Header** | ✅ PASS |
-| **Inline SVGs in Auth** | 8 inline SVGs | **0 inline SVGs (all Lucide)** | ✅ PASS |
-| **Theme System Flash** | N/A (dark hardcoded) | **Zero flash via `theme-init.js`** | ✅ PASS |
-| **Touch Targets on Mobile** | Hand-rolled <40px | **>=44px (`min-h-11`)** | ✅ PASS |
+| **Vite Build** | Passed (3117 modules) | **Passed (3522 modules, 0 errors)** | PASS |
+| **TSC Errors (`tsc --noEmit`)** | 73 (79 with branch backend) | **78 total (0 new errors, -1 error)** | PASS |
+| **Broken `primary-NNN` classes** | 106 across project | **0 in Auth module & foundations** | PASS |
+| **Forbidden colors (orange/amber)** | Existing peach frozen | **0 additions (+0)** | PASS |
+| **Button Primitive Adoption** | 0 uses in live code | **100% in Auth module & Header** | PASS |
+| **Inline SVGs in Auth** | 8 inline SVGs | **0 inline SVGs (all Lucide)** | PASS |
+| **Theme System Flash** | N/A (dark hardcoded) | **Zero flash via `theme-init.js`** | PASS |
+| **Touch Targets on Mobile** | Hand-rolled <40px | **>=44px (`min-h-11`)** | PASS |
 
 ## Screenshots Captured
 - **Before**: `docs/redesign/before/` (`landing-*.png`, `login-*.png`, `signup-*.png`, `reset-password-*.png` at 1280px, 768px, 375px)

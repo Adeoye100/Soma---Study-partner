@@ -1,0 +1,38 @@
+---
+description: Prohibits the use of emojis in all code, comments, documentation, logs, and agent communications
+alwaysApply: true
+---
+
+# No Emojis Rule
+
+All AI agents must strictly avoid using emojis anywhere in this project.
+
+## Guidelines
+
+- **Zero Emojis**: Never insert or output emojis (Unicode emoji characters or pictographs) in code, comments, documentation, UI strings, logs, commit messages, or agent responses.
+- **Text Alternatives**: Use standard plain-text status tags or descriptors instead of emoji icons (for example: `[OK]`, `[ERROR]`, `[WARNING]`, `[INFO]`, `[DONE]`, `[In Progress]`).
+- **UI Icons**: In frontend components, use formal vector icon components (such as Lucide icons or standard SVGs) rather than Unicode emojis.
+
+## Examples
+
+### Logging and Console Output
+
+```typescript
+// Bad:
+console.log("Initialization complete"); // with emoji
+console.error("Failed to connect"); // with emoji
+
+// Good:
+console.log("[OK] Initialization complete");
+console.error("[ERROR] Failed to connect");
+```
+
+### Documentation and Headings
+
+```markdown
+<!-- Bad: -->
+## Features (with rocket or spark emoji)
+
+<!-- Good: -->
+## Features
+```

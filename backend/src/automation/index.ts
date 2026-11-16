@@ -112,12 +112,12 @@ export async function initializeAutomationFramework(): Promise<void> {
     // Start monitoring
     automationMonitor.startMonitoring();
 
-    console.log('✅ Automation Framework initialized successfully');
-    console.log(`📊 Version: ${AUTOMATION_FRAMEWORK_VERSION}`);
-    console.log(`🔧 Capabilities: ${FRAMEWORK_CAPABILITIES.join(', ')}`);
+    console.log('[OK] Automation Framework initialized successfully');
+    console.log(`Version: ${AUTOMATION_FRAMEWORK_VERSION}`);
+    console.log(`Capabilities: ${FRAMEWORK_CAPABILITIES.join(', ')}`);
 
   } catch (error) {
-    console.error('❌ Failed to initialize Automation Framework:', error);
+    console.error('[ERROR] Failed to initialize Automation Framework:', error);
     throw error;
   }
 }
