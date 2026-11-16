@@ -81,7 +81,7 @@ function SourceTab() {
       {SOURCE_CHUNKS.map((chunk) => (
         <div
           key={chunk.index}
-          className="rounded-md border border-border bg-surface-2 p-3 transition-colors duration-200 hover:border-zinc-500"
+          className="rounded-none border border-border bg-surface-2 p-3 transition-colors duration-200 hover:border-zinc-500"
         >
           <div className="flex items-start gap-2.5">
             <span className="font-mono text-[10px] text-zinc-400 font-semibold shrink-0 mt-0.5 w-6">
@@ -141,7 +141,7 @@ function SessionTab() {
           <span>Question 7 of 20</span>
         </div>
         <div
-          className="flex items-center gap-1 px-2 py-0.5 rounded bg-surface-2 border border-border text-xs font-semibold text-white"
+          className="flex items-center gap-1 px-2 py-0.5 rounded-none bg-surface-2 border border-border text-xs font-semibold text-white"
           aria-label="Time remaining"
           aria-live="off"
         >
@@ -151,9 +151,9 @@ function SessionTab() {
         </div>
       </div>
 
-      <div className="h-1 w-full rounded-full bg-surface-3 overflow-hidden border border-border">
+      <div className="h-1 w-full rounded-none bg-surface-3 overflow-hidden border border-border">
         <div
-          className="h-full rounded-full bg-white transition-all duration-700"
+          className="h-full rounded-none bg-white transition-all duration-700"
           style={{ width: '35%' }}
         />
       </div>
@@ -186,7 +186,7 @@ function SessionTab() {
                 onClick={() => handleSelect(opt)}
                 animate={isShaking ? { x: [0, -5, 5, -3, 3, 0] } : { x: 0 }}
                 transition={{ duration: 0.3 }}
-                className={`w-full text-left rounded-md border px-3 py-2.5 text-xs transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-1 focus-visible:ring-offset-base active:scale-[0.99] ${ring}`}
+                className={`w-full text-left rounded-none border px-3 py-2.5 text-xs transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-1 focus-visible:ring-offset-base active:scale-[0.99] ${ring}`}
               >
                 <div className="flex items-start gap-2.5">
                   <span className="font-mono text-[10px] text-text-3 uppercase font-semibold w-3 mt-0.5 shrink-0">
@@ -214,7 +214,7 @@ function SessionTab() {
           <button
             type="button"
             onClick={handleReset}
-            className="text-[11px] text-text-2 hover:text-white underline underline-offset-2 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-400 rounded border border-transparent px-2 py-0.5"
+            className="text-[11px] text-text-2 hover:text-white underline underline-offset-2 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-400 rounded-none border border-transparent px-2 py-0.5"
           >
             Reset
           </button>
@@ -228,18 +228,18 @@ function ReviewTab() {
   return (
     <div className="space-y-3">
       {/* Score header */}
-      <div className="rounded-md border border-border bg-surface-2 p-3">
+      <div className="rounded-none border border-border bg-surface-2 p-3">
         <div className="flex items-center justify-between mb-2">
           <span className="text-xs font-semibold text-text-1">Written response score</span>
           <span className="font-mono text-sm font-bold text-white tabular-nums">0.85 / 1.0</span>
         </div>
-        <div className="h-1.5 w-full rounded-full bg-surface-3 overflow-hidden border border-border">
-          <div className="h-full rounded-full bg-white" style={{ width: '85%' }} />
+        <div className="h-1.5 w-full rounded-none bg-surface-3 overflow-hidden border border-border">
+          <div className="h-full rounded-none bg-white" style={{ width: '85%' }} />
         </div>
       </div>
 
       {/* Student answer */}
-      <div className="rounded-md border border-border bg-surface-2 p-3 space-y-1.5">
+      <div className="rounded-none border border-border bg-surface-2 p-3 space-y-1.5">
         <p className="text-[10px] font-semibold text-text-3 uppercase tracking-wide">Your answer</p>
         <p className="text-xs text-text-1 leading-relaxed">
           A B-Tree index enables O(log n) lookups by keeping keys sorted in a balanced tree.
@@ -249,7 +249,7 @@ function ReviewTab() {
       </div>
 
       {/* Canonical answer */}
-      <div className="rounded-md border border-zinc-600 bg-zinc-900/90 p-3 space-y-1.5">
+      <div className="rounded-none border border-zinc-600 bg-zinc-900/90 p-3 space-y-1.5">
         <p className="text-[10px] font-semibold text-zinc-300 uppercase tracking-wide">Model answer</p>
         <p className="text-xs text-text-1 leading-relaxed">
           A B-Tree index achieves O(log n) lookup complexity. The tree is kept balanced across
@@ -259,7 +259,7 @@ function ReviewTab() {
       </div>
 
       {/* Source excerpt */}
-      <div className="rounded-md border border-border bg-surface-2 p-3 space-y-1.5">
+      <div className="rounded-none border border-border bg-surface-2 p-3 space-y-1.5">
         <p className="text-[10px] font-semibold text-text-3 uppercase tracking-wide">
           Source excerpt (page 12)
         </p>
@@ -280,7 +280,7 @@ export const InteractiveExamPreview: React.FC = () => {
   return (
     <div
       ref={cardRef}
-      className="w-full max-w-md mx-auto rounded-xl border border-zinc-700/80 bg-surface-1 overflow-hidden shadow-lg transition-all duration-300 hover:border-zinc-500"
+      className="w-full max-w-md mx-auto rounded-none border border-zinc-700/80 bg-surface-1 overflow-hidden shadow-lg transition-all duration-300 hover:border-zinc-500"
       aria-label="Interactive product preview"
     >
       {/* Tab bar */}

@@ -38,11 +38,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToDemo }) => {
           {/* Left: copy block */}
           <div className="lg:col-span-6 space-y-6">
 
-            {/* Headline — Preospe for display, words individually animated */}
+            {/* Headline — ITC Garamond for display, words individually animated */}
             <h1
               className="text-5xl sm:text-6xl lg:text-[4rem] leading-[1.05] tracking-tight font-bold text-text-1"
               style={{
-                fontFamily: "'Preospe', 'ITC Garamond Std', Georgia, serif",
+                fontFamily: "'ITC Garamond Std', 'ITCGaramond', Garamond, Georgia, serif",
                 maxWidth: '680px',
               }}
             >
@@ -82,7 +82,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToDemo }) => {
                 type="button"
                 data-hero-cta
                 onClick={handleUpload}
-                className="inline-flex items-center px-5 py-2.5 rounded-md border border-white bg-white text-black text-sm font-semibold transition-all duration-200 hover:bg-zinc-200 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-base"
+                className="inline-flex items-center px-5 py-2.5 rounded-none border border-white bg-white text-black text-sm font-semibold transition-all duration-200 hover:bg-zinc-200 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-base"
                 style={{ opacity: 0, transform: 'translateY(14px)' }}
               >
                 Upload study material
@@ -93,7 +93,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onScrollToDemo }) => {
                 type="button"
                 data-hero-cta
                 onClick={onScrollToDemo}
-                className="inline-flex items-center px-5 py-2.5 rounded-md border border-border text-sm font-semibold text-text-1 bg-surface-1/60 backdrop-blur-sm transition-all duration-200 hover:bg-surface-2 hover:border-zinc-500 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 focus-visible:ring-offset-base"
+                className="inline-flex items-center px-5 py-2.5 rounded-none border border-border text-sm font-semibold text-text-1 bg-surface-1/60 backdrop-blur-sm transition-all duration-200 hover:bg-surface-2 hover:border-zinc-500 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-2 focus-visible:ring-offset-base"
                 style={{ opacity: 0, transform: 'translateY(14px)' }}
               >
                 Try a sample exam

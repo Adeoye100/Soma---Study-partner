@@ -57,7 +57,7 @@ export const FaqSection: React.FC = () => {
               key={item.q}
               data-anime
               role="listitem"
-              className="rounded-xl border border-border bg-surface-1/80 backdrop-blur-sm overflow-hidden"
+              className="rounded-none border border-border bg-surface-1/80 backdrop-blur-sm overflow-hidden"
             >
               <button
                 type="button"

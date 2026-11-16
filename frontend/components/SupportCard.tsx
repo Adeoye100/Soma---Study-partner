@@ -164,7 +164,7 @@ const CardContainer = styled.div`
     position: relative;
     height: 203px;
     aspect-ratio: 1.579;
-    border-radius: 18px;
+    border-radius: 0;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -185,7 +185,7 @@ const CardContainer = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 1em;
+      border-radius: 0;
       background: linear-gradient(
         115deg,
         rgba(0, 0, 0, 0.33) 12%,
@@ -199,7 +199,7 @@ const CardContainer = styled.div`
         content: " ";
         height: 50em;
         aspect-ratio: 1.58;
-        border-radius: 1em;
+        border-radius: 0;
         background: linear-gradient(
           115deg,
           rgba(0, 0, 0, 1) 42%,
@@ -216,7 +216,7 @@ const CardContainer = styled.div`
     .card {
       height: 12.5em;
       aspect-ratio: 1.586;
-      border-radius: 1em;
+      border-radius: 0;
       background-color: #999;
       opacity: 0.8;
       background-image: linear-gradient(to right, #777, #777 2px, #999 2px, #999);
@@ -227,7 +227,7 @@ const CardContainer = styled.div`
       position: relative;
       width: 100%;
       height: 100%;
-      border-radius: 0.85em;
+      border-radius: 0;
       border: 1px solid #bbb;
       background:
         radial-gradient(circle at 100% 100%, #ffffff 0, #ffffff 8px, transparent 8px) 0% 0%/13px 13px no-repeat,
@@ -244,7 +244,7 @@ const CardContainer = styled.div`
       position: absolute;
       top: 50%;
       left: 50%;
-      border-radius: 0.6em;
+      border-radius: 0;
       border: 1px solid #aaa;
       box-shadow: -1px -1px 0 #ddd;
       transform: translate(-50%, -50%);
@@ -337,7 +337,7 @@ const CopyToast = styled.div`
     left: 50%;
     background: linear-gradient(135deg, #2c3e50, #3498db);
     padding: 12px 20px;
-    border-radius: 8px;
+    border-radius: 0;
     color: #fff;
     opacity: 0;
     transform: translate(-50%, 50px);
@@ -424,7 +424,7 @@ const ModalContent = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 16px;
+    border-radius: 0;
     padding: 0;
     max-width: 400px;
     width: 90%;
@@ -499,7 +499,7 @@ const ModalBody = styled.div`
 const ActionButton = styled.button`
     background: rgba(255, 255, 255, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
+    border-radius: 0;
     padding: 12px 16px;
     color: white;
     cursor: pointer;

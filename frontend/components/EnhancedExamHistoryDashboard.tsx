@@ -93,10 +93,10 @@ const EnhancedExamHistoryDashboard: React.FC<EnhancedExamHistoryDashboardProps> 
     color?: string;
     animate?: boolean;
   }> = ({ icon, title, value, subtitle, color = "blue", animate = false }) => (
-    <div className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+    <div className="bg-white dark:bg-slate-800 p-6 rounded-none shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className={`p-3 rounded-full bg-${color}-100 dark:bg-${color}-900/30 text-${color}-600 dark:text-${color}-400`}>
+          <div className={`p-3 rounded-none bg-${color}-100 dark:bg-${color}-900/30 text-${color}-600 dark:text-${color}-400`}>
             {icon}
           </div>
           <div>
@@ -119,7 +119,7 @@ const EnhancedExamHistoryDashboard: React.FC<EnhancedExamHistoryDashboardProps> 
   if (history.length === 0) {
     return (
       <div className="w-full max-w-4xl mx-auto">
-        <div className="bg-white dark:bg-slate-800 p-8 rounded-lg shadow-lg text-center transition-colors duration-300">
+        <div className="bg-white dark:bg-slate-800 p-8 rounded-none shadow-lg text-center transition-colors duration-300">
           <div className="w-32 h-32 mx-auto mb-6">
             <TypewriterLoader />
           </div>
@@ -131,7 +131,7 @@ const EnhancedExamHistoryDashboard: React.FC<EnhancedExamHistoryDashboardProps> 
           </p>
           <button
             onClick={onStartNewExam}
-            className="bg-primary-600 hover:bg-primary-500 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+            className="bg-primary-600 hover:bg-primary-500 text-white font-semibold px-6 py-3 rounded-none transition-colors"
           >
             Take Your First Exam
           </button>
@@ -154,7 +154,7 @@ const EnhancedExamHistoryDashboard: React.FC<EnhancedExamHistoryDashboardProps> 
         </div>
         <button
           onClick={onStartNewExam}
-          className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-6 py-3 rounded-lg transition-colors flex items-center gap-2"
+          className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-6 py-3 rounded-none transition-colors flex items-center gap-2"
         >
           <BookOpen className="h-5 w-5" />
           Start New Exam
@@ -162,7 +162,7 @@ const EnhancedExamHistoryDashboard: React.FC<EnhancedExamHistoryDashboardProps> 
       </div>
 
       {/* Tab Navigation */}
-      <div className="bg-card rounded-lg shadow-lg p-1 transition-colors duration-200">
+      <div className="bg-card rounded-none shadow-lg p-1 transition-colors duration-200">
         <div className="flex flex-wrap">
           {[
             { id: 'overview', label: 'Overview', icon: Trophy },
@@ -174,7 +174,7 @@ const EnhancedExamHistoryDashboard: React.FC<EnhancedExamHistoryDashboardProps> 
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as any)}
-                className={`flex items-center gap-2 px-4 py-3 rounded-md font-medium transition-all ${
+                className={`flex items-center gap-2 px-4 py-3 rounded-none font-medium transition-all ${
                   activeTab === tab.id
                     ? 'bg-primary text-primary-foreground shadow-md'
                     : 'text-muted-foreground hover:text-foreground hover:bg-muted'
@@ -239,35 +239,35 @@ const EnhancedExamHistoryDashboard: React.FC<EnhancedExamHistoryDashboardProps> 
           </div>
 
           {/* Quick Actions */}
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-lg transition-colors duration-300">
+          <div className="bg-white dark:bg-slate-800 p-6 rounded-none shadow-lg transition-colors duration-300">
             <h3 className="text-lg font-bold text-slate-700 dark:text-slate-300 mb-4 transition-colors duration-300">
               Quick Actions
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <button
                 onClick={() => setActiveTab('analytics')}
-                className="flex flex-col items-center gap-3 p-4 rounded-lg border-2 border-dashed border-border hover:border-primary hover:bg-primary/10 transition-all"
+                className="flex flex-col items-center gap-3 p-4 rounded-none border-2 border-dashed border-border hover:border-primary hover:bg-primary/10 transition-all"
               >
                 <BarChart2 className="h-8 w-8 text-primary" />
                 <span className="text-sm font-medium text-foreground transition-colors duration-200">View Analytics</span>
               </button>
               <button
                 onClick={() => setActiveTab('history')}
-                className="flex flex-col items-center gap-3 p-4 rounded-lg border-2 border-dashed border-border hover:border-success hover:bg-success/10 transition-all"
+                className="flex flex-col items-center gap-3 p-4 rounded-none border-2 border-dashed border-border hover:border-success hover:bg-success/10 transition-all"
               >
                 <BookOpen className="h-8 w-8 text-success" />
                 <span className="text-sm font-medium text-foreground transition-colors duration-200">Exam History</span>
               </button>
               <button
                 onClick={onStartNewExam}
-                className="flex flex-col items-center gap-3 p-4 rounded-lg border-2 border-dashed border-border hover:border-warning hover:bg-warning/10 transition-all"
+                className="flex flex-col items-center gap-3 p-4 rounded-none border-2 border-dashed border-border hover:border-warning hover:bg-warning/10 transition-all"
               >
                 <BookOpen className="h-8 w-8 text-warning" />
                 <span className="text-sm font-medium text-foreground transition-colors duration-200">New Exam</span>
               </button>
               <button
                 onClick={onClearHistory}
-                className="flex flex-col items-center gap-3 p-4 rounded-lg border-2 border-dashed border-border hover:border-destructive hover:bg-destructive/10 transition-all"
+                className="flex flex-col items-center gap-3 p-4 rounded-none border-2 border-dashed border-border hover:border-destructive hover:bg-destructive/10 transition-all"
               >
                 <XCircle className="h-8 w-8 text-destructive" />
                 <span className="text-sm font-medium text-foreground transition-colors duration-200">Clear Data</span>
@@ -280,7 +280,7 @@ const EnhancedExamHistoryDashboard: React.FC<EnhancedExamHistoryDashboardProps> 
       {activeTab === 'analytics' && (
         <div className="space-y-6">
           {/* Animated Analysis Header */}
-          <div className="bg-card p-6 rounded-lg shadow-lg transition-colors duration-200">
+          <div className="bg-card p-6 rounded-none shadow-lg transition-colors duration-200">
             <div className="flex items-center gap-4 mb-4">
               <div className="w-16 h-16 flex items-center justify-center">
                 <TypewriterLoader />

@@ -38,11 +38,11 @@ function StepCard({ step }: { step: (typeof STEPS)[number] }) {
     <div
       ref={cardRef}
       data-anime
-      className="rounded-xl border border-border bg-surface-1/80 backdrop-blur-sm p-6 flex flex-col gap-4 transition-all duration-300 hover:border-zinc-500 hover:shadow-md"
+      className="rounded-none border border-border bg-surface-1/80 backdrop-blur-sm p-6 flex flex-col gap-4 transition-all duration-300 hover:border-zinc-500 hover:shadow-md"
     >
       {/* Step number + icon */}
       <div className="flex items-center justify-between">
-        <div className="size-9 rounded-md border border-border bg-surface-2 flex items-center justify-center">
+        <div className="size-9 rounded-none border border-border bg-surface-2 flex items-center justify-center">
           <Icon className="size-4 text-white" aria-hidden="true" />
         </div>
         <span className="font-mono text-xs font-bold text-white" aria-label={`Step ${step.number}`}>

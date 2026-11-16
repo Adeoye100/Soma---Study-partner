@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const StyledWrapper = styled.div`
   .card {
     max-width: fit-content;
-    border-radius: 15px;
+    border-radius: 0;
     display: flex;
     flex-direction: column;
     align-items: center;

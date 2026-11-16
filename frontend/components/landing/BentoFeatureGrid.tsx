@@ -16,7 +16,7 @@ function BentoCard({ children, className = '' }: Omit<CardProps, 'delay'>) {
     <div
       ref={cardRef}
       data-anime
-      className={`group rounded-xl border border-border bg-surface-1 overflow-hidden transition-all duration-300 hover:border-zinc-500 hover:shadow-md ${className}`}
+      className={`group rounded-none border border-border bg-surface-1 overflow-hidden transition-all duration-300 hover:border-zinc-500 hover:shadow-md ${className}`}
     >
       {children}
     </div>
@@ -34,7 +34,7 @@ function SyllabusCard() {
   return (
     <div className="p-6 h-full flex flex-col gap-5">
       <div className="flex items-start gap-3">
-        <div className="size-9 rounded-md border border-border bg-surface-2 flex items-center justify-center shrink-0">
+        <div className="size-9 rounded-none border border-border bg-surface-2 flex items-center justify-center shrink-0">
           <BookOpen className="size-4 text-white" aria-hidden="true" />
         </div>
         <div>
@@ -58,7 +58,7 @@ function SyllabusCard() {
             onFocus={() => setHoveredChunk(i)}
             onBlur={() => setHoveredChunk(null)}
             tabIndex={0}
-            className={`flex items-center justify-between px-3 py-2 rounded-md border transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white cursor-default ${
+            className={`flex items-center justify-between px-3 py-2 rounded-none border transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white cursor-default ${
               hoveredChunk === i
                 ? 'border-white bg-zinc-800'
                 : 'border-border bg-surface-2'
@@ -105,7 +105,7 @@ function GradingCard() {
   return (
     <div ref={ref} className="p-6 h-full flex flex-col gap-5">
       <div className="flex items-start gap-3">
-        <div className="size-9 rounded-md border border-border bg-surface-2 flex items-center justify-center shrink-0">
+        <div className="size-9 rounded-none border border-border bg-surface-2 flex items-center justify-center shrink-0">
           <PenLine className="size-4 text-white" aria-hidden="true" />
         </div>
         <div>
@@ -120,7 +120,7 @@ function GradingCard() {
         </div>
       </div>
 
-      <div className="mt-auto rounded-md border border-border bg-surface-2 p-4 space-y-2">
+      <div className="mt-auto rounded-none border border-border bg-surface-2 p-4 space-y-2">
         <div className="flex items-center justify-between">
           <span className="text-xs text-text-2">Written response score</span>
           <span
@@ -131,9 +131,9 @@ function GradingCard() {
             <span className="text-text-3 font-normal">/100</span>
           </span>
         </div>
-        <div className="h-1.5 w-full rounded-full bg-surface-3 overflow-hidden border border-border" role="progressbar" aria-valuenow={score} aria-valuemin={0} aria-valuemax={100}>
+        <div className="h-1.5 w-full rounded-none bg-surface-3 overflow-hidden border border-border" role="progressbar" aria-valuenow={score} aria-valuemin={0} aria-valuemax={100}>
           <div
-            className="h-full rounded-full bg-white transition-all duration-700"
+            className="h-full rounded-none bg-white transition-all duration-700"
             style={{ width: `${score}%` }}
           />
         </div>
@@ -161,7 +161,7 @@ function TimerCard() {
   return (
     <div className="p-6 h-full flex flex-col gap-5">
       <div className="flex items-start gap-3">
-        <div className="size-9 rounded-md border border-border bg-surface-2 flex items-center justify-center shrink-0">
+        <div className="size-9 rounded-none border border-border bg-surface-2 flex items-center justify-center shrink-0">
           <Clock className="size-4 text-white" aria-hidden="true" />
         </div>
         <div>
@@ -175,7 +175,7 @@ function TimerCard() {
         </div>
       </div>
 
-      <div className="mt-auto flex items-center justify-center rounded-md border border-border bg-surface-2 py-5">
+      <div className="mt-auto flex items-center justify-center rounded-none border border-border bg-surface-2 py-5">
         <div
           className="font-mono text-4xl font-bold tabular-nums text-white tracking-tight"
           style={{ fontVariantNumeric: 'tabular-nums' }}
@@ -210,7 +210,7 @@ function MasteryCard() {
   return (
     <div className="p-6 h-full flex flex-col gap-5">
       <div className="flex items-start gap-3">
-        <div className="size-9 rounded-md border border-border bg-surface-2 flex items-center justify-center shrink-0">
+        <div className="size-9 rounded-none border border-border bg-surface-2 flex items-center justify-center shrink-0">
           <BarChart2 className="size-4 text-white" aria-hidden="true" />
         </div>
         <div>
@@ -237,9 +237,9 @@ function MasteryCard() {
                 {topic.level}
               </span>
             </div>
-            <div className="h-1 w-full rounded-full bg-surface-3 overflow-hidden border border-border" role="progressbar" aria-valuenow={topic.pct} aria-valuemin={0} aria-valuemax={100} aria-label={`${topic.label}: ${topic.pct}%`}>
+            <div className="h-1 w-full rounded-none bg-surface-3 overflow-hidden border border-border" role="progressbar" aria-valuenow={topic.pct} aria-valuemin={0} aria-valuemax={100} aria-label={`${topic.label}: ${topic.pct}%`}>
               <div
-                className="h-full rounded-full transition-all duration-500"
+                className="h-full rounded-none transition-all duration-500"
                 style={{
                   width: `${topic.pct}%`,
                   background: LEVEL_COLOR[topic.level],

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { User } from '@supabase/supabase-js';
-import { XCircle, CheckCircle2 } from 'lucide-react';
+import { XCircle } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from './Avatar';
 import { getUserAvatarUrl } from '../utils/avatar';
 
@@ -34,12 +34,12 @@ const ProfileSettingsModal: React.FC<ProfileSettingsModalProps> = ({ user, onClo
       aria-labelledby="profile-settings-title"
     >
       <div
-        className="bg-card text-card-foreground border border-border rounded-2xl shadow-2xl w-full max-w-md max-h-[90vh] flex flex-col transition-colors duration-200"
+        className="bg-card text-card-foreground border border-border rounded-none shadow-2xl w-full max-w-md max-h-[90vh] flex flex-col transition-colors duration-200"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-center p-4 border-b border-border sticky top-0 bg-card/90 backdrop-blur-sm transition-colors duration-200">
           <h2 id="profile-settings-title" className="text-xl font-bold text-foreground transition-colors duration-200">User Profile</h2>
-          <button onClick={onClose} aria-label="Close dialog" className="p-2 rounded-full text-muted-foreground hover:bg-muted transition-colors duration-200">
+          <button onClick={onClose} aria-label="Close dialog" className="p-2 rounded-none text-muted-foreground hover:bg-muted transition-colors duration-200">
             <XCircle className="h-6 w-6" />
           </button>
         </div>
@@ -51,14 +51,6 @@ const ProfileSettingsModal: React.FC<ProfileSettingsModalProps> = ({ user, onClo
           </Avatar>
           <h3 className="text-lg font-bold text-foreground">{userName}</h3>
           <p className="text-sm text-muted-foreground mt-0.5">{user.email || 'Active Member'}</p>
-
-          <div className="mt-6 w-full p-4 rounded-xl border border-border bg-muted/40 text-left flex items-start gap-3">
-            <CheckCircle2 className="h-5 w-5 text-emerald-500 flex-shrink-0 mt-0.5" />
-            <div className="text-xs text-muted-foreground leading-relaxed">
-              <span className="font-semibold text-foreground block mb-0.5">Deterministic Avatar</span>
-              Your avatar is generated uniquely from your account identifier using DiceBear triangles. Custom avatar uploads are disabled.
-            </div>
-          </div>
         </div>
       </div>
     </div>

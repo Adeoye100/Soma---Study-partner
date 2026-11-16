@@ -63,7 +63,8 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onScrollToSection }) => 
           <button
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="font-display font-['Preospe'] font-bold text-xl text-text-1 tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded border border-transparent px-1"
+            className="font-['Preospe'] font-bold text-xl text-text-1 tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-none border border-transparent px-1"
+            style={{ fontFamily: "'Preospe', sans-serif" }}
           >
             Somma
           </button>
@@ -75,7 +76,7 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onScrollToSection }) => 
                 key={item.id}
                 type="button"
                 onClick={() => handleNavClick(item.id)}
-                className="px-3 py-1.5 rounded-md text-sm text-text-2 hover:text-text-1 hover:bg-surface-2/60 border border-transparent hover:border-border transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                className="px-3 py-1.5 rounded-none text-sm text-text-2 hover:text-text-1 hover:bg-surface-2/60 border border-transparent hover:border-border transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
               >
                 {item.label}
               </button>
@@ -89,7 +90,7 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onScrollToSection }) => 
               <button
                 type="button"
                 onClick={() => navigate('/dashboard')}
-                className="hidden sm:inline-flex items-center px-3.5 py-1.5 rounded-md border border-white bg-white text-black text-sm font-semibold transition-all duration-200 hover:bg-zinc-200 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                className="hidden sm:inline-flex items-center px-3.5 py-1.5 rounded-none border border-white bg-white text-black text-sm font-semibold transition-all duration-200 hover:bg-zinc-200 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
               >
                 Dashboard
               </button>
@@ -100,7 +101,7 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onScrollToSection }) => 
                 ref={ctaBtnRef}
                 type="button"
                 onClick={handleOpenWorkspace}
-                className="hidden sm:inline-flex items-center px-4 py-2 rounded-md border border-white bg-white text-black text-sm font-semibold transition-all duration-200 hover:bg-zinc-200 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-base"
+                className="hidden sm:inline-flex items-center px-4 py-2 rounded-none border border-white bg-white text-black text-sm font-semibold transition-all duration-200 hover:bg-zinc-200 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-base"
               >
                 Open workspace
               </button>
@@ -110,7 +111,7 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onScrollToSection }) => 
             <button
               type="button"
               onClick={() => setMobileOpen((v) => !v)}
-              className="md:hidden flex items-center justify-center size-9 rounded-md border border-border bg-surface-1 text-text-2 hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+              className="md:hidden flex items-center justify-center size-9 rounded-none border border-border bg-surface-1 text-text-2 hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
               aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={mobileOpen}
             >
@@ -160,7 +161,7 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onScrollToSection }) => 
                   }}
                   type="button"
                   onClick={() => handleNavClick(item.id)}
-                  className="text-left text-2xl font-heading font-bold text-text-1 py-3 border-b border-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded"
+                  className="text-left text-2xl font-heading font-bold text-text-1 py-3 border-b border-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-none"
                 >
                   {item.label}
                 </motion.button>
@@ -183,7 +184,7 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onScrollToSection }) => 
                       setMobileOpen(false);
                       navigate('/dashboard');
                     }}
-                    className="w-full py-3.5 rounded-md border border-white bg-white text-black font-semibold text-base active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-base"
+                    className="w-full py-3.5 rounded-none border border-white bg-white text-black font-semibold text-base active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-base"
                   >
                     Go to Dashboard
                   </button>
@@ -196,7 +197,7 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onScrollToSection }) => 
                   <button
                     type="button"
                     onClick={handleOpenWorkspace}
-                    className="w-full py-3.5 rounded-md border border-white bg-white text-black font-semibold text-base active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-base"
+                    className="w-full py-3.5 rounded-none border border-white bg-white text-black font-semibold text-base active:scale-[0.98] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-base"
                   >
                     Open workspace
                   </button>

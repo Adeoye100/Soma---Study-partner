@@ -51,7 +51,7 @@ function TestimonialCard({ t }: { t: Testimonial }) {
   return (
     <figure
       ref={cardRef}
-      className="rounded-xl border border-white/20 bg-zinc-950 p-6 sm:p-8 flex flex-col justify-between gap-6 transition-all duration-300 ease-spring hover:border-white/50 hover:shadow-lg"
+      className="rounded-none border border-white/20 bg-zinc-950 p-6 sm:p-8 flex flex-col justify-between gap-6 transition-all duration-300 ease-spring hover:border-white/50 hover:shadow-lg"
     >
       <blockquote className="text-sm sm:text-base text-white/80 leading-relaxed [text-wrap:pretty]">
         "{t.quote}"
@@ -74,7 +74,7 @@ export const SocialProofSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Stats Strip */}
         <div className="max-w-3xl mx-auto text-center mb-16">
-          <div className="inline-flex flex-wrap items-center justify-center gap-2 sm:gap-4 px-6 py-3 rounded-md border border-white/20 bg-white/5 text-xs sm:text-sm text-white/70 font-mono">
+          <div className="inline-flex flex-wrap items-center justify-center gap-2 sm:gap-4 px-6 py-3 rounded-none border border-white/20 bg-white/5 text-xs sm:text-sm text-white/70 font-mono">
             <span>14,218 questions generated</span>
             <span className="text-white/30">/</span>
             <span>89.4% avg retention</span>
@@ -96,7 +96,7 @@ export const SocialProofSection: React.FC = () => {
               {[...COURSES, ...COURSES].map((course, idx) => (
                 <span
                   key={`${course}-${idx}`}
-                  className="rounded-md bg-white/5 border border-white/15 text-xs font-mono px-3.5 py-1.5 text-white/70 cursor-default hover:text-white hover:border-white/40 transition-colors"
+                  className="rounded-none bg-white/5 border border-white/15 text-xs font-mono px-3.5 py-1.5 text-white/70 cursor-default hover:text-white hover:border-white/40 transition-colors"
                 >
                   {course}
                 </span>
@@ -107,7 +107,7 @@ export const SocialProofSection: React.FC = () => {
 
         {/* Testimonials Header */}
         <div className="max-w-2xl mb-12 text-left">
-          <div className="inline-flex items-center gap-1.5 rounded-md border border-white/20 bg-white/5 text-white/70 text-xs font-mono font-semibold uppercase tracking-wider px-3 py-1 mb-3">
+          <div className="inline-flex items-center gap-1.5 rounded-none border border-white/20 bg-white/5 text-white/70 text-xs font-mono font-semibold uppercase tracking-wider px-3 py-1 mb-3">
             <span>Student Outcomes</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-heading font-bold tracking-display text-white [text-wrap:balance]">

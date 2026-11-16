@@ -54,7 +54,12 @@ export function Sidebar() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -10 }}
             >
-              <h1 className="font-display font-['Preospe'] font-bold text-lg text-white">Somma</h1>
+              <h1
+                className="font-['Preospe'] font-bold text-lg text-white"
+                style={{ fontFamily: "'Preospe', sans-serif" }}
+              >
+                Somma
+              </h1>
               <p className="text-xs text-muted-foreground">EDTECH ADMIN</p>
             </motion.div>
           )}

@@ -36,9 +36,9 @@ function ColumnCard({ col }: { col: ColData }) {
     <div
       ref={cardRef}
       data-anime
-      className="flex flex-col gap-4 p-6 rounded-xl border border-border bg-surface-1/80 backdrop-blur-sm transition-all duration-300 hover:border-zinc-500 hover:shadow-md"
+      className="flex flex-col gap-4 p-6 rounded-none border border-border bg-surface-1/80 backdrop-blur-sm transition-all duration-300 hover:border-zinc-500 hover:shadow-md"
     >
-      <div className="size-9 rounded-md border border-border bg-surface-2 flex items-center justify-center shrink-0">
+      <div className="size-9 rounded-none border border-border bg-surface-2 flex items-center justify-center shrink-0">
         <Icon className="size-4 text-white" aria-hidden="true" />
       </div>
       <div>

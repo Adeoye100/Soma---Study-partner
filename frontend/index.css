@@ -43,6 +43,87 @@
     font-display: swap;
   }
 
+  /* ITC Garamond Std - Headings / Display */
+  @font-face {
+    font-family: 'ITC Garamond Std';
+    src: url('/fonts/ITCGaramondStd-Lt.woff2') format('woff2'),
+         url('/fonts/ITCGaramondStd-Lt.woff') format('woff'),
+         url('/fonts/ITCGaramondStd-Lt.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'ITC Garamond Std';
+    src: url('/fonts/ITCGaramondStd-LtIta.woff2') format('woff2'),
+         url('/fonts/ITCGaramondStd-LtIta.woff') format('woff'),
+         url('/fonts/ITCGaramondStd-LtIta.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'ITC Garamond Std';
+    src: url('/fonts/ITCGaramondStd-Bk.woff2') format('woff2'),
+         url('/fonts/ITCGaramondStd-Bk.woff') format('woff'),
+         url('/fonts/ITCGaramondStd-Bk.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'ITC Garamond Std';
+    src: url('/fonts/ITCGaramondStd-BkIta.woff2') format('woff2'),
+         url('/fonts/ITCGaramondStd-BkIta.woff') format('woff'),
+         url('/fonts/ITCGaramondStd-BkIta.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'ITC Garamond Std';
+    src: url('/fonts/ITCGaramondStd-Bd.woff2') format('woff2'),
+         url('/fonts/ITCGaramondStd-Bd.woff') format('woff'),
+         url('/fonts/ITCGaramondStd-Bd.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'ITC Garamond Std';
+    src: url('/fonts/ITCGaramondStd-BdIta.woff2') format('woff2'),
+         url('/fonts/ITCGaramondStd-BdIta.woff') format('woff'),
+         url('/fonts/ITCGaramondStd-BdIta.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'ITC Garamond Std';
+    src: url('/fonts/ITCGaramondStd-Ultra.woff2') format('woff2'),
+         url('/fonts/ITCGaramondStd-Ultra.woff') format('woff'),
+         url('/fonts/ITCGaramondStd-Ultra.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'ITC Garamond Std';
+    src: url('/fonts/ITCGaramondStd-UltraIta.woff2') format('woff2'),
+         url('/fonts/ITCGaramondStd-UltraIta.woff') format('woff'),
+         url('/fonts/ITCGaramondStd-UltraIta.ttf') format('truetype');
+    font-weight: 800;
+    font-style: italic;
+    font-display: swap;
+  }
+
   /* Preospe - Landing Display Headings */
   @font-face {
     font-family: 'Preospe';
@@ -237,7 +318,7 @@
     --border: 0 0% 20%;
     --input: 0 0% 20%;
     --ring: 0 0% 80%;
-    --radius: 0.375rem;
+    --radius: 0px;
     --sidebar-background: 0 0% 5%;
     --sidebar-foreground: 0 0% 95%;
     --sidebar-primary: 0 0% 98%;
@@ -412,7 +493,7 @@
   }
   
   .card-surface {
-    @apply bg-card border border-border rounded-2xl backdrop-blur-sm;
+    @apply bg-card border border-border rounded-none backdrop-blur-sm;
   }
   
   .glow-primary {
@@ -430,6 +511,35 @@
   .glow-danger {
     box-shadow: 0 0 20px rgba(180, 180, 180, 0.12);
   }
+}
+
+/* Zero border-radius consistency for comboboxes, cards, textboxes, input fields, spinbuttons, and generics */
+input,
+textarea,
+select,
+button,
+[role="button"],
+.btn,
+[role="combobox"],
+[role="textbox"],
+[role="spinbutton"],
+[role="dialog"],
+[role="alertdialog"],
+[role="menu"],
+[role="menuitem"],
+[role="tab"],
+[role="progressbar"],
+.card,
+.card-surface {
+  border-radius: 0px !important;
+}
+
+/* Preospe font uniquely for Somma wordmark */
+.font-preospe,
+.font-brand,
+.font-wordmark,
+[data-brand-wordmark] {
+  font-family: 'Preospe', sans-serif !important;
 }
 
 /* Explicit borders and monochromatic discipline for all buttons & cards */
@@ -504,7 +614,7 @@ button,
 .recharts-default-tooltip {
   background: hsl(var(--card)) !important;
   border: 1px solid hsl(var(--border)) !important;
-  border-radius: 12px !important;
+  border-radius: 0px !important;
   box-shadow: 0 10px 40px hsl(var(--background) / 0.5) !important;
 }
 

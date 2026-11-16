@@ -67,14 +67,14 @@ const InspirationCard: React.FC = () => {
   const IconComponent = current.icon;
 
   return (
-    <div className="w-full relative rounded-2xl border border-border bg-card/80 dark:bg-card/60 backdrop-blur-md p-6 sm:p-7 shadow-sm transition-all duration-300 overflow-hidden group">
+    <div className="w-full relative rounded-none border border-border bg-card/80 dark:bg-card/60 backdrop-blur-md p-6 sm:p-7 shadow-sm transition-all duration-300 overflow-hidden group">
       {/* Subtle ambient monochrome glow */}
-      <div className="absolute -top-12 -right-12 w-40 h-40 bg-white/5 rounded-full blur-2xl pointer-events-none" />
-      <div className="absolute -bottom-12 -left-12 w-40 h-40 bg-zinc-500/10 rounded-full blur-2xl pointer-events-none" />
+      <div className="absolute -top-12 -right-12 w-40 h-40 bg-white/5 rounded-none blur-2xl pointer-events-none" />
+      <div className="absolute -bottom-12 -left-12 w-40 h-40 bg-zinc-500/10 rounded-none blur-2xl pointer-events-none" />
 
       {/* Header with pill tag */}
       <div className="flex items-center justify-between mb-4 relative z-10">
-        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-zinc-800 text-zinc-200 border border-zinc-700">
+        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-none text-xs font-semibold bg-zinc-800 text-zinc-200 border border-zinc-700">
           <IconComponent className="w-3.5 h-3.5" />
           <span>{current.tag}</span>
         </div>

@@ -22,7 +22,7 @@ export const LandingPage: React.FC = () => {
       {/* Skip link */}
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2 focus:bg-cobalt focus:text-white focus:rounded-md focus:outline-none text-xs font-semibold"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2 focus:bg-cobalt focus:text-white focus:rounded-none focus:outline-none text-xs font-semibold"
       >
         Skip to content
       </a>

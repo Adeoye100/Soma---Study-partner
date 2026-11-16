@@ -48,7 +48,7 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onScrollToSection 
                 ref={startBtnRef}
                 type="button"
                 onClick={handleStart}
-                className="inline-flex items-center px-6 py-3 rounded-md border border-white bg-white text-black text-sm font-semibold transition-all duration-200 hover:bg-zinc-200 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-base"
+                className="inline-flex items-center px-6 py-3 rounded-none border border-white bg-white text-black text-sm font-semibold transition-all duration-200 hover:bg-zinc-200 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-base"
               >
                 Start studying with Somma
               </button>
@@ -63,7 +63,7 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onScrollToSection 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 pb-10 border-b border-border">
             {/* Brand */}
             <div className="col-span-2 sm:col-span-1 space-y-3">
-              <p className="font-display font-['Preospe'] font-bold text-lg text-text-1">Somma</p>
+              <p className="font-['Preospe'] font-bold text-lg text-text-1" style={{ fontFamily: "'Preospe', sans-serif" }}>Somma</p>
               <p className="text-xs text-text-2 leading-relaxed max-w-[200px]">
                 Somma Study Partner. Built for focused revision and exam preparation.
               </p>
@@ -77,7 +77,7 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onScrollToSection 
                   <button
                     type="button"
                     onClick={() => onScrollToSection('how-it-works')}
-                    className="hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white rounded"
+                    className="hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white rounded-none"
                   >
                     How it works
                   </button>
@@ -86,7 +86,7 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onScrollToSection 
                   <button
                     type="button"
                     onClick={() => onScrollToSection('features')}
-                    className="hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white rounded"
+                    className="hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white rounded-none"
                   >
                     Features
                   </button>
@@ -95,7 +95,7 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onScrollToSection 
                   <button
                     type="button"
                     onClick={() => onScrollToSection('exam-modes')}
-                    className="hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white rounded"
+                    className="hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white rounded-none"
                   >
                     Exam modes
                   </button>
@@ -104,7 +104,7 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onScrollToSection 
                   <button
                     type="button"
                     onClick={() => onScrollToSection('faq')}
-                    className="hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white rounded"
+                    className="hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white rounded-none"
                   >
                     FAQ
                   </button>
@@ -120,7 +120,7 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onScrollToSection 
                   <button
                     type="button"
                     onClick={() => navigate('/login')}
-                    className="hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white rounded"
+                    className="hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white rounded-none"
                   >
                     Sign in
                   </button>
@@ -129,7 +129,7 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onScrollToSection 
                   <button
                     type="button"
                     onClick={handleStart}
-                    className="hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white rounded"
+                    className="hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white rounded-none"
                   >
                     Create account
                   </button>
@@ -145,7 +145,7 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onScrollToSection 
                   <button
                     type="button"
                     onClick={() => setLegalModal('privacy')}
-                    className="hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white rounded"
+                    className="hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white rounded-none"
                   >
                     Privacy policy
                   </button>
@@ -154,7 +154,7 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onScrollToSection 
                   <button
                     type="button"
                     onClick={() => setLegalModal('terms')}
-                    className="hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white rounded"
+                    className="hover:text-text-1 transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white rounded-none"
                   >
                     Terms of service
                   </button>
@@ -184,7 +184,7 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onScrollToSection 
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.96 }}
               transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="w-full max-w-md rounded-xl border border-border bg-surface-1 p-6 space-y-4 max-h-[80vh] overflow-y-auto"
+              className="w-full max-w-md rounded-none border border-border bg-surface-1 p-6 space-y-4 max-h-[80vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center justify-between gap-3">
@@ -197,7 +197,7 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onScrollToSection 
                 <button
                   type="button"
                   onClick={() => setLegalModal(null)}
-                  className="rounded p-1 text-text-2 hover:text-text-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white border border-transparent"
+                  className="rounded-none p-1 text-text-2 hover:text-text-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white border border-transparent"
                   aria-label="Close"
                 >
                   <X className="size-4" aria-hidden="true" />
@@ -242,7 +242,7 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onScrollToSection 
                 <button
                   type="button"
                   onClick={() => setLegalModal(null)}
-                  className="px-4 py-2 rounded-md bg-cobalt text-white text-sm font-semibold hover:bg-cobalt-mid transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt"
+                  className="px-4 py-2 rounded-none bg-cobalt text-white text-sm font-semibold hover:bg-cobalt-mid transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cobalt"
                 >
                   Close
                 </button>

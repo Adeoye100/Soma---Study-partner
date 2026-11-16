@@ -18,7 +18,10 @@ const AuthContainer: React.FC = () => {
         <div className="hidden md:flex flex-col p-6 md:p-8">
           <div className="flex items-center gap-3 mb-4">
             <BookOpen className="h-8 sm:h-10 w-8 sm:w-10 text-foreground flex-shrink-0" />
-            <h1 className="font-display font-['Preospe'] text-3xl sm:text-4xl font-bold uppercase tracking-wider text-foreground">
+            <h1
+              className="font-['Preospe'] text-3xl sm:text-4xl font-bold uppercase tracking-wider text-foreground"
+              style={{ fontFamily: "'Preospe', sans-serif" }}
+            >
               Somma
             </h1>
           </div>

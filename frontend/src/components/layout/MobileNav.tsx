@@ -78,7 +78,12 @@ export function MobileNav() {
                     </svg>
                   </div>
                   <div>
-                    <h1 className="font-display font-['Preospe'] font-bold text-lg text-foreground">Somma</h1>
+                    <h1
+                      className="font-['Preospe'] font-bold text-lg text-foreground"
+                      style={{ fontFamily: "'Preospe', sans-serif" }}
+                    >
+                      Somma
+                    </h1>
                     <p className="text-[10px] text-muted-foreground">EDTECH ADMIN</p>
                   </div>
                 </div>
