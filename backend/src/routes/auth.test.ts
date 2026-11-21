@@ -59,6 +59,10 @@ describe('Auth Route API', () => {
     });
 
     it('logs in successfully in development fallback mode', async () => {
+      const primarySpy = jest.spyOn((authService as any).primaryAdapter, 'signIn').mockRejectedValueOnce(
+        new ExternalServiceError('Supabase Auth', 'Downstream DNS lookup failed (ENOTFOUND ocuoseyzhmxnohjyccus.supabase.co)')
+      );
+
       const res = await request(app)
         .post('/api/auth/login')
         .send({ email: 'dev@soma.internal', password: 'password123' });
@@ -67,6 +71,8 @@ describe('Auth Route API', () => {
       expect(res.body.success).toBe(true);
       expect(res.body.data.user.email).toBe('dev@soma.internal');
       expect(res.body.data.session).toBeDefined();
+
+      primarySpy.mockRestore();
     });
   });
 

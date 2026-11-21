@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Show, UserButton } from '@clerk/react';
 import ThemeToggle from '../ThemeToggle';
+import AppIcon from '../AppIcon';
 import { useMagneticHover } from '../../utils/animeMotion';
 
 interface LandingNavProps {
@@ -63,10 +64,11 @@ export const LandingNav: React.FC<LandingNavProps> = ({ onScrollToSection }) => 
           <button
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="font-['Preospe'] font-bold text-xl text-text-1 tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-none border border-transparent px-1"
+            className="flex items-center gap-2.5 font-['Preospe'] font-bold text-xl text-text-1 tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-none border border-transparent px-1"
             style={{ fontFamily: "'Preospe', sans-serif" }}
           >
-            Somma
+            <AppIcon className="size-7 rounded-full shrink-0" />
+            <span>Somma</span>
           </button>
 
           {/* Desktop nav */}

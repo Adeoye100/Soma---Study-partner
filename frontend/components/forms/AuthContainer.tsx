@@ -3,8 +3,8 @@ import { useLocation } from 'react-router-dom';
 import { SignIn, SignUp } from '@clerk/react';
 import ShaderBackground from '../ShaderBackground';
 import InspirationCard from '../InspirationCard';
-import { BookOpen } from 'lucide-react';
 import InfoModal from '../InfoModal';
+import AppIcon from '../AppIcon';
 
 const AuthContainer: React.FC = () => {
   const location = useLocation();
@@ -17,7 +17,7 @@ const AuthContainer: React.FC = () => {
         {/* Left side - Branding and Info */}
         <div className="hidden md:flex flex-col p-6 md:p-8">
           <div className="flex items-center gap-3 mb-4">
-            <BookOpen className="h-8 sm:h-10 w-8 sm:w-10 text-foreground flex-shrink-0" />
+            <AppIcon className="h-9 sm:h-11 w-9 sm:w-11 rounded-full shrink-0" />
             <h1
               className="font-['Preospe'] text-3xl sm:text-4xl font-bold uppercase tracking-wider text-foreground"
               style={{ fontFamily: "'Preospe', sans-serif" }}

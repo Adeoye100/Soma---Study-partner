@@ -634,3 +634,42 @@ button,
     animation: none !important;
   }
 }
+
+/* Studio prompt input visibility across dark and light themes */
+.studio-prompt-textarea,
+textarea[placeholder*="List specific topics"] {
+  color: #09090b !important;
+}
+
+.studio-prompt-textarea::placeholder,
+textarea[placeholder*="List specific topics"]::placeholder {
+  color: #71717a !important;
+  opacity: 1 !important;
+}
+
+.dark .studio-prompt-textarea,
+.dark textarea[placeholder*="List specific topics"] {
+  color: #f4f4f5 !important;
+}
+
+.dark .studio-prompt-textarea::placeholder,
+.dark textarea[placeholder*="List specific topics"]::placeholder {
+  color: #a1a1aa !important;
+  opacity: 1 !important;
+}
+
+.light .studio-prompt-textarea,
+[data-theme="light"] .studio-prompt-textarea,
+.light textarea[placeholder*="List specific topics"],
+[data-theme="light"] textarea[placeholder*="List specific topics"] {
+  color: #09090b !important;
+}
+
+.light .studio-prompt-textarea::placeholder,
+[data-theme="light"] .studio-prompt-textarea::placeholder,
+.light textarea[placeholder*="List specific topics"]::placeholder,
+[data-theme="light"] textarea[placeholder*="List specific topics"]::placeholder {
+  color: #71717a !important;
+  opacity: 1 !important;
+}
+

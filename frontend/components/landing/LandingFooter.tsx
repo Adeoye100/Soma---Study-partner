@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react';
 import { useAnimeEntrance } from './useAnimeEntrance';
 import { useMagneticHover } from '../../utils/animeMotion';
+import AppIcon from '../AppIcon';
 
 interface LandingFooterProps {
   onScrollToSection: (id: string) => void;
@@ -63,7 +64,10 @@ export const LandingFooter: React.FC<LandingFooterProps> = ({ onScrollToSection 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 pb-10 border-b border-border">
             {/* Brand */}
             <div className="col-span-2 sm:col-span-1 space-y-3">
-              <p className="font-['Preospe'] font-bold text-lg text-text-1" style={{ fontFamily: "'Preospe', sans-serif" }}>Somma</p>
+              <div className="flex items-center gap-2.5">
+                <AppIcon className="size-6 rounded-full shrink-0" />
+                <p className="font-['Preospe'] font-bold text-lg text-text-1" style={{ fontFamily: "'Preospe', sans-serif" }}>Somma</p>
+              </div>
               <p className="text-xs text-text-2 leading-relaxed max-w-[200px]">
                 Somma Study Partner. Built for focused revision and exam preparation.
               </p>

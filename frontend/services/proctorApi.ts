@@ -192,28 +192,6 @@ export const proctorApi = {
             );
         }
     },
-
-    /**
-     * Clear all proctoring logs (admin action)
-     */
-    async clearLogs(): Promise<{ status: string; message: string }> {
-        try {
-            const response = await fetch(`${BASE_URL}/logs`, {
-                method: 'DELETE',
-            });
-
-            return handleResponse<{ status: string; message: string }>(response);
-        } catch (error) {
-            if (error instanceof ProctorApiError) {
-                throw error;
-            }
-            throw new ProctorApiError(
-                'NETWORK_ERROR',
-                null,
-                `Failed to clear logs: ${error instanceof Error ? error.message : 'Unknown error'}`
-            );
-        }
-    },
 };
 
 /**

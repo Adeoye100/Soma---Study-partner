@@ -1,14 +1,11 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { User } from '@supabase/supabase-js';
-import Header from './Header';
-import SetupScreen from './SetupScreen';
 import ExamScreen from './ExamScreen';
 import InfoModal from './InfoModal';
 import ResultsScreen from './ResultsScreen';
 import { Question, ExamConfig, ExamResult } from '../types';
-import ProfileCard from './ProfileCard';
 import ProfileSettingsModal from './ProfileSettingsModal';
-import EnhancedExamHistoryDashboard from './EnhancedExamHistoryDashboard';
+import DashboardLayout from './dashboard/DashboardLayout';
 
 type AppState = 'setup' | 'exam' | 'results';
 
@@ -61,7 +58,7 @@ const MainApp: React.FC<MainAppProps> = ({ user, onLogout, onAvatarUpdate }) => 
 
   const handleRestart = useCallback((finalResult: ExamResult) => {
     const resultWithDate = { ...finalResult, date: new Date().toISOString() };
-    setExamHistory(prev => [resultWithDate, ...prev.slice(0, 4)]); // Keep last 5 exams
+    setExamHistory(prev => [resultWithDate, ...prev.slice(0, 9)]); // Keep last 10 exams
 
     setQuestions([]);
     setExamConfig(null);
@@ -79,65 +76,43 @@ const MainApp: React.FC<MainAppProps> = ({ user, onLogout, onAvatarUpdate }) => 
     setShowProfileSettingsModal(true);
   }, []);
 
-  const handleStartNewExam = useCallback(() => {
-    setAppState('setup');
-  }, []);
+  if (appState === 'exam' && examConfig) {
+    return (
+      <div className="min-h-screen bg-base text-text-1">
+        <ExamScreen questions={questions} config={examConfig} onFinish={handleExamFinish} />
+      </div>
+    );
+  }
 
-  const renderContent = () => {
-    switch (appState) {
-      case 'setup':
-        return (
-          <div className="space-y-6">
-            <SetupScreen onExamStart={handleExamStart} />
-            <EnhancedExamHistoryDashboard
-              history={examHistory}
-              onViewResult={handleViewHistoryResult}
-              onClearHistory={handleClearHistory}
-              onStartNewExam={handleStartNewExam}
-            />
-          </div>
-        );
-      case 'exam':
-        return <ExamScreen questions={questions} config={examConfig!} onFinish={handleExamFinish} />;
-      case 'results':
-        return <ResultsScreen result={currentResult!} onRestart={handleRestart} />;
-      default:
-        return (
-          <div className="space-y-6">
-            <SetupScreen onExamStart={handleExamStart} />
-            <EnhancedExamHistoryDashboard
-              history={examHistory}
-              onViewResult={handleViewHistoryResult}
-              onClearHistory={handleClearHistory}
-              onStartNewExam={handleStartNewExam}
-            />
-          </div>
-        );
-    }
-  };
+  if (appState === 'results' && currentResult) {
+    return (
+      <div className="min-h-screen bg-base text-text-1">
+        <ResultsScreen result={currentResult} onRestart={handleRestart} />
+      </div>
+    );
+  }
 
   return (
-    <div className="flex flex-col min-h-screen bg-transparent">
+    <>
       {showInfoModal && <InfoModal onClose={() => setShowInfoModal(false)} />}
-      {showProfileSettingsModal && <ProfileSettingsModal user={user} onClose={() => setShowProfileSettingsModal(false)} onAvatarUpdate={onAvatarUpdate} />}
-      <Header user={user} onLogout={onLogout} onOpenProfileSettings={handleOpenProfileSettings} />
-      <main className="flex-grow p-3 sm:p-4 md:p-6 lg:p-8">
-        {renderContent()}
-      </main>
-      <footer className="flex flex-col items-center gap-4 sm:gap-6 p-3 sm:p-4 md:p-6 mt-12 md:mt-24">
-        <div className="shader-gradient-background rounded-lg p-px">
-            <button
-                onClick={() => setShowInfoModal(true)}
-                className="bg-white dark:bg-slate-800 text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-medium px-4 py-2 rounded-[7px] hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
-            >
-                FAQ & Terms
-            </button>
-        </div>
-        <div className="hidden lg:block">
-            <ProfileCard />
-        </div>
-      </footer>
-    </div>
+      {showProfileSettingsModal && (
+        <ProfileSettingsModal
+          user={user}
+          onClose={() => setShowProfileSettingsModal(false)}
+          onAvatarUpdate={onAvatarUpdate}
+        />
+      )}
+      <DashboardLayout
+        user={user}
+        history={examHistory}
+        onExamStart={handleExamStart}
+        onViewResult={handleViewHistoryResult}
+        onClearHistory={handleClearHistory}
+        onLogout={onLogout}
+        onOpenProfileSettings={handleOpenProfileSettings}
+        onOpenInfoModal={() => setShowInfoModal(true)}
+      />
+    </>
   );
 };
 

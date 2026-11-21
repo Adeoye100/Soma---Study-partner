@@ -127,7 +127,6 @@ backend/
 #### Result Routes (`src/routes/result.ts`)
 - **GET /api/result/exam/:examId**: Exam results
 - **GET /api/result/user**: User's results
-- **GET /api/result/user/:userId**: Specific user results (admin)
 - **GET /api/result/:id**: Specific result details
 - **GET /api/result/analytics/summary**: Performance analytics
 
@@ -246,7 +245,7 @@ const response = await fetch('/api/exam/exam123/answer', {
 
 ### Authentication & Authorization
 - JWT token-based authentication
-- Role-based access control (student, educator, admin)
+- Role-based access control (student, educator)
 - Token refresh mechanism
 - Secure password handling (bcrypt)
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { authService, LoginCredentials, SignupCredentials } from '../services/authService';
-import { BookOpen, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
+import AppIcon from './AppIcon';
 import { GoogleIcon } from '@/components/brand-icons';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import InspirationCard from './InspirationCard';
@@ -188,7 +189,7 @@ const LoginScreen: React.FC = () => {
       <div className="max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-center">
         <div className="hidden md:flex flex-col p-6 md:p-8">
           <div className="flex items-center gap-3 mb-4">
-            <BookOpen className="h-8 sm:h-10 w-8 sm:w-10 text-primary animated-book" />
+            <AppIcon className="h-9 sm:h-11 w-9 sm:w-11 rounded-full shrink-0" />
             <h1
               className="font-['Preospe'] text-3xl sm:text-4xl font-bold animated-gradient-text"
               style={{ fontFamily: "'Preospe', sans-serif" }}

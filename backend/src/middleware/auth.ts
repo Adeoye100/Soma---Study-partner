@@ -158,42 +158,11 @@ export const requireRole = (...allowedRoles: string[]) => {
 /**
  * Educator Authorization Middleware
  */
-export const requireEducator = requireRole('educator', 'admin', 'super_admin');
-
-/**
- * Self or Admin Authorization Middleware
- * Allows access if user is accessing their own resource or is an admin
- */
-export const requireSelfOrAdmin = (userIdParam: string = 'userId') => {
-  return (req: AuthenticatedRequest, res: Response, next: NextFunction): void => {
-    if (!req.user) {
-      res.status(401).json({
-        error: 'Authentication required',
-        message: 'You must be logged in to access this resource'
-      });
-      return;
-    }
-
-    const resourceUserId = req.params[userIdParam] || req.body[userIdParam];
-    const isAdmin = ['admin', 'super_admin'].includes(req.user.role);
-    const isSelf = req.user.id === resourceUserId;
-
-    if (!isAdmin && !isSelf) {
-      res.status(403).json({
-        error: 'Access denied',
-        message: 'You can only access your own resources or must be an admin'
-      });
-      return;
-    }
-
-    next();
-  };
-};
+export const requireEducator = requireRole('educator');
 
 export default {
   authMiddleware,
   optionalAuthMiddleware,
   requireRole,
-  requireEducator,
-  requireSelfOrAdmin
+  requireEducator
 };

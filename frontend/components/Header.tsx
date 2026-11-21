@@ -1,9 +1,10 @@
 import React from 'react';
 import { User } from '@supabase/supabase-js';
-import { BookOpen, LogOut } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 import { Avatar, AvatarImage, AvatarFallback } from './Avatar';
 import { Button } from '@/components/ui/button';
 import ThemeToggle from './ThemeToggle';
+import AppIcon from './AppIcon';
 
 interface HeaderProps {
   user: User;
@@ -20,7 +21,7 @@ const Header: React.FC<HeaderProps> = ({ user, onLogout, onOpenProfileSettings }
     <header className="bg-background/90 backdrop-blur-md sticky top-0 z-10 border-b border-border transition-colors duration-200">
       <div className="container mx-auto px-3 sm:px-4 md:px-8 py-3 sm:py-4 flex justify-between items-center">
         <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-          <BookOpen className="h-6 w-6 sm:h-8 sm:w-8 text-foreground flex-shrink-0" />
+          <AppIcon className="h-7 w-7 sm:h-8 sm:w-8" />
           <h1
             className="font-['Preospe'] text-lg sm:text-xl md:text-2xl font-bold uppercase tracking-wider text-foreground truncate"
             style={{ fontFamily: "'Preospe', sans-serif" }}

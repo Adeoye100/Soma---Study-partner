@@ -94,49 +94,6 @@ router.get('/user', asyncHandler(async (req, res) => {
 }));
 
 /**
- * @route   GET /api/result/user/:userId
- * @desc    Get results for a specific user (admin/educator only)
- * @access  Private
- */
-router.get('/user/:userId', resultValidation.getUserResults, asyncHandler(async (req, res) => {
-  const { userId } = req.params;
-  const page = parseInt(req.query.page as string) || 1;
-  const limit = parseInt(req.query.limit as string) || 10;
-
-  try {
-    // TODO: Check if current user is admin/educator or the same user
-    const { data: results, total } = await ExamResultService.findByUserId(userId!, page, limit);
-
-    res.json({
-      message: 'User results retrieved successfully',
-      results: results.map(result => ({
-        id: result.id,
-        examId: result.exam_id,
-        score: result.score,
-        totalQuestions: result.total_questions,
-        correctAnswers: result.correct_answers,
-        timeTaken: result.time_taken,
-        feedback: result.feedback,
-        createdAt: result.created_at
-      })),
-      pagination: {
-        page,
-        limit,
-        total,
-        totalPages: Math.ceil(total / limit)
-      }
-    });
-
-  } catch (error: any) {
-    winston.error('Get specific user results error:', error);
-    res.status(500).json({
-      error: 'Failed to retrieve user results',
-      message: 'An error occurred while retrieving user results'
-    });
-  }
-}));
-
-/**
  * @route   GET /api/result/:id
  * @desc    Get a specific exam result
  * @access  Private
@@ -154,8 +111,6 @@ router.get('/:id', asyncHandler(async (req, res) => {
       });
       return;
     }
-
-    // TODO: Check if user owns this result or is admin/educator
 
     res.json({
       message: 'Exam result retrieved successfully',
@@ -191,7 +146,6 @@ router.delete('/:id', asyncHandler(async (req, res) => {
   const { id } = req.params;
 
   try {
-    // TODO: Check if user owns this result or is admin
     const result = await ExamResultService.findById(id!);
     
     if (!result) {

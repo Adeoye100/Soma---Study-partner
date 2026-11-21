@@ -10,7 +10,7 @@ export interface User {
   email: string;
   first_name: string;
   last_name: string;
-  role: 'student' | 'educator' | 'admin';
+  role: 'student' | 'educator';
   created_at: string;
   updated_at: string;
 }
